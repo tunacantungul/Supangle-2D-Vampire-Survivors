@@ -1,0 +1,91 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/level.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/levels/enemy_spawner.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/levels/exit_gate.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/levels/hazard_zone.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogue_box.tscn" id="7"]
+[ext_resource type="TileSet" path="res://resources/placeholder_tileset.tres" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_fast.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_tank.tscn" id="11"]
+
+[sub_resource type="RectangleShape2D" id="Shape_wall_h"]
+size = Vector2(3280, 40)
+
+[sub_resource type="RectangleShape2D" id="Shape_wall_v"]
+size = Vector2(40, 2080)
+
+[node name="Level3" type="Node2D"]
+script = ExtResource("1")
+kill_quota = 35
+god_name = "Poseidon"
+dialogue_lines = Array[String](["Poseidon: Kıyıya kadar gelmişsin. Ölümlü olmana çok az kaldı.", "Sen: Al o zaman. Son gücümü de al.", "Poseidon: Gücün, ışının, kılıçların... hepsi denize karışsın.", "Poseidon: Git. Artık sıradan bir insansın. Umarım buna değer."])
+power_to_lose = 2
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -1600.0
+offset_top = -1000.0
+offset_right = 1600.0
+offset_bottom = 1000.0
+color = Color(0.4, 0.58, 0.34, 1)
+
+[node name="Ground" type="TileMapLayer" parent="."]
+tile_set = ExtResource("8")
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="WallTop" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, -1020)
+shape = SubResource("Shape_wall_h")
+
+[node name="WallBottom" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, 1020)
+shape = SubResource("Shape_wall_h")
+
+[node name="WallLeft" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-1620, 0)
+shape = SubResource("Shape_wall_v")
+
+[node name="WallRight" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1620, 0)
+shape = SubResource("Shape_wall_v")
+
+[node name="HazardZones" type="Node2D" parent="."]
+
+[node name="Water1" parent="HazardZones" instance=ExtResource("5")]
+position = Vector2(1000, -600)
+scale = Vector2(1.2, 2)
+
+[node name="Water2" parent="HazardZones" instance=ExtResource("5")]
+position = Vector2(1000, -100)
+scale = Vector2(1.2, 2)
+
+[node name="Water3" parent="HazardZones" instance=ExtResource("5")]
+position = Vector2(1000, 600)
+scale = Vector2(1.2, 2)
+
+[node name="Water4" parent="HazardZones" instance=ExtResource("5")]
+position = Vector2(-400, -500)
+scale = Vector2(1.4, 1)
+
+[node name="Player" parent="." instance=ExtResource("2")]
+position = Vector2(-1200, 0)
+
+[node name="ExitGate" parent="." instance=ExtResource("4")]
+position = Vector2(1450, 0)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3")]
+enemy_scenes = Array[PackedScene]([ExtResource("9"), ExtResource("10"), ExtResource("11")])
+spawn_interval = 0.85
+spawn_area = Rect2(-1550, -950, 3100, 1900)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("6")]
+
+[node name="DialogueBox" parent="UI" instance=ExtResource("7")]

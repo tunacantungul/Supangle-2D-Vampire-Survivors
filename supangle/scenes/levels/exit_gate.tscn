@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/exit_gate.gd" id="1"]
+
+[sub_resource type="Gradient" id="Gradient_gate"]
+colors = PackedColorArray(0.98, 0.85, 0.3, 1, 0.98, 0.85, 0.3, 1)
+
+[sub_resource type="GradientTexture2D" id="Tex_gate"]
+gradient = SubResource("Gradient_gate")
+width = 96
+height = 140
+
+[sub_resource type="RectangleShape2D" id="Shape_gate"]
+size = Vector2(96, 140)
+
+[node name="ExitGate" type="Area2D"]
+modulate = Color(1, 1, 1, 0.3)
+collision_layer = 16
+collision_mask = 1
+monitoring = false
+script = ExtResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("Tex_gate")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Shape_gate")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

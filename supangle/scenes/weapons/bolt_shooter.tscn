@@ -8,6 +8,6 @@ script = ExtResource("1")
 bolt_scene = ExtResource("2")
 
 [node name="FireTimer" type="Timer" parent="."]
-wait_time = 0.9
+wait_time = 15.0
 
 [connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]

@@ -14,22 +14,40 @@ signal died
 var health: float
 
 var _invuln_left: float = 0.0
+var _base_max_health: float
+var _vitality_applied: int = 0
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var divine_aura: Sprite2D = $DivineAura
 
 func _ready() -> void:
 	add_to_group("player")
+	_base_max_health = max_health
 	health = max_health
 	health_changed.emit(health, max_health)
 	divine_aura.visible = GameState.has_power(GameState.Power.IMMORTALITY)
+	GameState.upgrades_changed.connect(_on_upgrades_changed)
+	_on_upgrades_changed()
 
 func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = input_dir * move_speed
+	# "speed" kartı: seviye başına %20 hareket hızı.
+	var speed_mult := 1.0 + 0.2 * GameState.upgrade_tier("speed")
+	velocity = input_dir * move_speed * speed_mult
 	move_and_slide()
 	if _invuln_left > 0.0:
 		_invuln_left -= delta
+
+## "vitality" kartı: seviye başına +25 azami can ve aynı miktarda iyileşme.
+func _on_upgrades_changed() -> void:
+	var tier := GameState.upgrade_tier("vitality")
+	if tier == _vitality_applied:
+		return
+	var gained := (tier - _vitality_applied) * 25.0
+	_vitality_applied = tier
+	max_health = _base_max_health + tier * 25.0
+	health = clampf(health + maxf(gained, 0.0), 0.0, max_health)
+	health_changed.emit(health, max_health)
 
 ## Düşman temas hasarı.
 func take_damage(amount: float) -> void:

@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/orbiting_swords.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/bolt_shooter.tscn" id="3"]
 [ext_resource type="Texture2D" path="res://assets/placeholder/player.svg" id="4"]
 [ext_resource type="Texture2D" path="res://assets/placeholder/divine_aura.svg" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/weapons/stab_sword.tscn" id="6"]
 
 [sub_resource type="RectangleShape2D" id="Shape_body"]
 size = Vector2(40, 40)
@@ -27,6 +28,8 @@ shape = SubResource("Shape_body")
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+
+[node name="StabSword" parent="." instance=ExtResource("6")]
 
 [node name="OrbitingSwords" parent="." instance=ExtResource("2")]
 

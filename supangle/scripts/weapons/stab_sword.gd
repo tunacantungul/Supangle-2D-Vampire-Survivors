@@ -4,7 +4,8 @@ extends Node2D
 ## ileri uzanır, geri çekilir ve kaybolur.
 ## "stab" kartları: 1. seviye çift saplama, 2. seviye %50 hasar artışı.
 
-@export var damage: float = 25.0
+## Temel düşmanı (30 can) tek vuruşta düşürecek şekilde ayarlı.
+@export var damage: float = 35.0
 @export var cooldown: float = 3.0
 ## Saplamanın tetiklenmesi için düşmanın bu menzilde olması gerekir.
 @export var trigger_range: float = 240.0

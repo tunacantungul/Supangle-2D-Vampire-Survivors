@@ -3,10 +3,10 @@ extends Node2D
 ## Başlangıçta kapalıdır: "orbit" kartı alındıkça 1 -> 2 -> 3 kılıca çıkar.
 ## Kılıçlar bu sahnenin Area2D çocuklarıdır, dizilim kart seviyesine göre eşit dağıtılır.
 
-@export var rotation_speed: float = 2.6
+@export var rotation_speed: float = 1.8
 @export var damage: float = 15.0
 ## Aynı düşmana iki vuruş arası minimum süre.
-@export var hit_cooldown: float = 0.4
+@export var hit_cooldown: float = 0.5
 @export var orbit_radius: float = 90.0
 
 var _last_hit_at: Dictionary = {}

@@ -23,7 +23,7 @@ size = Vector2(40, 2080)
 
 [node name="Level2" type="Node2D"]
 script = ExtResource("1")
-kill_quota = 50
+kill_quota = 60
 god_name = "Hermes"
 dialogue_lines = Array[String](["Hermes: Zeus'un gazabından sağ çıktın; buna saygı duyarım, yolcu.", "Sen: O zaman kenara çekil Hermes. Yolum uzun.", "Hermes: Kural kuraldır. Olympus'tan inen, göğü de geride bırakır.", "Hermes: Kanatların artık benim. Bundan sonra her adımını toprakta atacaksın."])
 power_to_lose = 1

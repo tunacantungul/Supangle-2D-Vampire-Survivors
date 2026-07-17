@@ -24,7 +24,7 @@ size = Vector2(40, 2080)
 
 [node name="Level3" type="Node2D"]
 script = ExtResource("1")
-kill_quota = 60
+kill_quota = 80
 god_name = "Athena"
 dialogue_lines = Array[String](["Athena: Buraya kadar savaşarak geldin. Stratejin fena değildi... bir ölümlü için.", "Sen: Son kapı sensin Athena. Ne istersen al.", "Athena: Savaş benim sanatımdır — ve sanatım, benden kaçanlarla gitmez.", "Athena: Kılıçların, ışının, gücün... hepsi bende kalıyor. Git, sıradan insan. Umarım aşkın buna değer."])
 power_to_lose = 2

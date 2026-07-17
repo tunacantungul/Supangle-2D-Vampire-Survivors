@@ -6,7 +6,8 @@ extends Node2D
 @export var bolt_scene: PackedScene
 @export var base_interval: float = 15.0
 @export var fast_interval: float = 8.0
-@export var bolt_damage: float = 20.0
+## 15 sn'de tek atış olduğu için vuruş başına hasar yüksek tutuldu.
+@export var bolt_damage: float = 40.0
 @export var attack_range: float = 750.0
 
 @onready var fire_timer: Timer = $FireTimer

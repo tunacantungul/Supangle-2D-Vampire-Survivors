@@ -1,14 +1,7 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1"]
-
-[sub_resource type="Gradient" id="Gradient_body"]
-colors = PackedColorArray(0.92, 0.55, 0.15, 1, 0.92, 0.55, 0.15, 1)
-
-[sub_resource type="GradientTexture2D" id="Tex_body"]
-gradient = SubResource("Gradient_body")
-width = 30
-height = 30
+[ext_resource type="Texture2D" path="res://assets/placeholder/enemy_fast.svg" id="2"]
 
 [sub_resource type="RectangleShape2D" id="Shape_body"]
 size = Vector2(26, 26)
@@ -27,7 +20,7 @@ contact_damage = 6.0
 damage_interval = 0.6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("Tex_body")
+texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("Shape_body")

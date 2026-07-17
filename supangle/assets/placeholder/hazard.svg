@@ -1,0 +1,11 @@
+<svg width="240" height="240" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="water" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="0" stop-color="#5c86d6" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#3b5fa8" stop-opacity="0.35"/>
+    </radialGradient>
+  </defs>
+  <rect x="4" y="4" width="232" height="232" rx="40" fill="url(#water)" stroke="#9cc3ff" stroke-opacity="0.5" stroke-width="3"/>
+  <path d="M40 90 Q60 78 80 90 T120 90 T160 90 T200 90" stroke="#cfe4ff" stroke-width="5" fill="none" opacity="0.55" stroke-linecap="round"/>
+  <path d="M40 150 Q60 138 80 150 T120 150 T160 150 T200 150" stroke="#cfe4ff" stroke-width="5" fill="none" opacity="0.4" stroke-linecap="round"/>
+</svg>

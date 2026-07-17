@@ -1,14 +1,7 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/weapons/bolt.gd" id="1"]
-
-[sub_resource type="Gradient" id="Gradient_bolt"]
-colors = PackedColorArray(0.45, 0.9, 1, 1, 0.45, 0.9, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="Tex_bolt"]
-gradient = SubResource("Gradient_bolt")
-width = 26
-height = 10
+[ext_resource type="Texture2D" path="res://assets/placeholder/bolt.svg" id="2"]
 
 [sub_resource type="RectangleShape2D" id="Shape_bolt"]
 size = Vector2(26, 10)
@@ -19,7 +12,7 @@ collision_mask = 6
 script = ExtResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("Tex_bolt")
+texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("Shape_bolt")

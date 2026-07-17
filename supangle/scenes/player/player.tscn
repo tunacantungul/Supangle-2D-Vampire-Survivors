@@ -1,24 +1,10 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/orbiting_swords.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/bolt_shooter.tscn" id="3"]
-
-[sub_resource type="Gradient" id="Gradient_body"]
-colors = PackedColorArray(0.95, 0.8, 0.35, 1, 0.95, 0.8, 0.35, 1)
-
-[sub_resource type="GradientTexture2D" id="Tex_body"]
-gradient = SubResource("Gradient_body")
-width = 48
-height = 48
-
-[sub_resource type="Gradient" id="Gradient_shield"]
-colors = PackedColorArray(0.4, 0.7, 1, 0.45, 0.4, 0.7, 1, 0.45)
-
-[sub_resource type="GradientTexture2D" id="Tex_shield"]
-gradient = SubResource("Gradient_shield")
-width = 76
-height = 76
+[ext_resource type="Texture2D" path="res://assets/placeholder/player.svg" id="4"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/shield_aura.svg" id="5"]
 
 [sub_resource type="RectangleShape2D" id="Shape_body"]
 size = Vector2(40, 40)
@@ -31,10 +17,10 @@ script = ExtResource("1")
 
 [node name="ShieldVisual" type="Sprite2D" parent="."]
 visible = false
-texture = SubResource("Tex_shield")
+texture = ExtResource("5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("Tex_body")
+texture = ExtResource("4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("Shape_body")

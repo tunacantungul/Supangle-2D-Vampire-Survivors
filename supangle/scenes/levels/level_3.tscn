@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scripts/levels/level.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2"]
@@ -11,6 +11,9 @@
 [ext_resource type="PackedScene" path="res://scenes/enemies/enemy.tscn" id="9"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/enemy_fast.tscn" id="10"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/enemy_tank.tscn" id="11"]
+[ext_resource type="PackedScene" path="res://scenes/levels/boss_arena.tscn" id="12"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/boss_3.tscn" id="13"]
+[ext_resource type="PackedScene" path="res://scenes/effects/lightning_spawner.tscn" id="14"]
 
 [sub_resource type="RectangleShape2D" id="Shape_wall_h"]
 size = Vector2(3280, 40)
@@ -24,6 +27,7 @@ kill_quota = 35
 god_name = "Athena"
 dialogue_lines = Array[String](["Athena: Buraya kadar savaşarak geldin. Stratejin fena değildi... bir ölümlü için.", "Sen: Son kapı sensin Athena. Ne istersen al.", "Athena: Savaş benim sanatımdır — ve sanatım, benden kaçanlarla gitmez.", "Athena: Kılıçların, ışının, gücün... hepsi bende kalıyor. Git, sıradan insan. Umarım aşkın buna değer."])
 power_to_lose = 2
+boss_scene = ExtResource("13")
 
 [node name="Background" type="ColorRect" parent="."]
 offset_left = -1600.0
@@ -75,6 +79,13 @@ scale = Vector2(1.4, 1)
 
 [node name="Player" parent="." instance=ExtResource("2")]
 position = Vector2(-1200, 0)
+
+[node name="BossArena" parent="." instance=ExtResource("12")]
+position = Vector2(1250, 0)
+
+[node name="LightningSpawner" parent="." instance=ExtResource("14")]
+min_interval = 1.5
+max_interval = 3.0
 
 [node name="ExitGate" parent="." instance=ExtResource("4")]
 position = Vector2(1450, 0)

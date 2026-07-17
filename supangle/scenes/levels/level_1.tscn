@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/dialogue_box.tscn" id="7"]
 [ext_resource type="TileSet" path="res://resources/placeholder_tileset.tres" id="8"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/enemy.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://scenes/levels/boss_arena.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/boss_1.tscn" id="11"]
 
 [sub_resource type="RectangleShape2D" id="Shape_wall_h"]
 size = Vector2(3280, 40)
@@ -19,6 +21,7 @@ size = Vector2(40, 2080)
 [node name="Level1" type="Node2D" unique_id=708836335]
 script = ExtResource("1")
 dialogue_lines = Array[String](["Zeus: Demek gidiyorsun. Bir ölümlü için tahtını, tanrılığını bırakıyorsun.", "Sen: Onsuz sonsuzluk, hiç uğruna sonsuzluk demek.", "Zeus: Sonsuzluk mu? Sen ölümün ne olduğunu bilmiyorsun bile, çocuk.", "Zeus: Madem ölümlüler gibi seveceksin, onlar gibi ölebileceksin de. Ölümsüzlüğünü alıyorum!"])
+boss_scene = ExtResource("11")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1731326754]
 offset_left = -1600.0
@@ -61,6 +64,9 @@ scale = Vector2(1.5, 1)
 
 [node name="Player" parent="." unique_id=183612128 instance=ExtResource("2")]
 position = Vector2(-1200, 0)
+
+[node name="BossArena" parent="." instance=ExtResource("10")]
+position = Vector2(1250, 0)
 
 [node name="ExitGate" parent="." unique_id=89447053 instance=ExtResource("4")]
 position = Vector2(1450, 0)

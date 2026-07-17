@@ -31,13 +31,29 @@ func _on_health_changed(current: float, max_value: float) -> void:
 	health_bar.max_value = max_value
 	health_bar.value = current
 
+var _kills: int = 0
+var _required: int = 0
+var _objective: String = ""
+
 func _on_kills_changed(current: int, required: int) -> void:
-	if required <= 0:
+	_kills = current
+	_required = required
+	_update_kill_label()
+
+## Level scripti boss akışı sırasında hedef metnini bununla değiştirir.
+func set_objective(text: String) -> void:
+	_objective = text
+	_update_kill_label()
+
+func _update_kill_label() -> void:
+	if _objective != "":
+		kill_label.text = _objective
+	elif _required <= 0:
 		kill_label.text = ""
-	elif current >= required:
-		kill_label.text = "Kapı açıldı! Çıkışa ilerle"
+	elif _kills >= _required:
+		kill_label.text = "Arena hazır! İşaretli alana gir"
 	else:
-		kill_label.text = "Canavar: %d / %d" % [current, required]
+		kill_label.text = "Canavar: %d / %d" % [_kills, _required]
 
 func _refresh_powers() -> void:
 	var immortal := GameState.has_power(GameState.Power.IMMORTALITY)

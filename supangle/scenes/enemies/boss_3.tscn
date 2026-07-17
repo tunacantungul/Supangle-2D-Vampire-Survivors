@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/boss_3.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/boss3.svg" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_fast.tscn" id="3"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/telegraph.svg" id="4"]
+
+[sub_resource type="RectangleShape2D" id="Shape_body"]
+size = Vector2(80, 80)
+
+[sub_resource type="RectangleShape2D" id="Shape_hit"]
+size = Vector2(94, 94)
+
+[sub_resource type="StyleBoxFlat" id="Style_hp_bg"]
+bg_color = Color(0.08, 0.08, 0.1, 0.85)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="Style_hp_fill"]
+bg_color = Color(0.9, 0.3, 0.25, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Boss3" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 6
+motion_mode = 1
+script = ExtResource("1")
+minion_scene = ExtResource("3")
+move_speed = 90.0
+max_health = 600.0
+contact_damage = 25.0
+damage_interval = 1.0
+
+[node name="SlamRing" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(2.09, 2.09)
+texture = ExtResource("4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Shape_body")
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("Shape_hit")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -55.0
+offset_top = -80.0
+offset_right = 55.0
+offset_bottom = -66.0
+theme_override_styles/background = SubResource("Style_hp_bg")
+theme_override_styles/fill = SubResource("Style_hp_fill")
+max_value = 600.0
+value = 600.0
+show_percentage = false
+
+[node name="SummonTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SlamTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="SummonTimer" to="." method="_on_summon_timer_timeout"]
+[connection signal="timeout" from="SlamTimer" to="." method="_on_slam_timer_timeout"]

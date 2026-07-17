@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://scripts/levels/level.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2"]
@@ -10,6 +10,9 @@
 [ext_resource type="TileSet" path="res://resources/placeholder_tileset.tres" id="8"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/enemy.tscn" id="9"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/enemy_fast.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/levels/boss_arena.tscn" id="11"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/boss_2.tscn" id="12"]
+[ext_resource type="PackedScene" path="res://scenes/effects/lightning_spawner.tscn" id="13"]
 
 [sub_resource type="RectangleShape2D" id="Shape_wall_h"]
 size = Vector2(3280, 40)
@@ -23,6 +26,7 @@ kill_quota = 25
 god_name = "Hermes"
 dialogue_lines = Array[String](["Hermes: Zeus'un gazabından sağ çıktın; buna saygı duyarım, yolcu.", "Sen: O zaman kenara çekil Hermes. Yolum uzun.", "Hermes: Kural kuraldır. Olympus'tan inen, göğü de geride bırakır.", "Hermes: Kanatların artık benim. Bundan sonra her adımını toprakta atacaksın."])
 power_to_lose = 1
+boss_scene = ExtResource("12")
 
 [node name="Background" type="ColorRect" parent="."]
 offset_left = -1600.0
@@ -72,6 +76,11 @@ position = Vector2(-250, 700)
 
 [node name="Player" parent="." instance=ExtResource("2")]
 position = Vector2(-1200, 0)
+
+[node name="BossArena" parent="." instance=ExtResource("11")]
+position = Vector2(1250, 0)
+
+[node name="LightningSpawner" parent="." instance=ExtResource("13")]
 
 [node name="ExitGate" parent="." instance=ExtResource("4")]
 position = Vector2(1450, 0)

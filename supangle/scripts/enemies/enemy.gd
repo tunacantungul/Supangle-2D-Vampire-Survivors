@@ -28,7 +28,10 @@ func _physics_process(delta: float) -> void:
 	var direction := (_player.global_position - global_position).normalized()
 	velocity = direction * move_speed
 	move_and_slide()
+	_tick_contact_damage(delta)
 
+## Temas hasarı sayacı; boss alt sınıfları da hareketten bağımsız kullanır.
+func _tick_contact_damage(delta: float) -> void:
 	_damage_cooldown -= delta
 	if _damage_cooldown <= 0.0 and damage_area.overlaps_body(_player):
 		_player.take_damage(contact_damage)

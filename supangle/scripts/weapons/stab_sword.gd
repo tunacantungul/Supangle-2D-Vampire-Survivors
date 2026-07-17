@@ -87,7 +87,9 @@ func _on_sword_body_entered(body: Node2D) -> void:
 
 func _nearest_enemy() -> Node2D:
 	var nearest: Node2D = null
-	var best := trigger_range * trigger_range
+	# "Savaş Çığlığı" (stab 3. kademe): menzil %50 artar.
+	var effective_range := trigger_range * (1.5 if GameState.upgrade_tier("stab") >= 3 else 1.0)
+	var best := effective_range * effective_range
 	for node in get_tree().get_nodes_in_group("enemies"):
 		var enemy := node as Node2D
 		if enemy == null:

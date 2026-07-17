@@ -11,6 +11,9 @@ signal died
 ## Hasar aldıktan sonraki kısa dokunulmazlık süresi.
 @export var invulnerability_time: float = 0.4
 
+## "armor" kartı: kademe başına hasar azaltma oranı.
+const ARMOR_REDUCTION := [0.0, 0.2, 0.35]
+
 var health: float
 
 var _invuln_left: float = 0.0
@@ -27,6 +30,7 @@ func _ready() -> void:
 	health_changed.emit(health, max_health)
 	divine_aura.visible = GameState.has_power(GameState.Power.IMMORTALITY)
 	GameState.upgrades_changed.connect(_on_upgrades_changed)
+	GameState.enemy_killed.connect(_on_enemy_killed)
 	_on_upgrades_changed()
 
 func _physics_process(delta: float) -> void:
@@ -68,10 +72,25 @@ func take_hazard_damage(amount: float) -> void:
 	_apply_damage(amount)
 
 func _apply_damage(amount: float) -> void:
+	# "armor" kartı: alınan tüm hasarı yüzdesel azaltır.
+	var tier := mini(GameState.upgrade_tier("armor"), ARMOR_REDUCTION.size() - 1)
+	amount *= 1.0 - ARMOR_REDUCTION[tier]
 	health = maxf(health - amount, 0.0)
 	health_changed.emit(health, max_health)
 	if health <= 0.0:
 		_die()
+
+## "bloodprice" kartı: düşman ölümünde şansa bağlı küçük iyileşme.
+func _on_enemy_killed() -> void:
+	var tier := GameState.upgrade_tier("bloodprice")
+	if tier <= 0 or health <= 0.0 or health >= max_health:
+		return
+	var chance := 0.2 if tier >= 2 else 0.1
+	if randf() >= chance:
+		return
+	var heal := 8.0 if tier >= 2 else 5.0
+	health = minf(health + heal, max_health)
+	health_changed.emit(health, max_health)
 
 func _flash() -> void:
 	sprite.modulate = Color(1.0, 0.35, 0.35)

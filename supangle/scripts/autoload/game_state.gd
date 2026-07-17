@@ -4,6 +4,8 @@ extends Node
 
 signal powers_changed
 signal kills_changed(current: int, required: int)
+## Yalnızca gerçek bir düşman ölümünde yayılır (sayaç sıfırlamalarında yayılmaz).
+signal enemy_killed
 signal xp_changed(current: int, required: int)
 signal player_level_changed(level: int)
 ## Seviye atlanınca yayılır; bölüm sahnesi kart menüsünü bununla açar.
@@ -34,6 +36,7 @@ const UPGRADE_TRACKS: Dictionary = {
 			{"title": "Büyü Işını", "desc": "15 sn'de bir en yakın düşmana ışın"},
 			{"title": "Hızlı Işın", "desc": "Işın bekleme süresi 8 sn'ye iner"},
 			{"title": "Güçlü Işın", "desc": "Işın hasarı iki katına çıkar"},
+			{"title": "İkiz Işın", "desc": "Işın aynı anda 2 ayrı hedefe gider"},
 		],
 	},
 	"stab": {
@@ -41,6 +44,7 @@ const UPGRADE_TRACKS: Dictionary = {
 		"tiers": [
 			{"title": "Çift Saplama", "desc": "Kılıç art arda 2 kez saplanır"},
 			{"title": "Keskin Kılıç", "desc": "Saplama hasarı %50 artar"},
+			{"title": "Savaş Çığlığı", "desc": "Saplama menzili %50 artar"},
 		],
 	},
 	"speed": {
@@ -65,6 +69,21 @@ const UPGRADE_TRACKS: Dictionary = {
 			{"title": "Yıldırım Kalkanı", "desc": "6 sn'de bir çevrene yıldırım şoku"},
 			{"title": "Fırtına Yüreği", "desc": "Şok sıklığı artar (4 sn)"},
 			{"title": "Gök Gürültüsü", "desc": "Şok hasarı ve alanı büyür"},
+		],
+	},
+	# Ölümsüzlük gittikten sonra (2+) anlam kazanan savunma kartları.
+	"armor": {
+		"min_chapter": 1,
+		"tiers": [
+			{"title": "Kalıntı Zırh", "desc": "Alınan hasar %20 azalır"},
+			{"title": "Kalıntı Zırh II", "desc": "Alınan hasar toplam %35 azalır"},
+		],
+	},
+	"bloodprice": {
+		"min_chapter": 1,
+		"tiers": [
+			{"title": "Kan Bedeli", "desc": "Öldürünce %10 ihtimalle 5 can"},
+			{"title": "Kan Bedeli II", "desc": "İhtimal %20, iyileşme 8 can olur"},
 		],
 	},
 }
@@ -116,6 +135,7 @@ func setup_level(quota: int) -> void:
 func register_kill() -> void:
 	kills += 1
 	kills_changed.emit(kills, kill_quota)
+	enemy_killed.emit()
 	_gain_xp(XP_PER_KILL)
 
 ## Bir sonraki seviye için gereken XP.

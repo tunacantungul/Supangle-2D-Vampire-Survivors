@@ -18,4 +18,5 @@ func _on_body_entered(body: Node2D) -> void:
 	if not active or not body is Player:
 		return
 	active = false
-	player_entered.emit()
+	# body_entered fizik akışı sırasında gelir; pause/diyalog başlatmayı idle'a ertele.
+	player_entered.emit.call_deferred()

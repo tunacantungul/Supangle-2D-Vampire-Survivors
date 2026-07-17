@@ -28,5 +28,6 @@ func _on_body_entered(body: Node2D) -> void:
 	if not armed or _used or not body is Player:
 		return
 	_used = true
-	triggered.emit()
+	# body_entered fizik akışı sırasında gelir; boss spawn'ını (add_child) idle'a ertele.
+	triggered.emit.call_deferred()
 	hide()

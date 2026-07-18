@@ -14,7 +14,9 @@ var _base_hover: StyleBoxFlat
 
 @onready var _buttons: Array[Button] = [%Card1, %Card2, %Card3]
 @onready var _owned_label: Label = %OwnedLabel
-@onready var _owned_box: HBoxContainer = %OwnedBox
+## HFlowContainer: alınan güç sayısı artınca kutucuklar kendiliğinden
+## alt satıra sarar, tek satırda ekran dışına taşmaz.
+@onready var _owned_box: HFlowContainer = %OwnedBox
 
 func _ready() -> void:
 	visible = false

@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/power_loss_screen.gd" id="1"]
-[ext_resource type="FontFile" path="res://assets/fonts/GodOfThunder.ttf" id="fnt_t"]
 
 [node name="PowerLossScreen" type="Control"]
 process_mode = 3
@@ -24,7 +23,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Label" type="Label" parent="."]
-theme_override_fonts/font = ExtResource("fnt_t")
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15

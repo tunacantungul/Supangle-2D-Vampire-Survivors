@@ -64,7 +64,7 @@ gelmez.
 | `styx` | **Efsanevi** | 4 | Kharon'un Bedeli | Tik hasarı 20 olur | 1+ | `styx_aura.gd` |
 | `speed` | Sıradan | 1 | Hermes'in Sandalı | Hareket hızı +%10 | 1+ | `player.gd` (`_physics_process`) |
 | `speed` | Sıradan | 2 | Hermes'in Sandalı II | Hareket hızı toplam +%20 | 1+ | `player.gd` |
-| `vitality` | Sıradan | 1-3 | Hygieia'nın Lütfu I-III | Her biri +25 azami can ve anında iyileşme | 1+ | `player.gd` (`_on_upgrades_changed`) |
+| `vitality` | Sıradan | 1-3 | Hygieia'nın Lütfu I-III | Her biri +25 azami can ve anında iyileşme | **2+** | `player.gd` (`_on_upgrades_changed`) |
 | `kronos` | Destansı | 1 | Kronos'un Kumu | Tüm düşmanlar kalıcı %12 yavaşlar (bosslar dahil) | 1+ | `enemy.gd` (`KRONOS_SLOW_PER_TIER`) |
 | `kronos` | Destansı | 2 | Kronos'un Kumu II | Yavaşlama toplam %24 | 1+ | `enemy.gd` |
 | `kronos` | Destansı | 3 | Zamanın Ağırlığı | Yavaşlama toplam %36 | 1+ | `enemy.gd` |
@@ -93,9 +93,9 @@ Notlar:
 - Kart adları Olympus temasına göre yenilendi; **id'ler değişmedi**, dolayısıyla
   kaydedilmiş ilerleme ve script kontrolleri etkilenmez.
 
-**Havuz büyüklüğü:** Bölüm 1'de 11 hat (33 kart), Bölüm 2-3'te 13 hat (37 kart).
-Bölüm 2+ kartları ölümsüzlük gittikten sonra anlam kazandığı için kısıtlı
-(`min_chapter: 1`).
+**Havuz büyüklüğü:** Bölüm 1'de 10 hat (30 kart), Bölüm 2-3'te 13 hat (37 kart).
+Bölüm 2+ kartları (savunma ve can kartları) ölümsüzlük gittikten sonra anlam
+kazandığı için kısıtlı (`min_chapter: 1`) — Bölüm 1'de oyuncu zaten ölümsüz.
 
 ## Yeni kart nasıl eklenir
 

@@ -29,7 +29,7 @@ collision_mask = 6
 motion_mode = 1
 script = ExtResource("1")
 move_speed = 360.0
-max_health = 260.0
+max_health = 175.0
 contact_damage = 20.0
 damage_interval = 0.8
 

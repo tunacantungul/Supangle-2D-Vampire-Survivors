@@ -1,0 +1,18 @@
+<svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="frost" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#bfe9ff" stop-opacity="0.10"/>
+      <stop offset="0.8" stop-color="#6fc8ff" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#3ba7f5" stop-opacity="0.58"/>
+    </radialGradient>
+  </defs>
+  <circle cx="110" cy="110" r="106" fill="url(#frost)" stroke="#9fdcff" stroke-width="4" stroke-opacity="0.9"/>
+  <circle cx="110" cy="110" r="70" fill="none" stroke="#9fdcff" stroke-width="2" stroke-opacity="0.5" stroke-dasharray="12 10"/>
+  <g stroke="#e6f7ff" stroke-width="3.5" stroke-linecap="round" opacity="0.85">
+    <path d="M110 88 L110 132"/>
+    <path d="M91 99 L129 121"/>
+    <path d="M91 121 L129 99"/>
+    <path d="M110 94 L104 100 M110 94 L116 100"/>
+    <path d="M110 126 L104 120 M110 126 L116 120"/>
+  </g>
+</svg>

@@ -42,9 +42,11 @@ func _on_pulse_timer_timeout() -> void:
 	_flash(r)
 
 ## Kısa buz mavisi halka parlaması; görsel yarıçapa ölçeklenir.
+## Halka görseli zaten mavi çizildi, bu yüzden renk bozulmasın diye
+## modulate nötr tutuluyor.
 func _flash(r: float) -> void:
 	ring.scale = Vector2.ONE * (r / 108.0)
-	ring.modulate = Color(0.6, 0.85, 1.4, 0.9)
+	ring.modulate = Color(1.0, 1.0, 1.0, 0.9)
 	ring.visible = true
 	var tween := create_tween()
 	tween.tween_property(ring, "modulate:a", 0.0, 0.4)

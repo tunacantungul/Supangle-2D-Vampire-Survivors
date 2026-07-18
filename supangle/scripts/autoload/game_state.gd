@@ -110,11 +110,12 @@ const UPGRADE_TRACKS: Dictionary = {
 			{"title": "Hermes'in Sandalı II", "desc": "Hareket hızı toplam %20 artar"},
 		],
 	},
+	# Bölüm 1'de oyuncu zaten ölümsüz; can kartı orada anlamsız olurdu.
 	"vitality": {
 		"name": "Hygieia'nın Lütfu",
 		"icon": "res://assets/icons/icon_vitality.svg",
 		"rarity": Rarity.COMMON,
-		"min_chapter": 0,
+		"min_chapter": 1,
 		"tiers": [
 			{"title": "Hygieia'nın Lütfu", "desc": "+25 azami can ve anında iyileşme"},
 			{"title": "Hygieia'nın Lütfu II", "desc": "+25 azami can ve anında iyileşme"},

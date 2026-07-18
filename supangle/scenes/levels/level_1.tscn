@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://cqudmuh5d48k6" path="res://scripts/levels/level.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bg40u2euh5uia" path="res://scenes/player/player.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/levels/enemy_spawner.tscn" id="3"]
+[ext_resource type="TileSet" uid="uid://dl0jscpgm7h5h" path="res://resources/grass and dirt.tres" id="3_iav0o"]
 [ext_resource type="PackedScene" path="res://scenes/levels/exit_gate.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/levels/hazard_zone.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://scenes/ui/dialogue_box.tscn" id="7"]
-[ext_resource type="TileSet" uid="uid://cypalxrut1mnk" path="res://resources/placeholder_tileset.tres" id="8"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/enemy.tscn" id="9"]
 [ext_resource type="PackedScene" path="res://scenes/levels/boss_arena.tscn" id="10"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/boss_1.tscn" id="11"]
@@ -34,7 +34,7 @@ offset_bottom = 4500.0
 color = Color(0.85, 0.84, 0.79, 1)
 
 [node name="Ground" type="TileMapLayer" parent="." unique_id=558254485]
-tile_set = ExtResource("8")
+tile_set = ExtResource("3_iav0o")
 
 [node name="Walls" type="StaticBody2D" parent="." unique_id=43090185]
 collision_layer = 4

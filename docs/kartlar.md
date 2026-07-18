@@ -30,10 +30,12 @@ görülebilsin diye sadece hafifçe düşürüldü.
 | Destansı | mor | 0.7 | `freeze`, `kronos`, `nova` |
 | Efsanevi | turuncu | 0.55 | `styx` |
 
-Renkler ve ağırlıklar `game_state.gd` → `RARITIES`'te; çerçeveyi kart menüsü
-(`upgrade_menu.gd` → `_apply_rarity_border()`) her açılışta buradan boyar.
-Çekiliş `pick_upgrade_options()` içinde ağırlıklı rulet ile yapılır, aynı kart
-iki kez gelmez.
+Renkler ve ağırlıklar `game_state.gd` → `RARITIES`'te. Kart menüsü çerçeveyi
+(`upgrade_menu.gd` → `_apply_rarity_border()`) ve kartın üstündeki nadirlik
+yazısını buradan boyar; soldaki HUD güç listesi de aynı rengi kutucuk
+çerçevesinde kullanır (`upgrade_entry.gd` → `setup()`). Çekiliş
+`pick_upgrade_options()` içinde ağırlıklı rulet ile yapılır, aynı kart iki kez
+gelmez.
 
 ## Kart listesi
 

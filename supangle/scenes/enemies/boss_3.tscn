@@ -32,7 +32,7 @@ motion_mode = 1
 script = ExtResource("1")
 minion_scene = ExtResource("3")
 move_speed = 295.0
-max_health = 600.0
+max_health = 480.0
 contact_damage = 25.0
 damage_interval = 1.0
 

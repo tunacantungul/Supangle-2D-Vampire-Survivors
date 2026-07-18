@@ -12,6 +12,8 @@ const GATE_ARROW_COLOR := Color(0.42, 1.0, 0.55)
 @export var kill_quota: int = 15
 ## Seviye atlama maliyeti çarpanı: 1'in altı bu bölümde daha sık kart demek.
 @export var xp_requirement_mult: float = 1.0
+## Düşman hasarı çarpanı: 1'in altı bu bölümde daha az hasar demek.
+@export var enemy_damage_mult: float = 1.0
 @export var god_name: String = "Zeus"
 ## Vurgulanacak kelimeler satır metnine BBCode ile yazılır: [shake]ölümsüz[/shake].
 @export var dialogue_lines: Array[String] = []
@@ -34,7 +36,7 @@ var _pending_level_ups: int = 0
 
 func _ready() -> void:
 	get_tree().paused = false
-	GameState.setup_level(kill_quota, xp_requirement_mult)
+	GameState.setup_level(kill_quota, xp_requirement_mult, enemy_damage_mult)
 	GameState.kills_changed.connect(_on_kills_changed)
 	GameState.leveled_up.connect(_on_leveled_up)
 	upgrade_menu.card_chosen.connect(_on_card_chosen)

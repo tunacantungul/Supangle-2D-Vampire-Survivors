@@ -90,7 +90,7 @@ func freeze(duration: float) -> void:
 func _tick_contact_damage(delta: float) -> void:
 	_damage_cooldown -= delta
 	if _damage_cooldown <= 0.0 and damage_area.overlaps_body(_player):
-		_player.take_damage(contact_damage)
+		_player.take_damage(GameState.scaled_enemy_damage(contact_damage))
 		_damage_cooldown = damage_interval
 
 func take_damage(amount: float) -> void:

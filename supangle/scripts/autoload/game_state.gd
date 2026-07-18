@@ -211,12 +211,19 @@ var upgrades: Dictionary = {}
 ## Bölümün seviye atlama maliyeti çarpanı. 1'in altında olması o bölümde
 ## daha sık seviye atlanması demek; zor bölümleri yumuşatmak için kullanılır.
 var xp_requirement_mult: float = 1.0
+## Bölümün düşman hasarı çarpanı. Temas, mermi ve boss vuruşlarının hepsine
+## uygulanır; zemin tehlikeleri (bulut boşluğu, su) etkilenmez.
+var enemy_damage_mult: float = 1.0
 
 func _ready() -> void:
 	_reset_powers()
 
 func has_power(power: Power) -> bool:
 	return powers.get(power, false)
+
+## Düşman kaynaklı hasarı bölümün çarpanıyla ölçekler.
+func scaled_enemy_damage(amount: float) -> float:
+	return amount * enemy_damage_mult
 
 func power_loss_text(power: int) -> String:
 	return POWER_LOSS_TEXT.get(power, "")
@@ -227,10 +234,11 @@ func lose_power(power: int) -> void:
 
 ## Her bölüm başında bölüm sahnesi tarafından çağrılır.
 ## Bedel teması gereği XP, seviye ve alınan kartlar da her bölümde sıfırlanır.
-func setup_level(quota: int, xp_mult: float = 1.0) -> void:
+func setup_level(quota: int, xp_mult: float = 1.0, damage_mult: float = 1.0) -> void:
 	kills = 0
 	kill_quota = quota
 	xp_requirement_mult = xp_mult
+	enemy_damage_mult = damage_mult
 	player_level = 1
 	xp = 0
 	upgrades = {}

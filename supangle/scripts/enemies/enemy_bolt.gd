@@ -14,7 +14,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
-		body.take_damage(damage)
+		body.take_damage(GameState.scaled_enemy_damage(damage))
 	queue_free()
 
 func _on_life_timer_timeout() -> void:

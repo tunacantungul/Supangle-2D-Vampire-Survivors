@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/levels/exit_gate.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/levels/hazard_zone.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6"]
-[ext_resource type="PackedScene" path="res://scenes/ui/dialogue_box.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://1xse1ehjyu8h" path="res://scenes/ui/dialogue_box.tscn" id="7"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/enemy.tscn" id="9"]
 [ext_resource type="PackedScene" path="res://scenes/levels/boss_arena.tscn" id="10"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/boss_1.tscn" id="11"]

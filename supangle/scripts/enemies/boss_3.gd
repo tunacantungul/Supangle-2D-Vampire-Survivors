@@ -49,7 +49,7 @@ func _on_slam_timer_timeout() -> void:
 			slam_ring.visible = false
 			if _player != null and is_instance_valid(_player):
 				if global_position.distance_to(_player.global_position) <= slam_radius:
-					_player.take_damage(slam_damage)
+					_player.take_damage(GameState.scaled_enemy_damage(slam_damage))
 			_slam_phase = SlamPhase.COOLDOWN
 			slam_timer.wait_time = slam_cooldown
 			slam_timer.start()

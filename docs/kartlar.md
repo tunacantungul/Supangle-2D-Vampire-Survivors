@@ -117,9 +117,10 @@ Bölüm 2+ kartları ölümsüzlük gittikten sonra anlam kazandığı için kı
 | Düşman hızları | temel 395, hızlı 660, tank 230 | `enemy.gd`, `enemy*.tscn` → `move_speed` |
 | Boss hızları | boss1 360, boss2 460, boss3 295 | `boss*.tscn` → `move_speed` |
 | XP eşiği | seviye × 10 × bölüm çarpanı | `game_state.gd` → `XP_STEP`, `level*.tscn` → `xp_requirement_mult` |
+| Düşman hasarı çarpanı | bölüm 3'te 0.75 | `level*.tscn` → `enemy_damage_mult` |
 | XP taşı değeri | temel/hızlı 1, tank 3 | `enemy*.tscn` → `xp_value` |
 | XP taşı çekim menzili | 360 px (kartla 1.1x / 2x) | `xp_gem.gd` |
 | Can küresi | +15 can; %2.5 şans (tank %6) | `health_orb.gd`, `enemy*.tscn` |
-| Bölüm kotaları | 22 / 60 / 80 | `level_1/2/3.tscn` → `kill_quota` (Inspector) |
+| Bölüm kotaları | 22 / 60 / 55 | `level_1/2/3.tscn` → `kill_quota` (Inspector) |
 | Düşman canları | temel 30, hızlı 15, tank 90 | `enemy*.tscn` (Inspector) |
 | Kart sayısı (menü) | 3 | `level.gd` → `pick_upgrade_options()` |

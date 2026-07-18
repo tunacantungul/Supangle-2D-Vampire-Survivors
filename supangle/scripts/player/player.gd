@@ -35,8 +35,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	# "speed" kartı: seviye başına %20 hareket hızı.
-	var speed_mult := 1.0 + 0.2 * GameState.upgrade_tier("speed")
+	# "speed" kartı: seviye başına %10 hareket hızı.
+	var speed_mult := 1.0 + 0.1 * GameState.upgrade_tier("speed")
 	velocity = input_dir * move_speed * speed_mult
 	move_and_slide()
 	_update_animation(input_dir)

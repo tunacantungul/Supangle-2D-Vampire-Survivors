@@ -99,8 +99,8 @@ const UPGRADE_TRACKS: Dictionary = {
 		"rarity": Rarity.COMMON,
 		"min_chapter": 0,
 		"tiers": [
-			{"title": "Hermes'in Sandalı", "desc": "Hareket hızı %20 artar"},
-			{"title": "Hermes'in Sandalı II", "desc": "Hareket hızı toplam %40 artar"},
+			{"title": "Hermes'in Sandalı", "desc": "Hareket hızı %10 artar"},
+			{"title": "Hermes'in Sandalı II", "desc": "Hareket hızı toplam %20 artar"},
 		],
 	},
 	"vitality": {
@@ -142,8 +142,8 @@ const UPGRADE_TRACKS: Dictionary = {
 		"rarity": Rarity.COMMON,
 		"min_chapter": 0,
 		"tiers": [
-			{"title": "Kehribar Tılsımı", "desc": "XP taşlarını uzaktan çeker (menzil 2 katı)"},
-			{"title": "Kehribar Tılsımı II", "desc": "Çekim menzili çok daha büyür"},
+			{"title": "Kehribar Tılsımı", "desc": "XP taşlarını biraz uzaktan çeker"},
+			{"title": "Kehribar Tılsımı II", "desc": "Çekim menzili iki katına çıkar"},
 		],
 	},
 	# Zeus'un gazabına karşılık: yıldırım bölümlerinde (2+) açılır.

@@ -56,11 +56,11 @@ iki kez gelmez.
 | `freeze` | Destansı | 1 | Boreas'ın Soluğu | 10 sn'de bir 1000 px içindeki düşmanları 1.5 sn dondurur | 1+ | `freeze_nova.gd` |
 | `freeze` | Destansı | 2 | Boreas'ın Soluğu II | Sıklık 7 sn, donma 2.5 sn | 1+ | `freeze_nova.gd` |
 | `freeze` | Destansı | 3 | Kuzeyin Öfkesi | Donma alanı 1450 px olur | 1+ | `freeze_nova.gd` |
-| `styx` | **Efsanevi** | 1 | Styx'in Halkası | Çevredeki 620 px içindeki düşmanlara 0.5 sn'de bir 9 hasar (sürekli aura) | 1+ | `styx_aura.gd` |
+| `styx` | **Efsanevi** | 1 | Styx'in Halkası | Çevredeki 420 px içindeki düşmanlara 0.5 sn'de bir 9 hasar (sürekli aura) | 1+ | `styx_aura.gd` |
 | `styx` | **Efsanevi** | 2 | Styx'in Halkası II | Tik hasarı 15 olur | 1+ | `styx_aura.gd` |
-| `styx` | **Efsanevi** | 3 | Kara Irmak | Halka yarıçapı 860 px olur | 1+ | `styx_aura.gd` |
-| `speed` | Sıradan | 1 | Hermes'in Sandalı | Hareket hızı +%20 | 1+ | `player.gd` (`_physics_process`) |
-| `speed` | Sıradan | 2 | Hermes'in Sandalı II | Hareket hızı toplam +%40 | 1+ | `player.gd` |
+| `styx` | **Efsanevi** | 3 | Kara Irmak | Halka yarıçapı 560 px olur | 1+ | `styx_aura.gd` |
+| `speed` | Sıradan | 1 | Hermes'in Sandalı | Hareket hızı +%10 | 1+ | `player.gd` (`_physics_process`) |
+| `speed` | Sıradan | 2 | Hermes'in Sandalı II | Hareket hızı toplam +%20 | 1+ | `player.gd` |
 | `vitality` | Sıradan | 1-3 | Hygieia'nın Lütfu I-III | Her biri +25 azami can ve anında iyileşme | 1+ | `player.gd` (`_on_upgrades_changed`) |
 | `kronos` | Destansı | 1 | Kronos'un Kumu | Tüm düşmanlar kalıcı %12 yavaşlar (bosslar dahil) | 1+ | `enemy.gd` (`KRONOS_SLOW_PER_TIER`) |
 | `kronos` | Destansı | 2 | Kronos'un Kumu II | Yavaşlama toplam %24 | 1+ | `enemy.gd` |
@@ -68,8 +68,8 @@ iki kez gelmez.
 | `artemis` | Ender | 1 | Artemis'in Oku | 6 sn'de bir hattaki tüm düşmanları delip geçen ok (25 hasar) | 1+ | `arrow_shooter.gd`, `arrow.gd` |
 | `artemis` | Ender | 2 | Artemis'in Oku II | Bekleme 4 sn'ye iner | 1+ | `arrow_shooter.gd` |
 | `artemis` | Ender | 3 | Gümüş Ok | Ok hasarı iki katına çıkar (50) | 1+ | `arrow_shooter.gd` |
-| `magnet` | Sıradan | 1 | Kehribar Tılsımı | XP taşı çekim menzili 2.2 katına çıkar | 1+ | `xp_gem.gd` (`MAGNET_MULT`) |
-| `magnet` | Sıradan | 2 | Kehribar Tılsımı II | Çekim menzili 4 katına çıkar | 1+ | `xp_gem.gd` |
+| `magnet` | Sıradan | 1 | Kehribar Tılsımı | XP taşı çekim menzili 1.1 katına çıkar | 1+ | `xp_gem.gd` (`MAGNET_MULT`) |
+| `magnet` | Sıradan | 2 | Kehribar Tılsımı II | Çekim menzili 2 katına çıkar | 1+ | `xp_gem.gd` |
 | `nova` | Destansı | 1 | Aigis Kalkanı | 6 sn'de bir çevreye (720 px) yıldırım şoku, 25 hasar | **2+** | `lightning_nova.gd` |
 | `nova` | Destansı | 2 | Fırtına Yüreği | Şok sıklığı 4 sn'ye çıkar | **2+** | `lightning_nova.gd` |
 | `nova` | Destansı | 3 | Gök Gürültüsü | Hasar 40, alan 950 px | **2+** | `lightning_nova.gd` |
@@ -116,7 +116,7 @@ Bölüm 2+ kartları ölümsüzlük gittikten sonra anlam kazandığı için kı
 | Boss hızları | boss1 360, boss2 460, boss3 295 | `boss*.tscn` → `move_speed` |
 | XP eşiği | seviye × 10 (10, 20, 30...) | `game_state.gd` → `XP_STEP` |
 | XP taşı değeri | temel/hızlı 1, tank 3 | `enemy*.tscn` → `xp_value` |
-| XP taşı çekim menzili | 360 px (kartla 2.2x / 4x) | `xp_gem.gd` |
+| XP taşı çekim menzili | 360 px (kartla 1.1x / 2x) | `xp_gem.gd` |
 | Can küresi | +15 can; %6 şans (tank %15) | `health_orb.gd`, `enemy*.tscn` |
 | Bölüm kotaları | 40 / 60 / 80 | `level_1/2/3.tscn` → `kill_quota` (Inspector) |
 | Düşman canları | temel 30, hızlı 15, tank 90 | `enemy*.tscn` (Inspector) |

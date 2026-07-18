@@ -9,7 +9,7 @@ extends Node2D
 @export var fly_speed: float = 2200.0
 
 ## "magnet" kartı kademelerine göre çekim menzili çarpanı (0 = kart yok).
-const MAGNET_MULT := [1.0, 2.2, 4.0]
+const MAGNET_MULT := [1.0, 1.1, 2.0]
 
 var _player: Player
 

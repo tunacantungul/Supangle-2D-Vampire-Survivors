@@ -29,20 +29,23 @@ const SPEAKER_MAX_LENGTH := 24
 
 ## Portrenin kutunun hangi ucunda duracağı. Astarios solda, tanrılar sağda:
 ## karşılıklı konuşma hissi versin diye.
-enum Side { LEFT, RIGHT }
+## Ad bilerek "Side" değil: Godot'da o adda yerleşik bir global enum var ve
+## tip olarak yazılınca yerleşik olana bağlanıp çakışıyor.
+enum PortraitSide { LEFT, RIGHT }
 
 ## Konuşmacı adına göre diyalog portresi. Yeni portre eklemek için buraya
 ## bir satır eklemek yeterli; adı olmayan konuşmacıda portre gizlenir.
 ## "side" verilmezse sol, "scale" verilmezse portrait_size kullanılır.
 var _portraits := {
-	"Astarios": {"texture": preload("res://assets/Astarios Dialogue.png"), "side": Side.LEFT},
-	"Zeus": {"texture": preload("res://assets/Zeus.png"), "side": Side.RIGHT, "scale": 1.3},
+	"Astarios": {"texture": preload("res://assets/Astarios Dialogue.png"), "side": PortraitSide.LEFT},
+	"Zeus": {"texture": preload("res://assets/Zeus.png"), "side": PortraitSide.RIGHT, "scale": 1.3},
 }
 
 var _lines: Array[String] = []
 var _index: int = 0
 ## O an gösterilen portrenin tarafı; konum hesabı bunu kullanıyor.
-var _portrait_side: Side = Side.LEFT
+## Sözlükten Variant olarak geldiği için int tutuluyor (enum değerleri zaten int).
+var _portrait_side: int = PortraitSide.LEFT
 ## Arkayı karartan tam ekran dikdörtgen. Kendi çocuğumuz olamaz (kutunun
 ## kapsayıcısı onu panele sığdırırdı ve panelin önüne çizilirdi), bu yüzden
 ## kardeşimiz olarak hemen önümüze ekleniyor: HUD/harita/canavarların üstünde,
@@ -152,7 +155,7 @@ func _update_portrait(speaker: String) -> void:
 		return
 	portrait.texture = entry["texture"]
 	portrait.size = Vector2.ONE * portrait_size * float(entry.get("scale", 1.0))
-	_portrait_side = entry.get("side", Side.LEFT)
+	_portrait_side = entry.get("side", PortraitSide.LEFT)
 	_update_portrait_position()
 
 ## Portre, konuşmacının tarafındaki üst köşeden yukarı taşacak şekilde konumlanır.
@@ -160,7 +163,7 @@ func _update_portrait_position() -> void:
 	if not portrait.visible:
 		return
 	var x := global_position.x + portrait_offset.x
-	if _portrait_side == Side.RIGHT:
+	if _portrait_side == PortraitSide.RIGHT:
 		x = global_position.x + size.x - portrait_offset.x - portrait.size.x
 	portrait.global_position = Vector2(x, global_position.y + portrait_offset.y - portrait.size.y)
 

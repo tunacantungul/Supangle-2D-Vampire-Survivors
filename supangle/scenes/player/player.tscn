@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" path="res://scenes/weapons/bolt_shooter.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://cnf8q0md3h1pm" path="res://assets/placeholder/divine_aura.svg" id="5"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/stab_sword.tscn" id="6"]
-[ext_resource type="PackedScene" path="res://scenes/weapons/lightning_nova.tscn" id="7"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/freeze_nova.tscn" id="8"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/discus_thrower.tscn" id="9"]
 [ext_resource type="Texture2D" uid="uid://cswu7egbdsy6j" path="res://assets/player/run forward/1.PNG" id="10"]
@@ -133,8 +132,6 @@ position_smoothing_speed = 8.0
 [node name="OrbitingSwords" parent="." unique_id=920059564 instance=ExtResource("2")]
 
 [node name="BoltShooter" parent="." unique_id=1300392958 instance=ExtResource("3")]
-
-[node name="LightningNova" parent="." unique_id=820417099 instance=ExtResource("7")]
 
 [node name="FreezeNova" parent="." unique_id=423019041 instance=ExtResource("8")]
 

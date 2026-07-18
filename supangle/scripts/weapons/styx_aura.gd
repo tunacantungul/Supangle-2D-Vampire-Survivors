@@ -2,15 +2,14 @@ extends Node2D
 ## "styx" kartı: Styx'in Halkası — oyuncunun çevresindeki halkada duran her
 ## düşmana sürekli hasar veren zehirli aura. Nişan almak gerekmez, yakındaki
 ## her şeyi eritir; bu yüzden efsanevi (legendary) nadirlikte.
-## Kart seviyeleri: 1 = açılır, 2 = hasar artar, 3 = alan büyür ve hasar biraz daha artar.
+## Kart seviyeleri: 1 = açılır, 2 = alan büyür, 3 ve 4 = hasar artar.
 
 ## Hasarın kaç saniyede bir uygulandığı. Halka sürekli açık olduğundan
-## saniyelik hasar = tick_damage / tick_interval.
+## saniyelik hasar = o kademenin hasarı / tick_interval.
 @export var tick_interval: float = 0.5
-@export var tick_damage: float = 9.0
-@export var strong_tick_damage: float = 15.0
-@export var radius: float = 420.0
-@export var big_radius: float = 560.0
+## Kademe başına yarıçap ve tik hasarı. 0. eleman "kart alınmadı" durumu.
+@export var tier_radius: Array[float] = [0.0, 420.0, 560.0, 560.0, 560.0]
+@export var tier_damage: Array[float] = [0.0, 9.0, 9.0, 14.0, 20.0]
 ## Halkanın nefes alır gibi büyüyüp küçülme oranı ve hızı.
 @export var pulse_amount: float = 0.04
 @export var pulse_speed: float = 2.2
@@ -55,7 +54,7 @@ func _on_tick_timer_timeout() -> void:
 	if tier <= 0:
 		return
 	var r := _current_radius(tier)
-	var dmg := strong_tick_damage if tier >= 2 else tick_damage
+	var dmg := _tier_value(tier_damage, tier)
 	for node in get_tree().get_nodes_in_group("enemies"):
 		var enemy := node as Enemy
 		if enemy == null:
@@ -64,4 +63,10 @@ func _on_tick_timer_timeout() -> void:
 			enemy.take_damage(dmg)
 
 func _current_radius(tier: int) -> float:
-	return big_radius if tier >= 3 else radius
+	return _tier_value(tier_radius, tier)
+
+## Kademe tablosundan güvenli okuma: tablo kısaysa son değer kullanılır.
+func _tier_value(table: Array[float], tier: int) -> float:
+	if table.is_empty():
+		return 0.0
+	return table[clampi(tier, 0, table.size() - 1)]

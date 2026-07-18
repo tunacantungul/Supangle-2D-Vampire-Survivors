@@ -26,7 +26,7 @@ const WALK_WOBBLE_SPEED := 10.0
 ## Ölünce düşen XP taşının değeri.
 @export var xp_value: int = 1
 ## Can küresi düşürme ihtimali (0-1).
-@export var health_drop_chance: float = 0.06
+@export var health_drop_chance: float = 0.025
 
 var health: float
 

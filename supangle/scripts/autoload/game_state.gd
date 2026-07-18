@@ -153,18 +153,6 @@ const UPGRADE_TRACKS: Dictionary = {
 			{"title": "Kehribar Tılsımı II", "desc": "Çekim menzili iki katına çıkar"},
 		],
 	},
-	# Zeus'un gazabına karşılık: yıldırım bölümlerinde (2+) açılır.
-	"nova": {
-		"name": "Aigis Kalkanı",
-		"icon": "res://assets/icons/icon_nova.svg",
-		"rarity": Rarity.EPIC,
-		"min_chapter": 1,
-		"tiers": [
-			{"title": "Aigis Kalkanı", "desc": "6 sn'de bir çevrene yıldırım şoku"},
-			{"title": "Fırtına Yüreği", "desc": "Şok sıklığı artar (4 sn)"},
-			{"title": "Gök Gürültüsü", "desc": "Şok hasarı ve alanı büyür"},
-		],
-	},
 	# Ölümsüzlük gittikten sonra (2+) anlam kazanan savunma kartları.
 	"armor": {
 		"name": "Hephaistos Zırhı",
@@ -194,8 +182,9 @@ const UPGRADE_TRACKS: Dictionary = {
 		"min_chapter": 0,
 		"tiers": [
 			{"title": "Styx'in Halkası", "desc": "Çevrendeki düşmanlara sürekli hasar veren zehirli halka"},
-			{"title": "Styx'in Halkası II", "desc": "Halkanın hasarı belirgin şekilde artar"},
-			{"title": "Kara Irmak", "desc": "Halkanın alanı büyür"},
+			{"title": "Styx'in Halkası II", "desc": "Halkanın alanı büyür"},
+			{"title": "Kara Irmak", "desc": "Halkanın hasarı belirgin şekilde artar"},
+			{"title": "Kharon'un Bedeli", "desc": "Halkanın hasarı bir kez daha artar"},
 		],
 	},
 }

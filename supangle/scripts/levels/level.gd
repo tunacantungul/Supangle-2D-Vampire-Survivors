@@ -124,6 +124,7 @@ func _playable_bounds(walls: StaticBody2D) -> Rect2:
 ## --- Seviye atlama / kart seçimi ---
 
 func _on_leveled_up() -> void:
+	Sfx.play_level_up()
 	if upgrade_menu.visible:
 		_pending_level_ups += 1
 		return

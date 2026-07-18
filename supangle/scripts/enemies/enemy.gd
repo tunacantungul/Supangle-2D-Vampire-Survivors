@@ -121,6 +121,7 @@ func take_damage(amount: float) -> void:
 	if health <= 0.0:
 		return
 	health -= amount
+	Sfx.play_hit_enemy()
 	_flash()
 	if health <= 0.0:
 		_die()

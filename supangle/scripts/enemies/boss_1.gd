@@ -3,6 +3,10 @@ extends Boss
 
 enum Phase { COOLDOWN, TELEGRAPH, DASH }
 
+## Hücum sırasında yalnızca duvar katmanıyla çarpışılır; aradaki canavarlar
+## bossu durdurmasın diye canavar katmanı maskeden çıkarılır.
+const WALL_MASK := 4
+
 @export var dash_speed: float = 3400.0
 @export var dash_duration: float = 0.55
 @export var dash_cooldown: float = 3.0
@@ -10,11 +14,14 @@ enum Phase { COOLDOWN, TELEGRAPH, DASH }
 
 var _phase: int = Phase.COOLDOWN
 var _dash_dir := Vector2.ZERO
+## Hücum dışındaki normal çarpışma maskesi (sahneden okunur).
+var _normal_mask: int = 0
 
 @onready var phase_timer: Timer = $PhaseTimer
 
 func _ready() -> void:
 	super._ready()
+	_normal_mask = collision_mask
 	phase_timer.wait_time = dash_cooldown
 	phase_timer.start()
 
@@ -39,9 +46,11 @@ func _on_phase_timer_timeout() -> void:
 			if _player != null and is_instance_valid(_player):
 				_dash_dir = (_player.global_position - global_position).normalized()
 			_phase = Phase.DASH
+			collision_mask = WALL_MASK
 			phase_timer.wait_time = dash_duration
 			phase_timer.start()
 		Phase.DASH:
 			_phase = Phase.COOLDOWN
+			collision_mask = _normal_mask
 			phase_timer.wait_time = dash_cooldown
 			phase_timer.start()

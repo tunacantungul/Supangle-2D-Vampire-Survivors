@@ -1,0 +1,108 @@
+[gd_resource type="Theme" load_steps=9 format=3]
+
+; Menü teması. Godot'un varsayılan gri yuvarlak düğmeleri menüye "hazır şablon"
+; havası veriyordu; burada düğmeler zeminsiz metne indirgendi, üzerine gelince
+; solda altın bir çubuk beliriyor. Klasik yazıt hissi için köşeler keskin.
+
+; Düğme boştayken hiçbir zemin çizmez, sadece metin durur.
+[sub_resource type="StyleBoxEmpty" id="SB_button_normal"]
+content_margin_left = 26.0
+content_margin_top = 14.0
+content_margin_right = 26.0
+content_margin_bottom = 14.0
+
+; Üzerine gelince: çok hafif altın yıkama + solda kalın altın çubuk.
+[sub_resource type="StyleBoxFlat" id="SB_button_hover"]
+content_margin_left = 26.0
+content_margin_top = 14.0
+content_margin_right = 26.0
+content_margin_bottom = 14.0
+bg_color = Color(0.93, 0.78, 0.42, 0.09)
+border_width_left = 5
+border_color = Color(0.93, 0.78, 0.42, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_button_pressed"]
+content_margin_left = 26.0
+content_margin_top = 14.0
+content_margin_right = 26.0
+content_margin_bottom = 14.0
+bg_color = Color(0.93, 0.78, 0.42, 0.18)
+border_width_left = 5
+border_color = Color(1, 0.89, 0.6, 1)
+
+; Klavye/gamepad odağı da görünür olmalı; farenin hover'ıyla aynı dili konuşuyor.
+[sub_resource type="StyleBoxFlat" id="SB_button_focus"]
+content_margin_left = 26.0
+content_margin_top = 14.0
+content_margin_right = 26.0
+content_margin_bottom = 14.0
+bg_color = Color(0.93, 0.78, 0.42, 0.05)
+border_width_left = 5
+border_color = Color(0.93, 0.78, 0.42, 0.55)
+
+; Paneller: neredeyse siyah zemin, ince altın çerçeve, keskin köşe.
+[sub_resource type="StyleBoxFlat" id="SB_panel"]
+bg_color = Color(0.055, 0.05, 0.09, 0.98)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.93, 0.78, 0.42, 0.45)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 24
+
+; CheckBox'ın taban tipi Button olduğu için düğmelerin altın çubuğunu miras
+; alıyordu; onay kutusuna zemin çizmemesi için ayrıca boşaltıldı.
+[sub_resource type="StyleBoxEmpty" id="SB_checkbox"]
+content_margin_left = 0.0
+content_margin_top = 8.0
+content_margin_right = 0.0
+content_margin_bottom = 8.0
+
+; content_margin olmadan yatay kaydırıcının rayı sıfır yükseklikte kalıyor
+; ve hiç görünmüyor.
+[sub_resource type="StyleBoxFlat" id="SB_slider"]
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.93, 0.78, 0.42, 0.16)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="SB_slider_fill"]
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.93, 0.78, 0.42, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[resource]
+Button/colors/font_color = Color(0.84, 0.82, 0.87, 1)
+Button/colors/font_hover_color = Color(1, 0.91, 0.66, 1)
+Button/colors/font_pressed_color = Color(1, 0.95, 0.8, 1)
+Button/colors/font_focus_color = Color(1, 0.91, 0.66, 1)
+Button/font_sizes/font_size = 30
+Button/styles/normal = SubResource("SB_button_normal")
+Button/styles/hover = SubResource("SB_button_hover")
+Button/styles/pressed = SubResource("SB_button_pressed")
+Button/styles/focus = SubResource("SB_button_focus")
+CheckBox/colors/font_color = Color(0.84, 0.82, 0.87, 1)
+CheckBox/colors/font_hover_color = Color(1, 0.91, 0.66, 1)
+CheckBox/colors/font_focus_color = Color(1, 0.91, 0.66, 1)
+CheckBox/styles/normal = SubResource("SB_checkbox")
+CheckBox/styles/hover = SubResource("SB_checkbox")
+CheckBox/styles/pressed = SubResource("SB_checkbox")
+CheckBox/styles/focus = SubResource("SB_checkbox")
+CheckBox/styles/disabled = SubResource("SB_checkbox")
+HSlider/styles/slider = SubResource("SB_slider")
+HSlider/styles/grabber_area = SubResource("SB_slider_fill")
+HSlider/styles/grabber_area_highlight = SubResource("SB_slider_fill")
+Label/colors/font_color = Color(0.84, 0.82, 0.87, 1)
+PanelContainer/styles/panel = SubResource("SB_panel")

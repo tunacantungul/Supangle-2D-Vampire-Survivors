@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/weapons/discus_thrower.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/weapons/discus.tscn" id="2"]
+
+[node name="DiscusThrower" type="Node2D"]
+script = ExtResource("1")
+discus_scene = ExtResource("2")
+
+[node name="ThrowTimer" type="Timer" parent="."]
+wait_time = 6.0
+
+[connection signal="timeout" from="ThrowTimer" to="." method="_on_throw_timer_timeout"]

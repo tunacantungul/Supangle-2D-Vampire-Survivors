@@ -16,6 +16,10 @@ func take_damage(amount: float) -> void:
 	super.take_damage(amount)
 	health_bar.value = maxf(health, 0.0)
 
+## Bosslar donma etkisine bağışıktır.
+func freeze(_duration: float) -> void:
+	pass
+
 func _die() -> void:
 	boss_died.emit()
 	queue_free()

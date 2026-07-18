@@ -59,7 +59,7 @@ func _refresh_upgrades() -> void:
 			continue
 		var entry: PanelContainer = UPGRADE_ENTRY_SCENE.instantiate()
 		upgrades_box.add_child(entry)
-		entry.setup(GameState.upgrade_icon(id), "%s  Sv %d" % [GameState.upgrade_name(id), tier])
+		entry.setup(GameState.upgrade_icon(id), "%s  Sv %d" % [GameState.upgrade_name(id), tier], GameState.rarity_color(id))
 
 var _kills: int = 0
 var _required: int = 0

@@ -35,7 +35,11 @@ func open(options: Array[String]) -> void:
 			(_buttons[i].get_node("Content/VBox/Title") as Label).text = info.title
 			(_buttons[i].get_node("Content/VBox/Desc") as Label).text = info.desc
 			(_buttons[i].get_node("Content/VBox/IconRect") as TextureRect).texture = GameState.upgrade_icon(options[i])
-			_apply_rarity_border(_buttons[i], GameState.rarity_color(options[i]))
+			var rarity_color := GameState.rarity_color(options[i])
+			var rarity_label := _buttons[i].get_node("Content/VBox/RarityLabel") as Label
+			rarity_label.text = GameState.rarity_name(options[i]).to_upper()
+			rarity_label.add_theme_color_override("font_color", rarity_color)
+			_apply_rarity_border(_buttons[i], rarity_color)
 	_refresh_owned()
 	visible = true
 
@@ -61,7 +65,7 @@ func _refresh_owned() -> void:
 		any = true
 		var entry: PanelContainer = UPGRADE_ENTRY_SCENE.instantiate()
 		_owned_box.add_child(entry)
-		entry.setup(GameState.upgrade_icon(id), "%s  Sv %d" % [GameState.upgrade_name(id), tier])
+		entry.setup(GameState.upgrade_icon(id), "%s  Sv %d" % [GameState.upgrade_name(id), tier], GameState.rarity_color(id))
 	_owned_label.visible = any
 
 func _on_card_pressed(index: int) -> void:

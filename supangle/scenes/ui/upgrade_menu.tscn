@@ -4,10 +4,10 @@
 
 [sub_resource type="StyleBoxFlat" id="Style_card"]
 bg_color = Color(0.13, 0.12, 0.18, 0.98)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
 border_color = Color(0.85, 0.72, 0.35, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -16,10 +16,10 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="Style_card_hover"]
 bg_color = Color(0.2, 0.18, 0.27, 0.98)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
 border_color = Color(1, 0.88, 0.5, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -128,6 +128,13 @@ horizontal_alignment = 1
 autowrap_mode = 3
 text = "Kart 1"
 
+[node name="RarityLabel" type="Label" parent="CenterContainer/VBoxContainer/Cards/Card1/Content/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 17
+horizontal_alignment = 1
+text = "SIRADAN"
+
 [node name="Desc" type="Label" parent="CenterContainer/VBoxContainer/Cards/Card1/Content/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -182,6 +189,13 @@ horizontal_alignment = 1
 autowrap_mode = 3
 text = "Kart 2"
 
+[node name="RarityLabel" type="Label" parent="CenterContainer/VBoxContainer/Cards/Card2/Content/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 17
+horizontal_alignment = 1
+text = "SIRADAN"
+
 [node name="Desc" type="Label" parent="CenterContainer/VBoxContainer/Cards/Card2/Content/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -235,6 +249,13 @@ theme_override_font_sizes/font_size = 24
 horizontal_alignment = 1
 autowrap_mode = 3
 text = "Kart 3"
+
+[node name="RarityLabel" type="Label" parent="CenterContainer/VBoxContainer/Cards/Card3/Content/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 17
+horizontal_alignment = 1
+text = "SIRADAN"
 
 [node name="Desc" type="Label" parent="CenterContainer/VBoxContainer/Cards/Card3/Content/VBox"]
 layout_mode = 2

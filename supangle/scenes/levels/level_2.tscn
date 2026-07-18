@@ -26,7 +26,7 @@ size = Vector2(180, 9360)
 script = ExtResource("1")
 kill_quota = 60
 god_name = "Hermes"
-dialogue_lines = Array[String](["Hermes: Zeus'un gazabından sağ çıktın; buna saygı duyarım, yolcu.", "Sen: O zaman kenara çekil Hermes. Yolum uzun.", "Hermes: Kural kuraldır. Olympus'tan inen, göğü de geride bırakır.", "Hermes: Kanatların artık benim. Bundan sonra her adımını toprakta atacaksın."])
+dialogue_lines = Array[String](["Hermes: Demek babamızın gazabından kaçabildin Spanguleus,", "Hermes: … ben babamız kadar merhametli olmayacağım!", "Hermes: Ölümünün yanına yürüyerek git de görelim ne kadar sevdiğini!", "Spanguleus: Gerekirse sürünerek bile giderim!", "Spanguleus: Senin kanatlarına ihtiyacım yok!", "Hermes: Demek öyle ha!?", "Spanguleus: [b]ARRGGHHH!!!![/b]"])
 power_to_lose = 1
 boss_scene = ExtResource("12")
 

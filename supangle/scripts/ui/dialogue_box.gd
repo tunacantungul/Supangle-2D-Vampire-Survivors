@@ -11,6 +11,10 @@ extends PanelContainer
 
 signal finished
 
+## Satır başındaki adın en fazla kaç karakter olabileceği. Replik içinde geçen
+## iki nokta üst üstenin yanlışlıkla konuşmacı sanılmasını engeller.
+const SPEAKER_MAX_LENGTH := 24
+
 ## Saniyede kaç harf yazılacağı.
 @export var chars_per_second: float = 45.0
 
@@ -63,7 +67,14 @@ func _process(delta: float) -> void:
 		_complete_line()
 
 func _show_line() -> void:
-	text_label.text = _lines[_index]
+	var line := _lines[_index]
+	# "Konuşmacı: replik" biçimindeki satırlarda ad üst etikete taşınır, böylece
+	# aynı diyalogda iki kişi karşılıklı konuşabilir.
+	var colon := line.find(":")
+	if colon > 0 and colon <= SPEAKER_MAX_LENGTH:
+		name_label.text = line.substr(0, colon).strip_edges()
+		line = line.substr(colon + 1).strip_edges()
+	text_label.text = line
 	text_label.visible_characters = 0
 	_revealed = 0.0
 	_typing = true

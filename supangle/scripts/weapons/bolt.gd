@@ -1,6 +1,6 @@
 class_name Bolt
 extends Area2D
-## Düz giden büyü mermisi. Düşmana veya duvara çarpınca yok olur.
+## Fırlatılan kargı: düz gider, düşmana veya duvara çarpınca yok olur.
 
 var direction := Vector2.RIGHT
 var damage := 20.0

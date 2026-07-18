@@ -15,14 +15,16 @@ signal upgrades_changed
 ## Güçler kayıp sırasına göre: önce ölümsüzlük, sonra uçuş, en son atak.
 enum Power { IMMORTALITY, FLIGHT, ATTACK }
 
-const XP_PER_KILL := 1
 ## Her seviye bir öncekinden bu kadar fazla XP ister (1->2: 10, 2->3: 20...).
 const XP_STEP := 10
 
-## Kart havuzu: her hat {min_chapter, tiers} taşır; tiers'ın sıradaki elemanı
-## alınacak kartı anlatır. min_chapter, kartın havuza girdiği bölüm (0 tabanlı).
+## Kart havuzu: her hat {name, icon, min_chapter, tiers} taşır; tiers'ın
+## sıradaki elemanı alınacak kartı anlatır. min_chapter, kartın havuza girdiği
+## bölüm (0 tabanlı). name/icon HUD'daki güç listesi ve kart menüsünde kullanılır.
 const UPGRADE_TRACKS: Dictionary = {
 	"orbit": {
+		"name": "Dönen Kılıç",
+		"icon": "res://assets/icons/icon_orbit.svg",
 		"min_chapter": 0,
 		"tiers": [
 			{"title": "Dönen Kılıç", "desc": "Etrafında dönen 1 kılıç"},
@@ -31,15 +33,19 @@ const UPGRADE_TRACKS: Dictionary = {
 		],
 	},
 	"bolt": {
+		"name": "Kargı",
+		"icon": "res://assets/icons/icon_javelin.svg",
 		"min_chapter": 0,
 		"tiers": [
-			{"title": "Büyü Işını", "desc": "15 sn'de bir en yakın düşmana ışın"},
-			{"title": "Hızlı Işın", "desc": "Işın bekleme süresi 8 sn'ye iner"},
-			{"title": "Güçlü Işın", "desc": "Işın hasarı iki katına çıkar"},
-			{"title": "İkiz Işın", "desc": "Işın aynı anda 2 ayrı hedefe gider"},
+			{"title": "Kargı", "desc": "8 sn'de bir en yakın düşmana kargı fırlatır"},
+			{"title": "Hızlı Kargı", "desc": "Kargı bekleme süresi 4 sn'ye iner"},
+			{"title": "Güçlü Kargı", "desc": "Kargı hasarı iki katına çıkar"},
+			{"title": "İkiz Kargı", "desc": "Aynı anda 2 ayrı hedefe kargı"},
 		],
 	},
 	"stab": {
+		"name": "Kılıç Saplaması",
+		"icon": "res://assets/icons/icon_stab.svg",
 		"min_chapter": 0,
 		"tiers": [
 			{"title": "Çift Saplama", "desc": "Kılıç art arda 2 kez saplanır"},
@@ -47,7 +53,29 @@ const UPGRADE_TRACKS: Dictionary = {
 			{"title": "Savaş Çığlığı", "desc": "Saplama menzili %50 artar"},
 		],
 	},
+	"discus": {
+		"name": "Olimpiyat Diski",
+		"icon": "res://assets/icons/icon_discus.svg",
+		"min_chapter": 0,
+		"tiers": [
+			{"title": "Olimpiyat Diski", "desc": "6 sn'de bir gidip geri dönen disk fırlatır"},
+			{"title": "Olimpiyat Diski II", "desc": "Disk bekleme süresi 4 sn'ye iner"},
+			{"title": "Şampiyon Diski", "desc": "Disk hasarı %60 artar ve hızlanır"},
+		],
+	},
+	"freeze": {
+		"name": "Boreas'ın Soluğu",
+		"icon": "res://assets/icons/icon_freeze.svg",
+		"min_chapter": 0,
+		"tiers": [
+			{"title": "Boreas'ın Soluğu", "desc": "10 sn'de bir yakındaki düşmanları 1.5 sn dondurur"},
+			{"title": "Boreas'ın Soluğu II", "desc": "Sıklık 7 sn, donma 2.5 sn olur"},
+			{"title": "Kuzeyin Öfkesi", "desc": "Donma alanı büyür"},
+		],
+	},
 	"speed": {
+		"name": "Rüzgar Adımı",
+		"icon": "res://assets/icons/icon_speed.svg",
 		"min_chapter": 0,
 		"tiers": [
 			{"title": "Rüzgar Adımı", "desc": "Hareket hızı %20 artar"},
@@ -55,6 +83,8 @@ const UPGRADE_TRACKS: Dictionary = {
 		],
 	},
 	"vitality": {
+		"name": "Yaşam Gücü",
+		"icon": "res://assets/icons/icon_vitality.svg",
 		"min_chapter": 0,
 		"tiers": [
 			{"title": "Yaşam Gücü", "desc": "+25 azami can ve anında iyileşme"},
@@ -62,8 +92,19 @@ const UPGRADE_TRACKS: Dictionary = {
 			{"title": "Yaşam Gücü III", "desc": "+25 azami can ve anında iyileşme"},
 		],
 	},
+	"magnet": {
+		"name": "Kehribar Tılsımı",
+		"icon": "res://assets/icons/icon_magnet.svg",
+		"min_chapter": 0,
+		"tiers": [
+			{"title": "Kehribar Tılsımı", "desc": "XP taşlarını uzaktan çeker (menzil 2 katı)"},
+			{"title": "Kehribar Tılsımı II", "desc": "Çekim menzili çok daha büyür"},
+		],
+	},
 	# Zeus'un gazabına karşılık: yıldırım bölümlerinde (2+) açılır.
 	"nova": {
+		"name": "Yıldırım Kalkanı",
+		"icon": "res://assets/icons/icon_nova.svg",
 		"min_chapter": 1,
 		"tiers": [
 			{"title": "Yıldırım Kalkanı", "desc": "6 sn'de bir çevrene yıldırım şoku"},
@@ -73,6 +114,8 @@ const UPGRADE_TRACKS: Dictionary = {
 	},
 	# Ölümsüzlük gittikten sonra (2+) anlam kazanan savunma kartları.
 	"armor": {
+		"name": "Kalıntı Zırh",
+		"icon": "res://assets/icons/icon_armor.svg",
 		"min_chapter": 1,
 		"tiers": [
 			{"title": "Kalıntı Zırh", "desc": "Alınan hasar %20 azalır"},
@@ -80,6 +123,8 @@ const UPGRADE_TRACKS: Dictionary = {
 		],
 	},
 	"bloodprice": {
+		"name": "Kan Bedeli",
+		"icon": "res://assets/icons/icon_bloodprice.svg",
 		"min_chapter": 1,
 		"tiers": [
 			{"title": "Kan Bedeli", "desc": "Öldürünce %10 ihtimalle 5 can"},
@@ -131,12 +176,16 @@ func setup_level(quota: int) -> void:
 	player_level_changed.emit(player_level)
 	upgrades_changed.emit()
 
-## Düşmanlar ölürken çağırır.
+## Düşmanlar ölürken çağırır. XP vermez; düşman öldüğünde XP taşı düşürür
+## ve XP, taş toplanınca gain_xp() ile kazanılır (Vampire Survivors tarzı).
 func register_kill() -> void:
 	kills += 1
 	kills_changed.emit(kills, kill_quota)
 	enemy_killed.emit()
-	_gain_xp(XP_PER_KILL)
+
+## XP taşı toplanınca taş tarafından çağrılır.
+func gain_xp(amount: int) -> void:
+	_gain_xp(amount)
 
 ## Bir sonraki seviye için gereken XP.
 func xp_required() -> int:
@@ -162,6 +211,13 @@ func upgrade_tier(id: String) -> int:
 ## Sıradaki kartın başlık/açıklaması (havuzdaki mevcut seviyeye göre).
 func upgrade_card_info(id: String) -> Dictionary:
 	return UPGRADE_TRACKS[id]["tiers"][upgrade_tier(id)]
+
+## Hattın kısa adı (HUD güç listesi ve kart menüsü üst satırı için).
+func upgrade_name(id: String) -> String:
+	return UPGRADE_TRACKS[id]["name"]
+
+func upgrade_icon(id: String) -> Texture2D:
+	return load(UPGRADE_TRACKS[id]["icon"])
 
 ## Bu bölümde açık olan ve henüz tükenmemiş hatlardan rastgele en fazla
 ## `count` kart seçer.

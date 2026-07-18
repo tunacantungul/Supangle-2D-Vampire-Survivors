@@ -24,7 +24,7 @@ position = Vector2(0, -24)
 shape = SubResource("Shape_sword")
 
 [node name="CooldownTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
 
 [connection signal="body_entered" from="Sword" to="." method="_on_sword_body_entered"]

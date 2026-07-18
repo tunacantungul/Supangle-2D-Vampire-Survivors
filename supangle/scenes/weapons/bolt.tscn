@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/weapons/bolt.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/placeholder/bolt.svg" id="2"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/javelin.svg" id="2"]
 
 [sub_resource type="RectangleShape2D" id="Shape_bolt"]
-size = Vector2(26, 10)
+size = Vector2(40, 8)
 
 [node name="Bolt" type="Area2D"]
 collision_layer = 0

@@ -1,13 +1,12 @@
 extends Node2D
-## Menzildeki en yakın düşmana otomatik büyü mermisi fırlatır.
-## Başlangıçta kapalıdır: "bolt" kartıyla açılır.
-## Kart seviyeleri: 1 = açılır (15 sn), 2 = hızlanır (8 sn), 3 = hasar iki katı.
+## Menzildeki en yakın düşmana kargı fırlatır (eski "büyü ışını", temaya uysun
+## diye kargıya çevrildi). Başlangıçta kapalıdır: "bolt" kartıyla açılır.
+## Kart seviyeleri: 1 = açılır (8 sn), 2 = hızlanır (4 sn), 3 = hasar iki katı.
 
 @export var bolt_scene: PackedScene
-@export var base_interval: float = 15.0
-@export var fast_interval: float = 8.0
-## 15 sn'de tek atış olduğu için vuruş başına hasar yüksek tutuldu.
-@export var bolt_damage: float = 40.0
+@export var base_interval: float = 8.0
+@export var fast_interval: float = 4.0
+@export var bolt_damage: float = 30.0
 @export var attack_range: float = 750.0
 
 @onready var fire_timer: Timer = $FireTimer
@@ -28,7 +27,7 @@ func _refresh() -> void:
 
 func _on_fire_timer_timeout() -> void:
 	var tier := GameState.upgrade_tier("bolt")
-	# "İkiz Işın" (4. kademe): aynı anda 2 ayrı hedefe atış.
+	# "İkiz Kargı" (4. kademe): aynı anda 2 ayrı hedefe atış.
 	var targets := _nearest_enemies(2 if tier >= 4 else 1)
 	for target in targets:
 		var bolt: Bolt = bolt_scene.instantiate()

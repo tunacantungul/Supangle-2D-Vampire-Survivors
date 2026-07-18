@@ -20,7 +20,7 @@ var _invuln_left: float = 0.0
 var _base_max_health: float
 var _vitality_applied: int = 0
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var divine_aura: Sprite2D = $DivineAura
 
 func _ready() -> void:
@@ -39,8 +39,22 @@ func _physics_process(delta: float) -> void:
 	var speed_mult := 1.0 + 0.2 * GameState.upgrade_tier("speed")
 	velocity = input_dir * move_speed * speed_mult
 	move_and_slide()
+	_update_animation(input_dir)
 	if _invuln_left > 0.0:
 		_invuln_left -= delta
+
+## Yön animasyonu: baskın eksene göre seçilir.
+## Şimdilik yalnızca "run_forward" (aşağı yürüyüş) gerçek çizim; run_back /
+## run_left / run_right aynı kareleri kullanıyor — artist kareleri çizince
+## player.tscn'deki SpriteFrames içinde sadece o animasyonların kareleri değişecek.
+func _update_animation(input_dir: Vector2) -> void:
+	if input_dir == Vector2.ZERO:
+		sprite.play("idle")
+		return
+	if absf(input_dir.x) > absf(input_dir.y):
+		sprite.play("run_right" if input_dir.x > 0.0 else "run_left")
+	else:
+		sprite.play("run_forward" if input_dir.y > 0.0 else "run_back")
 
 ## "vitality" kartı: seviye başına +25 azami can ve aynı miktarda iyileşme.
 func _on_upgrades_changed() -> void:
@@ -71,6 +85,13 @@ func take_hazard_damage(amount: float) -> void:
 		return
 	_apply_damage(amount)
 
+## Can küresi vb. toplanınca çağrılır.
+func heal(amount: float) -> void:
+	if health <= 0.0 or health >= max_health:
+		return
+	health = minf(health + amount, max_health)
+	health_changed.emit(health, max_health)
+
 func _apply_damage(amount: float) -> void:
 	# "armor" kartı: alınan tüm hasarı yüzdesel azaltır.
 	var tier := mini(GameState.upgrade_tier("armor"), ARMOR_REDUCTION.size() - 1)
@@ -88,8 +109,8 @@ func _on_enemy_killed() -> void:
 	var chance := 0.2 if tier >= 2 else 0.1
 	if randf() >= chance:
 		return
-	var heal := 8.0 if tier >= 2 else 5.0
-	health = minf(health + heal, max_health)
+	var heal_amount := 8.0 if tier >= 2 else 5.0
+	health = minf(health + heal_amount, max_health)
 	health_changed.emit(health, max_health)
 
 func _flash() -> void:

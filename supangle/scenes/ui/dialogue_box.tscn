@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b1xfag7mga7wr" path="res://scripts/ui/dialogue_box.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c535i22q6xliq" path="res://assets/Astarios Dialogue.png" id="2"]
+[ext_resource type="FontFile" path="res://assets/fonts/GodOfThunder.ttf" id="fnt_t"]
 
 [sub_resource type="StyleBoxFlat" id="Style_panel"]
 bg_color = Color(0.06, 0.05, 0.11, 0.94)
@@ -40,6 +41,7 @@ layout_mode = 2
 theme_override_constants/separation = 12
 
 [node name="NameLabel" type="Label" parent="Margin/VBox" unique_id=1442493473]
+theme_override_fonts/font = ExtResource("fnt_t")
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96, 0.83, 0.35, 1)

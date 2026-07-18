@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/upgrade_menu.gd" id="1"]
+[ext_resource type="FontFile" path="res://assets/fonts/GodOfThunder.ttf" id="fnt_t"]
 
 [sub_resource type="StyleBoxFlat" id="Style_card"]
 bg_color = Color(0.13, 0.12, 0.18, 0.98)
@@ -58,6 +59,7 @@ layout_mode = 2
 theme_override_constants/separation = 32
 
 [node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+theme_override_fonts/font = ExtResource("fnt_t")
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
 theme_override_font_sizes/font_size = 40
@@ -122,6 +124,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Title" type="Label" parent="CenterContainer/VBoxContainer/Cards/Card1/Content/VBox"]
+theme_override_fonts/font = ExtResource("fnt_t")
 layout_mode = 2
 mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
@@ -131,6 +134,7 @@ autowrap_mode = 3
 text = "Kart 1"
 
 [node name="RarityLabel" type="Label" parent="CenterContainer/VBoxContainer/Cards/Card1/Content/VBox"]
+theme_override_fonts/font = ExtResource("fnt_t")
 layout_mode = 2
 mouse_filter = 2
 theme_override_font_sizes/font_size = 17
@@ -183,6 +187,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Title" type="Label" parent="CenterContainer/VBoxContainer/Cards/Card2/Content/VBox"]
+theme_override_fonts/font = ExtResource("fnt_t")
 layout_mode = 2
 mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
@@ -192,6 +197,7 @@ autowrap_mode = 3
 text = "Kart 2"
 
 [node name="RarityLabel" type="Label" parent="CenterContainer/VBoxContainer/Cards/Card2/Content/VBox"]
+theme_override_fonts/font = ExtResource("fnt_t")
 layout_mode = 2
 mouse_filter = 2
 theme_override_font_sizes/font_size = 17
@@ -244,6 +250,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Title" type="Label" parent="CenterContainer/VBoxContainer/Cards/Card3/Content/VBox"]
+theme_override_fonts/font = ExtResource("fnt_t")
 layout_mode = 2
 mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
@@ -253,6 +260,7 @@ autowrap_mode = 3
 text = "Kart 3"
 
 [node name="RarityLabel" type="Label" parent="CenterContainer/VBoxContainer/Cards/Card3/Content/VBox"]
+theme_override_fonts/font = ExtResource("fnt_t")
 layout_mode = 2
 mouse_filter = 2
 theme_override_font_sizes/font_size = 17

@@ -1,4 +1,6 @@
-[gd_resource type="Theme" format=3 uid="uid://h8r3ouj6gmqv"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://h8r3ouj6gmqv"]
+
+[ext_resource type="FontFile" path="res://assets/fonts/GodOfThunder.ttf" id="fnt_t"]
 
 [sub_resource type="StyleBoxFlat" id="SB_button_focus"]
 content_margin_left = 26.0
@@ -76,6 +78,7 @@ Button/colors/font_color = Color(0.84, 0.82, 0.87, 1)
 Button/colors/font_focus_color = Color(1, 0.91, 0.66, 1)
 Button/colors/font_hover_color = Color(1, 0.91, 0.66, 1)
 Button/colors/font_pressed_color = Color(1, 0.95, 0.8, 1)
+Button/fonts/font = ExtResource("fnt_t")
 Button/font_sizes/font_size = 30
 Button/styles/focus = SubResource("SB_button_focus")
 Button/styles/hover = SubResource("SB_button_hover")

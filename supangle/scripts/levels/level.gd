@@ -25,6 +25,8 @@ const GATE_ARROW_COLOR := Color(0.42, 1.0, 0.55)
 @onready var upgrade_menu: Control = $UI/UpgradeMenu
 
 var _arena_armed: bool = false
+## Bölüm başında hazırlanan, arenaya girilince ağaca eklenen boss.
+var _boss: Boss
 ## Kart menüsü açıkken biriken ek seviye atlamaları (aynı karede çoklu ölüm).
 var _pending_level_ups: int = 0
 
@@ -39,6 +41,21 @@ func _ready() -> void:
 	boss_arena.triggered.connect(_on_arena_triggered)
 	dialogue_box.finished.connect(_on_dialogue_finished)
 	_apply_camera_limits()
+	_prepare_boss()
+
+## Boss'u bölüm başında oluşturur ama ağaca eklemez. Örnekleme maliyeti
+## (düğüm kurulumu, script başlatma) arenaya girildiği kareye denk gelince
+## gözle görülür bir takılma yapıyordu; artık o kare sadece add_child yapıyor.
+func _prepare_boss() -> void:
+	if boss_scene == null:
+		return
+	_boss = boss_scene.instantiate()
+	_boss.boss_died.connect(_on_boss_died)
+
+## Arenaya hiç girilmeden bölümden çıkılırsa hazırlanan boss sızmasın.
+func _exit_tree() -> void:
+	if _boss != null and is_instance_valid(_boss) and _boss.get_parent() == null:
+		_boss.free()
 
 ## --- Kamera sınırları ---
 
@@ -132,10 +149,10 @@ func _on_kills_changed(current: int, _required: int) -> void:
 		hud.point_to(boss_arena, ARENA_ARROW_COLOR)
 
 func _on_arena_triggered() -> void:
-	var boss: Boss = boss_scene.instantiate()
-	boss.position = boss_arena.position
-	add_child(boss)
-	boss.boss_died.connect(_on_boss_died)
+	if _boss == null or not is_instance_valid(_boss):
+		return
+	_boss.position = boss_arena.position
+	add_child(_boss)
 	hud.set_objective("Boss'u yen!")
 	# Boss dövüşü sırasında gösterilecek bir yön yok.
 	hud.clear_arrow()

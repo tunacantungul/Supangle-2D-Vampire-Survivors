@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/weapons/freeze_nova.gd" id="1"]
 [ext_resource type="Texture2D" path="res://assets/placeholder/telegraph.svg" id="2"]
+[ext_resource type="Script" path="res://scripts/effects/spinning_ring.gd" id="3"]
 
 [node name="FreezeNova" type="Node2D"]
 script = ExtResource("1")
@@ -10,6 +11,8 @@ script = ExtResource("1")
 visible = false
 modulate = Color(0.6, 0.85, 1.4, 0.9)
 texture = ExtResource("2")
+script = ExtResource("3")
+degrees_per_second = 45.0
 
 [node name="PulseTimer" type="Timer" parent="."]
 wait_time = 10.0

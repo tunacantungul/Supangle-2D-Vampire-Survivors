@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/weapons/styx_aura.gd" id="1"]
 [ext_resource type="Texture2D" path="res://assets/placeholder/styx_aura.svg" id="2"]
+[ext_resource type="Script" path="res://scripts/effects/spinning_ring.gd" id="3"]
 
 [node name="StyxAura" type="Node2D"]
 script = ExtResource("1")
@@ -10,6 +11,8 @@ script = ExtResource("1")
 visible = false
 modulate = Color(0.8, 1.25, 0.95, 0.9)
 texture = ExtResource("2")
+script = ExtResource("3")
+degrees_per_second = -18.0
 
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 0.5

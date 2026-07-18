@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://do20w7v3enxlt" path="res://assets/player/run forward/3.PNG" id="12"]
 [ext_resource type="Texture2D" uid="uid://bxm4o73mwrwa5" path="res://assets/player/run forward/4.PNG" id="13"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/arrow_shooter.tscn" id="14"]
-[ext_resource type="PackedScene" path="res://scenes/weapons/styx_aura.tscn" id="23"]
 [ext_resource type="Texture2D" uid="uid://b02yo5bsdi2uc" path="res://assets/player/run horizontal axis/1.PNG" id="15"]
 [ext_resource type="Texture2D" uid="uid://bp8kkej7qxv5u" path="res://assets/player/run horizontal axis/2.PNG" id="16"]
 [ext_resource type="Texture2D" uid="uid://h8gtx0xwn3ff" path="res://assets/player/run horizontal axis/3.PNG" id="17"]
@@ -21,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://b84dqd1dyw0jf" path="res://assets/player/run backward/2.png" id="20"]
 [ext_resource type="Texture2D" uid="uid://cbrudmgdyk5y" path="res://assets/player/run backward/3.png" id="21"]
 [ext_resource type="Texture2D" uid="uid://c2f6fs8xlrc2b" path="res://assets/player/run backward/4.png" id="22"]
+[ext_resource type="PackedScene" path="res://scenes/weapons/styx_aura.tscn" id="23"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_player"]
 animations = [{
@@ -101,8 +101,9 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="RectangleShape2D" id="Shape_body"]
-size = Vector2(180, 180)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dnkej"]
+radius = 49.0
+height = 220.0
 
 [node name="Player" type="CharacterBody2D" unique_id=642053197]
 collision_mask = 4
@@ -120,7 +121,7 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1842133940]
-shape = SubResource("Shape_body")
+shape = SubResource("CapsuleShape2D_dnkej")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1027100667]
 zoom = Vector2(0.5, 0.5)
@@ -139,4 +140,4 @@ position_smoothing_speed = 8.0
 
 [node name="ArrowShooter" parent="." unique_id=336114443 instance=ExtResource("14")]
 
-[node name="StyxAura" parent="." instance=ExtResource("23")]
+[node name="StyxAura" parent="." unique_id=1440690763 instance=ExtResource("23")]

@@ -19,7 +19,8 @@ const SPEAKER_MAX_LENGTH := 24
 @export var chars_per_second: float = 45.0
 ## Portrenin kutuya göre konumu: x panelin sol kenarından kayma,
 ## y ise portrenin altının panelin üst kenarına ne kadar bineceği.
-@export var portrait_offset := Vector2(-12.0, 28.0)
+## (0, 0) = portre tam kutunun dış çerçevesinden başlar.
+@export var portrait_offset := Vector2(0.0, 0.0)
 
 ## Konuşmacı adına göre diyalog portresi. Yeni portre eklemek için buraya
 ## bir satır eklemek yeterli; adı olmayan konuşmacıda portre gizlenir.

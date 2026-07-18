@@ -18,37 +18,55 @@ enum Power { IMMORTALITY, FLIGHT, ATTACK }
 ## Her seviye bir öncekinden bu kadar fazla XP ister (1->2: 10, 2->3: 20...).
 const XP_STEP := 10
 
-## Kart havuzu: her hat {name, icon, min_chapter, tiers} taşır; tiers'ın
+## Kart nadirlikleri. Kart menüsünde kartın çerçeve rengini ve havuzdan
+## çekilme ağırlığını belirler.
+enum Rarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY }
+
+## Nadirlik başına görünen ad, çerçeve rengi ve çekiliş ağırlığı.
+## Ağırlıklar bilerek birbirine yakın: efsanevi kart nadir hissettirsin ama
+## bir bölüm boyunca rahatça görülebilsin diye sadece hafifçe düşürülmüş.
+const RARITIES: Dictionary = {
+	Rarity.COMMON: {"name": "Sıradan", "color": Color(0.72, 0.74, 0.78), "weight": 1.0},
+	Rarity.UNCOMMON: {"name": "Nadir", "color": Color(0.42, 0.82, 0.45), "weight": 0.95},
+	Rarity.RARE: {"name": "Ender", "color": Color(0.36, 0.62, 0.95), "weight": 0.85},
+	Rarity.EPIC: {"name": "Destansı", "color": Color(0.68, 0.44, 0.92), "weight": 0.7},
+	Rarity.LEGENDARY: {"name": "Efsanevi", "color": Color(1.0, 0.62, 0.16), "weight": 0.55},
+}
+
+## Kart havuzu: her hat {name, icon, rarity, min_chapter, tiers} taşır; tiers'ın
 ## sıradaki elemanı alınacak kartı anlatır. min_chapter, kartın havuza girdiği
 ## bölüm (0 tabanlı). name/icon HUD'daki güç listesi ve kart menüsünde kullanılır.
 const UPGRADE_TRACKS: Dictionary = {
 	"orbit": {
-		"name": "Dönen Kılıç",
+		"name": "Ares'in Yörüngesi",
 		"icon": "res://assets/icons/icon_orbit.svg",
+		"rarity": Rarity.RARE,
 		"min_chapter": 0,
 		"tiers": [
-			{"title": "Dönen Kılıç", "desc": "Etrafında dönen 1 kılıç"},
-			{"title": "Dönen Kılıç II", "desc": "Dönen kılıç sayısı 2 olur"},
-			{"title": "Dönen Kılıç III", "desc": "Dönen kılıç sayısı 3 olur"},
+			{"title": "Ares'in Yörüngesi", "desc": "Etrafında dönen 1 kılıç"},
+			{"title": "Ares'in Yörüngesi II", "desc": "Dönen kılıç sayısı 2 olur"},
+			{"title": "Ares'in Yörüngesi III", "desc": "Dönen kılıç sayısı 3 olur"},
 		],
 	},
 	"bolt": {
-		"name": "Kargı",
+		"name": "Athena'nın Kargısı",
 		"icon": "res://assets/icons/icon_javelin.svg",
+		"rarity": Rarity.RARE,
 		"min_chapter": 0,
 		"tiers": [
-			{"title": "Kargı", "desc": "4 sn'de bir en yakın düşmana kargı fırlatır"},
+			{"title": "Athena'nın Kargısı", "desc": "4 sn'de bir en yakın düşmana kargı fırlatır"},
 			{"title": "Hızlı Kargı", "desc": "Kargı bekleme süresi 2 sn'ye iner"},
 			{"title": "Güçlü Kargı", "desc": "Kargı hasarı iki katına çıkar"},
 			{"title": "İkiz Kargı", "desc": "Aynı anda 2 ayrı hedefe kargı"},
 		],
 	},
 	"stab": {
-		"name": "Kılıç Saplaması",
+		"name": "Perseus'un Hamlesi",
 		"icon": "res://assets/icons/icon_stab.svg",
+		"rarity": Rarity.UNCOMMON,
 		"min_chapter": 0,
 		"tiers": [
-			{"title": "Çift Saplama", "desc": "Kılıç art arda 2 kez saplanır"},
+			{"title": "Perseus'un Hamlesi", "desc": "Kılıç art arda 2 kez saplanır"},
 			{"title": "Keskin Kılıç", "desc": "Saplama hasarı %50 artar"},
 			{"title": "Savaş Çığlığı", "desc": "Saplama menzili %50 artar"},
 		],
@@ -56,6 +74,7 @@ const UPGRADE_TRACKS: Dictionary = {
 	"discus": {
 		"name": "Olimpiyat Diski",
 		"icon": "res://assets/icons/icon_discus.svg",
+		"rarity": Rarity.RARE,
 		"min_chapter": 0,
 		"tiers": [
 			{"title": "Olimpiyat Diski", "desc": "6 sn'de bir gidip geri dönen disk fırlatır"},
@@ -66,6 +85,7 @@ const UPGRADE_TRACKS: Dictionary = {
 	"freeze": {
 		"name": "Boreas'ın Soluğu",
 		"icon": "res://assets/icons/icon_freeze.svg",
+		"rarity": Rarity.EPIC,
 		"min_chapter": 0,
 		"tiers": [
 			{"title": "Boreas'ın Soluğu", "desc": "10 sn'de bir yakındaki düşmanları 1.5 sn dondurur"},
@@ -74,27 +94,30 @@ const UPGRADE_TRACKS: Dictionary = {
 		],
 	},
 	"speed": {
-		"name": "Rüzgar Adımı",
+		"name": "Hermes'in Sandalı",
 		"icon": "res://assets/icons/icon_speed.svg",
+		"rarity": Rarity.COMMON,
 		"min_chapter": 0,
 		"tiers": [
-			{"title": "Rüzgar Adımı", "desc": "Hareket hızı %20 artar"},
-			{"title": "Rüzgar Adımı II", "desc": "Hareket hızı toplam %40 artar"},
+			{"title": "Hermes'in Sandalı", "desc": "Hareket hızı %20 artar"},
+			{"title": "Hermes'in Sandalı II", "desc": "Hareket hızı toplam %40 artar"},
 		],
 	},
 	"vitality": {
-		"name": "Yaşam Gücü",
+		"name": "Hygieia'nın Lütfu",
 		"icon": "res://assets/icons/icon_vitality.svg",
+		"rarity": Rarity.COMMON,
 		"min_chapter": 0,
 		"tiers": [
-			{"title": "Yaşam Gücü", "desc": "+25 azami can ve anında iyileşme"},
-			{"title": "Yaşam Gücü II", "desc": "+25 azami can ve anında iyileşme"},
-			{"title": "Yaşam Gücü III", "desc": "+25 azami can ve anında iyileşme"},
+			{"title": "Hygieia'nın Lütfu", "desc": "+25 azami can ve anında iyileşme"},
+			{"title": "Hygieia'nın Lütfu II", "desc": "+25 azami can ve anında iyileşme"},
+			{"title": "Hygieia'nın Lütfu III", "desc": "+25 azami can ve anında iyileşme"},
 		],
 	},
 	"kronos": {
 		"name": "Kronos'un Kumu",
 		"icon": "res://assets/icons/icon_kronos.svg",
+		"rarity": Rarity.EPIC,
 		"min_chapter": 0,
 		"tiers": [
 			{"title": "Kronos'un Kumu", "desc": "Tüm düşmanlar kalıcı %12 yavaşlar"},
@@ -105,6 +128,7 @@ const UPGRADE_TRACKS: Dictionary = {
 	"artemis": {
 		"name": "Artemis'in Oku",
 		"icon": "res://assets/icons/icon_artemis.svg",
+		"rarity": Rarity.RARE,
 		"min_chapter": 0,
 		"tiers": [
 			{"title": "Artemis'in Oku", "desc": "6 sn'de bir hattaki tüm düşmanları delen ok"},
@@ -115,6 +139,7 @@ const UPGRADE_TRACKS: Dictionary = {
 	"magnet": {
 		"name": "Kehribar Tılsımı",
 		"icon": "res://assets/icons/icon_magnet.svg",
+		"rarity": Rarity.COMMON,
 		"min_chapter": 0,
 		"tiers": [
 			{"title": "Kehribar Tılsımı", "desc": "XP taşlarını uzaktan çeker (menzil 2 katı)"},
@@ -123,32 +148,47 @@ const UPGRADE_TRACKS: Dictionary = {
 	},
 	# Zeus'un gazabına karşılık: yıldırım bölümlerinde (2+) açılır.
 	"nova": {
-		"name": "Yıldırım Kalkanı",
+		"name": "Aigis Kalkanı",
 		"icon": "res://assets/icons/icon_nova.svg",
+		"rarity": Rarity.EPIC,
 		"min_chapter": 1,
 		"tiers": [
-			{"title": "Yıldırım Kalkanı", "desc": "6 sn'de bir çevrene yıldırım şoku"},
+			{"title": "Aigis Kalkanı", "desc": "6 sn'de bir çevrene yıldırım şoku"},
 			{"title": "Fırtına Yüreği", "desc": "Şok sıklığı artar (4 sn)"},
 			{"title": "Gök Gürültüsü", "desc": "Şok hasarı ve alanı büyür"},
 		],
 	},
 	# Ölümsüzlük gittikten sonra (2+) anlam kazanan savunma kartları.
 	"armor": {
-		"name": "Kalıntı Zırh",
+		"name": "Hephaistos Zırhı",
 		"icon": "res://assets/icons/icon_armor.svg",
+		"rarity": Rarity.UNCOMMON,
 		"min_chapter": 1,
 		"tiers": [
-			{"title": "Kalıntı Zırh", "desc": "Alınan hasar %20 azalır"},
-			{"title": "Kalıntı Zırh II", "desc": "Alınan hasar toplam %35 azalır"},
+			{"title": "Hephaistos Zırhı", "desc": "Alınan hasar %20 azalır"},
+			{"title": "Hephaistos Zırhı II", "desc": "Alınan hasar toplam %35 azalır"},
 		],
 	},
 	"bloodprice": {
 		"name": "Kan Bedeli",
 		"icon": "res://assets/icons/icon_bloodprice.svg",
+		"rarity": Rarity.UNCOMMON,
 		"min_chapter": 1,
 		"tiers": [
 			{"title": "Kan Bedeli", "desc": "Öldürünce %10 ihtimalle 5 can"},
 			{"title": "Kan Bedeli II", "desc": "İhtimal %20, iyileşme 8 can olur"},
+		],
+	},
+	# Efsanevi: nişan almadan çevredeki her şeyi eriten sürekli aura.
+	"styx": {
+		"name": "Styx'in Halkası",
+		"icon": "res://assets/icons/icon_styx.svg",
+		"rarity": Rarity.LEGENDARY,
+		"min_chapter": 0,
+		"tiers": [
+			{"title": "Styx'in Halkası", "desc": "Çevrendeki düşmanlara sürekli hasar veren zehirli halka"},
+			{"title": "Styx'in Halkası II", "desc": "Halkanın hasarı belirgin şekilde artar"},
+			{"title": "Kara Irmak", "desc": "Halkanın alanı büyür"},
 		],
 	},
 }
@@ -239,8 +279,25 @@ func upgrade_name(id: String) -> String:
 func upgrade_icon(id: String) -> Texture2D:
 	return load(UPGRADE_TRACKS[id]["icon"])
 
-## Bu bölümde açık olan ve henüz tükenmemiş hatlardan rastgele en fazla
-## `count` kart seçer.
+## --- Nadirlik ---
+
+func upgrade_rarity(id: String) -> Rarity:
+	return UPGRADE_TRACKS[id]["rarity"]
+
+## Kart menüsünün çerçeve rengi.
+func rarity_color(id: String) -> Color:
+	return RARITIES[upgrade_rarity(id)]["color"]
+
+## "Efsanevi", "Sıradan" gibi görünen ad.
+func rarity_name(id: String) -> String:
+	return RARITIES[upgrade_rarity(id)]["name"]
+
+func rarity_weight(id: String) -> float:
+	return RARITIES[upgrade_rarity(id)]["weight"]
+
+## Bu bölümde açık olan ve henüz tükenmemiş hatlardan en fazla `count` kart seçer.
+## Seçim nadirlik ağırlıklarına göre yapılır; aynı kart iki kez gelmesin diye
+## çekilen kart havuzdan düşürülür.
 func pick_upgrade_options(count: int = 3) -> Array[String]:
 	var pool: Array[String] = []
 	for id: String in UPGRADE_TRACKS:
@@ -249,8 +306,25 @@ func pick_upgrade_options(count: int = 3) -> Array[String]:
 			continue
 		if upgrade_tier(id) < track["tiers"].size():
 			pool.append(id)
-	pool.shuffle()
-	return pool.slice(0, count)
+	var picked: Array[String] = []
+	while picked.size() < count and not pool.is_empty():
+		var id := _draw_weighted(pool)
+		picked.append(id)
+		pool.erase(id)
+	return picked
+
+## Havuzdan ağırlıklara göre tek kart çeker (rulet tekerleği).
+func _draw_weighted(pool: Array[String]) -> String:
+	var total := 0.0
+	for id in pool:
+		total += rarity_weight(id)
+	var roll := randf() * total
+	for id in pool:
+		roll -= rarity_weight(id)
+		if roll <= 0.0:
+			return id
+	# Kayan nokta yuvarlamasına karşı emniyet.
+	return pool[pool.size() - 1]
 
 func apply_upgrade(id: String) -> void:
 	upgrades[id] = upgrade_tier(id) + 1

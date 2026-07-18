@@ -23,7 +23,7 @@ size = Vector2(180, 9360)
 [node name="Level1" type="Node2D" unique_id=708836335]
 script = ExtResource("1")
 kill_quota = 40
-dialogue_lines = Array[String](["Zeus: Demek gidiyorsun. Bir ölümlü için tahtını, tanrılığını bırakıyorsun.", "Sen: Onsuz sonsuzluk, hiç uğruna sonsuzluk demek.", "Zeus: Sonsuzluk mu? Sen ölümün ne olduğunu bilmiyorsun bile, çocuk.", "Zeus: Madem ölümlüler gibi seveceksin, onlar gibi ölebileceksin de. Ölümsüzlüğünü alıyorum!"])
+dialogue_lines = Array[String](["Zeus: Demek gidiyorsun. Bir ölümlü için tahtını, tanrılığını bırakıyorsun.", "Sen: Onsuz sonsuzluk, hiç uğruna sonsuzluk demek.", "Zeus: Sonsuzluk mu? Sen ölümün ne olduğunu bilmiyorsun bile, çocuk.", "Zeus: Madem ölümlüler gibi seveceksin, onlar gibi ölebileceksin de. [shake rate=22 level=14]Ölümsüzlüğünü[/shake] alıyorum!"])
 boss_scene = ExtResource("11")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1731326754]

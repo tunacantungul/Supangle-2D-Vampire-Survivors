@@ -13,10 +13,15 @@
 [ext_resource type="Texture2D" uid="uid://do20w7v3enxlt" path="res://assets/player/run forward/3.PNG" id="12"]
 [ext_resource type="Texture2D" uid="uid://bxm4o73mwrwa5" path="res://assets/player/run forward/4.PNG" id="13"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/arrow_shooter.tscn" id="14"]
+[ext_resource type="PackedScene" path="res://scenes/weapons/styx_aura.tscn" id="23"]
 [ext_resource type="Texture2D" uid="uid://b02yo5bsdi2uc" path="res://assets/player/run horizontal axis/1.PNG" id="15"]
 [ext_resource type="Texture2D" uid="uid://bp8kkej7qxv5u" path="res://assets/player/run horizontal axis/2.PNG" id="16"]
 [ext_resource type="Texture2D" uid="uid://h8gtx0xwn3ff" path="res://assets/player/run horizontal axis/3.PNG" id="17"]
 [ext_resource type="Texture2D" uid="uid://cyo5m6222b15n" path="res://assets/player/run horizontal axis/4.PNG" id="18"]
+[ext_resource type="Texture2D" uid="uid://dwv3yn4xnix7o" path="res://assets/player/run backward/1.png" id="19"]
+[ext_resource type="Texture2D" uid="uid://b84dqd1dyw0jf" path="res://assets/player/run backward/2.png" id="20"]
+[ext_resource type="Texture2D" uid="uid://cbrudmgdyk5y" path="res://assets/player/run backward/3.png" id="21"]
+[ext_resource type="Texture2D" uid="uid://c2f6fs8xlrc2b" path="res://assets/player/run backward/4.png" id="22"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_player"]
 animations = [{
@@ -30,16 +35,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("10")
+"texture": ExtResource("19")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11")
+"texture": ExtResource("20")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12")
+"texture": ExtResource("21")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13")
+"texture": ExtResource("22")
 }],
 "loop": 1,
 "name": &"run_back",
@@ -136,3 +141,5 @@ position_smoothing_speed = 8.0
 [node name="DiscusThrower" parent="." unique_id=219721428 instance=ExtResource("9")]
 
 [node name="ArrowShooter" parent="." unique_id=336114443 instance=ExtResource("14")]
+
+[node name="StyxAura" parent="." instance=ExtResource("23")]

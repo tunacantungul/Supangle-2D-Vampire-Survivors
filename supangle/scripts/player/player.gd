@@ -6,7 +6,7 @@ extends CharacterBody2D
 signal health_changed(current: float, max_value: float)
 signal died
 
-@export var move_speed: float = 1500.0
+@export var move_speed: float = 1100.0
 @export var max_health: float = 100.0
 ## Hasar aldıktan sonraki kısa dokunulmazlık süresi.
 @export var invulnerability_time: float = 0.4
@@ -45,8 +45,7 @@ func _physics_process(delta: float) -> void:
 
 ## Yön animasyonu: baskın eksene göre seçilir.
 ## Yatay kareler sola yürüyüş olarak çizildi; sağa giderken aynı kareler
-## flip_h ile aynalanıyor. run_back hâlâ run_forward'ın kareleriyle çalışıyor —
-## artist o kareleri çizince player.tscn'deki SpriteFrames güncellenecek.
+## flip_h ile aynalanıyor. Diğer üç yönün kendi çizimleri var.
 func _update_animation(input_dir: Vector2) -> void:
 	if input_dir == Vector2.ZERO:
 		# idle karesi öne bakan çizim, aynalanmış hâli tutarsız duruyor.

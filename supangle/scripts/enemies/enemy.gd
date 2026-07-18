@@ -18,7 +18,7 @@ const HURT_SCALE_PUNCH := 0.85
 const WALK_WOBBLE_ANGLE := 0.06
 const WALK_WOBBLE_SPEED := 10.0
 
-@export var move_speed: float = 540.0
+@export var move_speed: float = 395.0
 @export var max_health: float = 30.0
 @export var contact_damage: float = 10.0
 ## Oyuncuyla temas hâlindeyken iki hasar arası süre.

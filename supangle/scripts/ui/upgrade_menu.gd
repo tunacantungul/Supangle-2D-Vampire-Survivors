@@ -8,6 +8,9 @@ signal card_chosen(id: String)
 const UPGRADE_ENTRY_SCENE := preload("res://scenes/ui/upgrade_entry.tscn")
 
 var _option_ids: Array[String] = []
+## Sahnedeki özgün kart çerçeveleri; her açılışta bunların kopyası boyanır.
+var _base_normal: StyleBoxFlat
+var _base_hover: StyleBoxFlat
 
 @onready var _buttons: Array[Button] = [%Card1, %Card2, %Card3]
 @onready var _owned_label: Label = %OwnedLabel
@@ -15,6 +18,8 @@ var _option_ids: Array[String] = []
 
 func _ready() -> void:
 	visible = false
+	_base_normal = _buttons[0].get_theme_stylebox("normal") as StyleBoxFlat
+	_base_hover = _buttons[0].get_theme_stylebox("hover") as StyleBoxFlat
 	for i in _buttons.size():
 		_buttons[i].pressed.connect(_on_card_pressed.bind(i))
 
@@ -30,8 +35,19 @@ func open(options: Array[String]) -> void:
 			(_buttons[i].get_node("Content/VBox/Title") as Label).text = info.title
 			(_buttons[i].get_node("Content/VBox/Desc") as Label).text = info.desc
 			(_buttons[i].get_node("Content/VBox/IconRect") as TextureRect).texture = GameState.upgrade_icon(options[i])
+			_apply_rarity_border(_buttons[i], GameState.rarity_color(options[i]))
 	_refresh_owned()
 	visible = true
+
+## Kartın çerçevesini nadirlik rengine boyar; üzerine gelince aynı renk parlar.
+func _apply_rarity_border(button: Button, color: Color) -> void:
+	var normal := _base_normal.duplicate() as StyleBoxFlat
+	normal.border_color = color
+	var hover := _base_hover.duplicate() as StyleBoxFlat
+	hover.border_color = color.lightened(0.3)
+	button.add_theme_stylebox_override("normal", normal)
+	for state in ["hover", "pressed", "focus"]:
+		button.add_theme_stylebox_override(state, hover)
 
 ## Üst satır: şu ana kadar alınan güçler (ikon + Sv).
 func _refresh_owned() -> void:

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/weapons/styx_aura.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/styx_aura.svg" id="2"]
+
+[node name="StyxAura" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Ring" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+modulate = Color(0.75, 1.15, 0.9, 0.85)
+texture = ExtResource("2")
+
+[node name="TickTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]

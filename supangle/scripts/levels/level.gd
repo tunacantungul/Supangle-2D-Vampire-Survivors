@@ -5,10 +5,8 @@ extends Node2D
 
 @export var kill_quota: int = 15
 @export var god_name: String = "Zeus"
+## Vurgulanacak kelimeler satır metnine BBCode ile yazılır: [shake]ölümsüz[/shake].
 @export var dialogue_lines: Array[String] = []
-## dialogue_lines ile aynı sırada işaret kutuları: işaretli satır kritik sayılır
-## ve yazılmaya başlarken ekran sallanır. Sondaki satırlar boş bırakılabilir.
-@export var shake_lines: Array[bool] = []
 ## Bu bölümün sonunda kaybedilecek güç (GameState.Power sırasıyla aynı).
 @export_enum("Ölümsüzlük:0", "Uçuş:1", "Atak:2") var power_to_lose: int = 0
 ## Bölüm sonu bossu.
@@ -139,7 +137,7 @@ func _on_boss_died() -> void:
 
 func _on_gate_entered() -> void:
 	get_tree().paused = true
-	dialogue_box.start(god_name, dialogue_lines, shake_lines)
+	dialogue_box.start(god_name, dialogue_lines)
 
 func _on_dialogue_finished() -> void:
 	GameState.lose_power(power_to_lose)

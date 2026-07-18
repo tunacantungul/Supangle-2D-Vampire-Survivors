@@ -1,0 +1,12 @@
+<svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="styx" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#2f6b4f" stop-opacity="0.05"/>
+      <stop offset="0.7" stop-color="#3f9a68" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#7fe3a0" stop-opacity="0.45"/>
+    </radialGradient>
+  </defs>
+  <circle cx="110" cy="110" r="106" fill="url(#styx)" stroke="#7fe3a0" stroke-width="4" stroke-opacity="0.85"/>
+  <circle cx="110" cy="110" r="82" fill="none" stroke="#4fbf82" stroke-width="2" stroke-opacity="0.45" stroke-dasharray="14 12"/>
+  <path d="M40 110 Q75 92 110 110 Q145 128 180 110" fill="none" stroke="#d6ffe6" stroke-width="3" stroke-opacity="0.35" stroke-linecap="round"/>
+</svg>

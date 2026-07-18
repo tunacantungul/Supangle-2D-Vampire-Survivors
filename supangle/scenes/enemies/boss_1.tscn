@@ -25,7 +25,7 @@ corner_radius_bottom_left = 4
 
 [node name="Boss1" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 6
+collision_mask = 4
 motion_mode = 1
 script = ExtResource("1")
 move_speed = 360.0

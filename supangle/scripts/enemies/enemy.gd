@@ -17,6 +17,10 @@ const HURT_SCALE_PUNCH := 0.85
 ## Yürüme sallanması: çok hafif sağa-sola dönme açısı (radyan) ve hızı.
 const WALK_WOBBLE_ANGLE := 0.06
 const WALK_WOBBLE_SPEED := 10.0
+## Düşmanlar birbirinin içinden geçtiği için (Vampire Survivors'ta olduğu gibi)
+## hepsi tıpatıp aynı hızda gidince tek bir yığın hâline geliyorlar. Her düşmana
+## doğduğunda küçük bir hız sapması vererek sürü kendiliğinden yayılıyor.
+const SPEED_JITTER := 0.09
 
 @export var move_speed: float = 395.0
 @export var max_health: float = 30.0
@@ -35,6 +39,8 @@ var _damage_cooldown: float = 0.0
 var _frozen_left: float = 0.0
 ## Yürüme sallanmasının fazı; herkes aynı anda sallanmasın diye rastgele başlar.
 var _walk_time: float = randf() * TAU
+## Bu düşmana özel kalıcı hız çarpanı (bkz. SPEED_JITTER).
+var _speed_jitter: float = randf_range(1.0 - SPEED_JITTER, 1.0 + SPEED_JITTER)
 var _base_sprite_scale := Vector2.ONE
 var _flash_tween: Tween
 var _scale_tween: Tween
@@ -70,7 +76,7 @@ func _animate_walk(delta: float) -> void:
 ## "kronos" kartı (Kronos'un Kumu): tüm düşmanlar kademe başına kalıcı yavaşlar.
 ## Donmanın aksine bosslar da etkilenir.
 func speed_multiplier() -> float:
-	return 1.0 - KRONOS_SLOW_PER_TIER * GameState.upgrade_tier("kronos")
+	return (1.0 - KRONOS_SLOW_PER_TIER * GameState.upgrade_tier("kronos")) * _speed_jitter
 
 ## Donma sayacı: donmuşken hareket de temas hasarı da yok. true = donmuş.
 func _tick_frozen(delta: float) -> bool:

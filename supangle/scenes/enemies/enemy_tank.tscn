@@ -19,7 +19,7 @@ move_speed = 230.0
 max_health = 90.0
 contact_damage = 18.0
 damage_interval = 1.0
-xp_value = 7
+xp_value = 9
 health_drop_chance = 0.06
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

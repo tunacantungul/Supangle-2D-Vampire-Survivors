@@ -15,9 +15,14 @@ extends Node2D
 @export var spawn_distance: float = 4300.0
 ## Düşmanların doğabileceği dünya alanı (duvarların içi).
 @export var spawn_area: Rect2 = Rect2(-7000, -4300, 14000, 8600)
-## Haritadaki azami canavar sayısı. Harita çok geniş olduğu için yüksek bir
-## sınır, oyuncunun hiç görmediği yerlerde yığılmaya yol açıyordu.
-@export var max_enemies: int = 90
+## Azami canavar sayısı oyuncunun seviyesiyle birlikte artar. Sabit ve yüksek
+## bir sınır, bölüm başında oyuncunun elinde tek kart varken sürünün birikip
+## onu ezmesine yol açıyordu; oyuncu güçlendikçe kalabalık da büyüyor.
+## Seviye her bölüm başında 1'e döndüğü için her bölüm sakin başlıyor.
+@export var max_enemies_base: int = 30
+@export var max_enemies_per_level: int = 7
+## Tavan: seviye ne kadar yükselirse yükselsin bunun üstüne çıkılmıyor.
+@export var max_enemies: int = 85
 ## Bu mesafeden uzaktaki canavarlar silinir. Oyuncu görüş alanının yarı köşegeni
 ## ~2200 birim, doğma mesafesi 4300; bu yüzden sınır ikisinin de belirgin
 ## üstünde: kaçarken peşindekiler silinmiyor, ama geride kalan sürü birikip
@@ -61,7 +66,7 @@ func _despawn_far_enemies() -> void:
 func _try_spawn() -> void:
 	if enemy_scenes.is_empty():
 		return
-	if get_tree().get_nodes_in_group("enemies").size() >= max_enemies:
+	if get_tree().get_nodes_in_group("enemies").size() >= _current_max():
 		return
 	var player := get_tree().get_first_node_in_group("player") as Node2D
 	if player == null:
@@ -72,6 +77,11 @@ func _try_spawn() -> void:
 	var enemy: Node2D = _pick_scene().instantiate()
 	enemy.position = pos
 	get_parent().add_child(enemy)
+
+## O anki azami canavar sayısı: oyuncunun seviyesiyle artar, tavanda durur.
+func _current_max() -> int:
+	var scaled := max_enemies_base + max_enemies_per_level * (GameState.player_level - 1)
+	return mini(scaled, max_enemies)
 
 ## Ağırlıklar verilmişse onlara göre, verilmemişse eşit olasılıkla seçer.
 func _pick_scene() -> PackedScene:

@@ -22,6 +22,7 @@ size = Vector2(180, 9360)
 [node name="Level1" type="Node2D" unique_id=708836335]
 script = ExtResource("1")
 kill_quota = 60
+xp_requirement_mult = 0.8
 dialogue_lines = Array[String](["Zeus: Bir ölümlü için aileni, seni yaratanları geride bırakıyorsun demek!", "Astarios: Hayır! Geride bırakmıyo…", "Zeus: Bu kadar bahane yeter!", "Zeus: Bir ölümlünün bizimle eş olması kabul edilemez!", "Zeus: Madem bir ölümlü seveceksin,", "Zeus: ...onlar gibi [shake rate=22 level=14]ölümlü[/shake] olacaksın!"])
 dialogue_before_boss = true
 boss_scene = ExtResource("11")

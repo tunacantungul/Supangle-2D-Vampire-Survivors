@@ -4,8 +4,11 @@ extends Node2D
 ## ileri uzanır, geri çekilir ve kaybolur.
 ## "stab" kartları: 1. seviye çift saplama, 2. seviye %50 hasar artışı.
 
-## Temel düşmanı (30 can) tek vuruşta düşürecek şekilde ayarlı.
-@export var damage: float = 35.0
+## Turuncu düşmanı (30 can) iki, kırmızıyı (15 can) tek vuruşta düşürür.
+## Bilerek 30'un altında: ikisi de tek vuruşta ölünce aralarındaki fark
+## kayboluyor ve 2. bölüm düz hissettiriyordu. 2. kademe "stab" kartı (+%50)
+## turuncudaki tek vuruşu geri kazandırıyor, kartın ödülü de bu.
+@export var damage: float = 25.0
 ## Tek hedefe vurduğu için kısa tutuldu; kalabalık bölümlerde yetişebilsin.
 @export var cooldown: float = 1.0
 ## Saplamanın tetiklenmesi için düşmanın bu menzilde olması gerekir.

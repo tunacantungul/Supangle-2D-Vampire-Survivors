@@ -12,13 +12,15 @@ extends Node2D
 const MAGNET_MULT := [1.0, 1.1, 2.0]
 
 ## Taşın rengi XP değerinden geliyor ve düşürdüğü canavarın rengiyle eşleşiyor:
-## temel canavar mavi, turuncu hızlı canavar turuncu, mor tank mor taş bırakır.
-## Böylece yerdeki taşın ne kadar değerli olduğu uzaktan okunuyor.
-## Taş görseli mavi çizildi; modulate çarpma yaptığı için renkleri bu
-## katsayılarla elde ediyoruz. Liste büyük değerden küçüğe taranır.
+## turuncu canavar (1 XP) turuncu, kırmızı (2 XP) kırmızı, mor tank (7 XP) mor
+## taş bırakır. Böylece yerdeki taşın değeri uzaktan okunuyor.
+## Katsayılar canavar çizimlerinin baskın renginden türetildi; taş görseli mavi
+## çizildiği (#4fa8e8) ve modulate çarpma yaptığı için oranlar bu şekilde.
+## Liste büyük değerden küçüğe taranır.
 const GEM_TIERS: Array = [
-	{"min_xp": 5, "modulate": Color(2.1, 0.5, 1.15)},
-	{"min_xp": 2, "modulate": Color(3.0, 0.85, 0.2)},
+	{"min_xp": 5, "modulate": Color(2.35, 0.55, 0.8)},
+	{"min_xp": 2, "modulate": Color(2.64, 0.41, 0.3)},
+	{"min_xp": 0, "modulate": Color(3.23, 1.1, 0.0)},
 ]
 
 var _player: Player

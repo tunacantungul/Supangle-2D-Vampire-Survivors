@@ -158,11 +158,14 @@ func _on_arena_triggered() -> void:
 		return
 	_boss.position = boss_arena.position
 	add_child(_boss)
+	Music.play_boss()
 	hud.set_objective("Boss'u yen!")
 	# Boss dövüşü sırasında gösterilecek bir yön yok.
 	hud.clear_arrow()
 
 func _on_boss_died() -> void:
+	# Ana tema, boss dövüşünden önce kaldığı yerden devam eder.
+	Music.play_main()
 	exit_gate.visible = true
 	exit_gate.activate()
 	hud.set_objective("Kapı açıldı!")

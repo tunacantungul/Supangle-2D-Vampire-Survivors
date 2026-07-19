@@ -1,18 +1,9 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1"]
-
-[sub_resource type="StyleBoxFlat" id="Style_panel"]
-bg_color = Color(0.1, 0.09, 0.17, 0.97)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.96, 0.83, 0.35, 0.6)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+[ext_resource type="Theme" uid="uid://h8r3ouj6gmqv" path="res://resources/menu_theme.tres" id="2"]
+[ext_resource type="FontFile" uid="uid://di2xrda3006mk" path="res://assets/fonts/NorthEternal.otf" id="fnt_n"]
+[ext_resource type="FontFile" uid="uid://tp8kyn8o3w56" path="res://assets/fonts/GodOfThunder.ttf" id="fnt_t"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -23,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2")
 script = ExtResource("1")
 
 [node name="Dim" type="ColorRect" parent="."]
@@ -32,7 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.04, 0.03, 0.08, 0.72)
+color = Color(0.04, 0.03, 0.08, 0.78)
 
 [node name="MenuBox" type="CenterContainer" parent="."]
 unique_name_in_owner = true
@@ -45,74 +37,90 @@ grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="MenuBox"]
 layout_mode = 2
-theme_override_constants/separation = 18
+theme_override_constants/separation = 0
 
 [node name="TitleLabel" type="Label" parent="MenuBox/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.96, 0.83, 0.35, 1)
-theme_override_font_sizes/font_size = 64
+theme_override_colors/font_color = Color(0.96, 0.85, 0.5, 1)
+theme_override_fonts/font = ExtResource("fnt_n")
+theme_override_font_sizes/font_size = 72
 horizontal_alignment = 1
-text = "Duraklatıldı"
+text = "DURAKLATILDI"
+
+[node name="Rule" type="ColorRect" parent="MenuBox/VBox"]
+custom_minimum_size = Vector2(260, 3)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(0.93, 0.78, 0.42, 0.85)
 
 [node name="Spacer" type="Control" parent="MenuBox/VBox"]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 
 [node name="ResumeButton" type="Button" parent="MenuBox/VBox"]
-custom_minimum_size = Vector2(340, 66)
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 34
 text = "Devam Et"
+alignment = 0
 
 [node name="SettingsButton" type="Button" parent="MenuBox/VBox"]
-custom_minimum_size = Vector2(340, 60)
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+size_flags_horizontal = 4
 text = "Ayarlar"
+alignment = 0
 
 [node name="MainMenuButton" type="Button" parent="MenuBox/VBox"]
-custom_minimum_size = Vector2(340, 60)
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+size_flags_horizontal = 4
 text = "Ana Menü"
+alignment = 0
 
 [node name="SettingsPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
+offset_left = -320.0
 offset_top = -220.0
-offset_right = 300.0
+offset_right = 320.0
 offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("Style_panel")
 
 [node name="Margin" type="MarginContainer" parent="SettingsPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 36
-theme_override_constants/margin_top = 28
-theme_override_constants/margin_right = 36
-theme_override_constants/margin_bottom = 28
+theme_override_constants/margin_left = 44
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 44
+theme_override_constants/margin_bottom = 36
 
 [node name="VBox" type="VBoxContainer" parent="SettingsPanel/Margin"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 22
 
 [node name="SettingsTitle" type="Label" parent="SettingsPanel/Margin/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.96, 0.83, 0.35, 1)
-theme_override_font_sizes/font_size = 40
-horizontal_alignment = 1
-text = "Ayarlar"
+theme_override_colors/font_color = Color(0.96, 0.85, 0.5, 1)
+theme_override_fonts/font = ExtResource("fnt_t")
+theme_override_font_sizes/font_size = 38
+text = "AYARLAR"
+
+[node name="TitleRule" type="ColorRect" parent="SettingsPanel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.93, 0.78, 0.42, 0.35)
 
 [node name="VolumeRow" type="HBoxContainer" parent="SettingsPanel/Margin/VBox"]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 20
 
 [node name="VolumeLabel" type="Label" parent="SettingsPanel/Margin/VBox/VolumeRow"]
 layout_mode = 2
@@ -125,7 +133,6 @@ custom_minimum_size = Vector2(260, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-max_value = 100.0
 value = 100.0
 
 [node name="FullscreenCheck" type="CheckBox" parent="SettingsPanel/Margin/VBox"]
@@ -141,10 +148,12 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="SettingsBackButton" type="Button" parent="SettingsPanel/Margin/VBox"]
-custom_minimum_size = Vector2(200, 56)
+custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 26
 text = "Geri"
+alignment = 0
 
 [connection signal="pressed" from="MenuBox/VBox/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="MenuBox/VBox/SettingsButton" to="." method="_on_settings_button_pressed"]

@@ -1,7 +1,16 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/end_menu.gd" id="1"]
-[ext_resource type="FontFile" path="res://assets/fonts/GodOfThunder.ttf" id="fnt_t"]
+[ext_resource type="Theme" uid="uid://h8r3ouj6gmqv" path="res://resources/menu_theme.tres" id="2"]
+[ext_resource type="FontFile" uid="uid://di2xrda3006mk" path="res://assets/fonts/NorthEternal.otf" id="fnt_n"]
+
+[sub_resource type="Gradient" id="Grad_bg"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(0.03, 0.028, 0.062, 1, 0.075, 0.05, 0.095, 1, 0.13, 0.07, 0.08, 1)
+
+[sub_resource type="GradientTexture2D" id="Tex_bg"]
+gradient = SubResource("Grad_bg")
+fill_to = Vector2(0, 1)
 
 [node name="EndMenu" type="Control"]
 layout_mode = 3
@@ -10,16 +19,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2")
 script = ExtResource("1")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.05, 0.04, 0.09, 1)
+texture = SubResource("Tex_bg")
+expand_mode = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -31,41 +42,55 @@ grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 0
 
 [node name="TitleLabel" type="Label" parent="CenterContainer/VBox"]
-theme_override_fonts/font = ExtResource("fnt_t")
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.96, 0.83, 0.35, 1)
-theme_override_font_sizes/font_size = 90
+theme_override_colors/font_color = Color(0.96, 0.85, 0.5, 1)
+theme_override_fonts/font = ExtResource("fnt_n")
+theme_override_font_sizes/font_size = 88
 horizontal_alignment = 1
 text = "BEDEL ÖDENDİ"
+
+[node name="Rule" type="ColorRect" parent="CenterContainer/VBox"]
+custom_minimum_size = Vector2(300, 3)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(0.93, 0.78, 0.42, 0.85)
+
+[node name="RuleSpacer" type="Control" parent="CenterContainer/VBox"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
 
 [node name="MessageLabel" type="Label" parent="CenterContainer/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.85, 0.9, 0.85)
-theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0.78, 0.75, 0.82, 0.85)
+theme_override_constants/line_spacing = -4
+theme_override_font_sizes/font_size = 26
 horizontal_alignment = 1
 text = ""
 
 [node name="Spacer" type="Control" parent="CenterContainer/VBox"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 
 [node name="RetryButton" type="Button" parent="CenterContainer/VBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(340, 78)
+custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 34
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 36
 text = "Tekrar Dene"
+alignment = 0
 
 [node name="MenuButton" type="Button" parent="CenterContainer/VBox"]
-custom_minimum_size = Vector2(340, 64)
+custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+size_flags_horizontal = 4
 text = "Ana Menü"
+alignment = 0
 
 [connection signal="pressed" from="CenterContainer/VBox/RetryButton" to="." method="_on_retry_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBox/MenuButton" to="." method="_on_menu_button_pressed"]

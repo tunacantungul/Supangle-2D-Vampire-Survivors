@@ -69,7 +69,7 @@ func _refresh_upgrades() -> void:
 		# okumaya kimse fırsat bulmuyor, ikon zaten tanıtıyor. Ad çıkınca
 		# kutucuklar daralıp ekranın solunu boşaltıyor.
 		# Kart menüsündeki liste tam adı göstermeye devam ediyor.
-		entry.setup(GameState.upgrade_icon(id), "Sv %d" % tier, GameState.rarity_color(id))
+		entry.setup(GameState.upgrade_icon(id), "Sv %d" % tier, GameState.rarity_color(id), true)
 
 ## Level scripti boss akışı sırasında ekranın üstündeki hedef metnini bununla
 ## değiştirir. Canavar sayacı artık gösterilmiyor, arka planda sayılıyor.

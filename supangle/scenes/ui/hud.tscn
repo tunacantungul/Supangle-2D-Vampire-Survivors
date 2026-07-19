@@ -101,7 +101,7 @@ unique_name_in_owner = true
 layout_mode = 1
 offset_left = 32.0
 offset_top = 148.0
-offset_right = 310.0
+offset_right = 142.0
 offset_bottom = 700.0
 theme_override_constants/separation = 8
 

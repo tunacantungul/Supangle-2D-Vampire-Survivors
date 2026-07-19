@@ -1,15 +1,15 @@
 [gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/enemies/boss_3.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/placeholder/boss3.svg" id="2"]
+[ext_resource type="Texture2D" uid="uid://d04uvl2ticrw8" path="res://assets/Bosses/Cyclops.png" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/enemy_fast.tscn" id="3"]
 [ext_resource type="Texture2D" path="res://assets/placeholder/telegraph.svg" id="4"]
 
 [sub_resource type="RectangleShape2D" id="Shape_body"]
-size = Vector2(360, 360)
+size = Vector2(380, 470)
 
 [sub_resource type="RectangleShape2D" id="Shape_hit"]
-size = Vector2(423, 423)
+size = Vector2(440, 540)
 
 [sub_resource type="StyleBoxFlat" id="Style_hp_bg"]
 bg_color = Color(0.08, 0.08, 0.1, 0.85)
@@ -35,6 +35,7 @@ move_speed = 295.0
 max_health = 480.0
 contact_damage = 25.0
 damage_interval = 1.0
+flip_with_direction = false
 
 [node name="SlamRing" type="Sprite2D" parent="."]
 visible = false
@@ -42,7 +43,7 @@ scale = Vector2(9.1, 9.1)
 texture = ExtResource("4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(4.5, 4.5)
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -57,9 +58,9 @@ shape = SubResource("Shape_hit")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = -250.0
-offset_top = -360.0
+offset_top = -410.0
 offset_right = 250.0
-offset_bottom = -295.0
+offset_bottom = -345.0
 theme_override_styles/background = SubResource("Style_hp_bg")
 theme_override_styles/fill = SubResource("Style_hp_fill")
 max_value = 600.0

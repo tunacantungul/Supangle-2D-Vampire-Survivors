@@ -41,6 +41,10 @@ const PUSH_STRENGTH := 0.8
 ## Çizimin varsayılan bakış yönü. Mob çizimleri sola bakıyor, Minotaur sağa;
 ## aynalama bu bayrağa göre ters çevriliyor.
 @export var art_faces_right: bool = false
+## Öne bakan (Kyklop gibi) çizimlerde kapatılır. Simetrik bir figürü aynalamak
+## görsel olarak hiçbir şey kazandırmıyor, ama oyuncu etrafında dönerken sprite
+## sebepsiz yere zıplıyor.
+@export var flip_with_direction: bool = true
 
 var health: float
 
@@ -98,6 +102,8 @@ func _push_blocking_enemies(delta: float) -> void:
 ## Neredeyse dikey hareket ederken yatay yön anlamsız derecede küçülüyor ve
 ## sprite her karede takla atıyordu, bu yüzden eşiğin altında son bakış korunur.
 func _update_facing() -> void:
+	if not flip_with_direction:
+		return
 	if absf(velocity.x) < FACING_DEADZONE:
 		return
 	sprite.flip_h = (velocity.x > 0.0) != art_faces_right

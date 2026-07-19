@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://duunyohlbffh4"]
+[gd_scene format=3 uid="uid://dld1ekqc0qrvf"]
 
 [ext_resource type="Script" uid="uid://bm5emevrocm7c" path="res://scripts/ui/main_menu.gd" id="1"]
 [ext_resource type="Theme" uid="uid://h8r3ouj6gmqv" path="res://resources/menu_theme.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://c535i22q6xliq" path="res://assets/portraits/Astarios Dialogue.png" id="3"]
-[ext_resource type="FontFile" path="res://assets/fonts/NorthEternal.otf" id="fnt_n"]
-[ext_resource type="FontFile" path="res://assets/fonts/GodOfThunder.ttf" id="fnt_t"]
+[ext_resource type="FontFile" uid="uid://di2xrda3006mk" path="res://assets/fonts/NorthEternal.otf" id="fnt_n"]
+[ext_resource type="FontFile" uid="uid://tp8kyn8o3w56" path="res://assets/fonts/GodOfThunder.ttf" id="fnt_t"]
 
 [sub_resource type="Gradient" id="Grad_bg"]
 offsets = PackedFloat32Array(0, 0.55, 1)
@@ -87,9 +87,9 @@ size_flags_vertical = 4
 theme_override_constants/separation = 0
 
 [node name="TitleLabel" type="Label" parent="MenuBox/VBox" unique_id=1021881511]
-theme_override_fonts/font = ExtResource("fnt_n")
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96, 0.85, 0.5, 1)
+theme_override_fonts/font = ExtResource("fnt_n")
 theme_override_font_sizes/font_size = 104
 text = "ASTARIOS"
 
@@ -172,9 +172,9 @@ layout_mode = 2
 theme_override_constants/separation = 22
 
 [node name="SettingsTitle" type="Label" parent="SettingsPanel/Margin/VBox" unique_id=444942307]
-theme_override_fonts/font = ExtResource("fnt_t")
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96, 0.85, 0.5, 1)
+theme_override_fonts/font = ExtResource("fnt_t")
 theme_override_font_sizes/font_size = 38
 text = "AYARLAR"
 
@@ -248,9 +248,9 @@ layout_mode = 2
 theme_override_constants/separation = 22
 
 [node name="CreditsTitle" type="Label" parent="CreditsPanel/Margin/VBox" unique_id=1287585761]
-theme_override_fonts/font = ExtResource("fnt_t")
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96, 0.85, 0.5, 1)
+theme_override_fonts/font = ExtResource("fnt_t")
 theme_override_font_sizes/font_size = 38
 text = "EMEĞİ GEÇENLER"
 

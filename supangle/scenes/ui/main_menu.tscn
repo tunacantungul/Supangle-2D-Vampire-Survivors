@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://bm5emevrocm7c" path="res://scripts/ui/main_menu.gd" id="1"]
 [ext_resource type="Theme" uid="uid://h8r3ouj6gmqv" path="res://resources/menu_theme.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://c535i22q6xliq" path="res://assets/portraits/Astarios Dialogue.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://dhwqhlwb2roxg" path="res://assets/Scenery.png" id="bg"]
 [ext_resource type="FontFile" uid="uid://di2xrda3006mk" path="res://assets/fonts/NorthEternal.otf" id="fnt_n"]
 [ext_resource type="FontFile" uid="uid://tp8kyn8o3w56" path="res://assets/fonts/GodOfThunder.ttf" id="fnt_t"]
-[ext_resource type="Texture2D" path="res://assets/Scenery.png" id="bg"]
 
 [sub_resource type="Gradient" id="Grad_scrim"]
 offsets = PackedFloat32Array(0, 0.42, 1)
-colors = PackedColorArray(0.03, 0.028, 0.062, 1, 0.03, 0.028, 0.062, 0.82, 0.03, 0.028, 0.062, 0)
+colors = PackedColorArray(0.03, 0.028, 0.062, 0.62, 0.03, 0.028, 0.062, 0.4, 0.03, 0.028, 0.062, 0)
 
 [sub_resource type="GradientTexture2D" id="Tex_scrim"]
 gradient = SubResource("Grad_scrim")
@@ -36,6 +36,7 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="Portrait" type="TextureRect" parent="." unique_id=440159198]
+visible = false
 modulate = Color(1, 0.96, 0.9, 0.92)
 layout_mode = 1
 anchors_preset = -1

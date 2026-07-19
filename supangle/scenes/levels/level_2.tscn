@@ -23,7 +23,7 @@ size = Vector2(180, 9360)
 
 [node name="Level2" type="Node2D" unique_id=1027763293]
 script = ExtResource("1")
-kill_quota = 60
+kill_quota = 80
 xp_requirement_mult = 0.9
 god_name = "Hermes"
 dialogue_lines = Array[String](["Hermes: Demek babamızın gazabından kaçabildin Astarios,", "Hermes: … ben babamız kadar merhametli olmayacağım!", "Hermes: Ölümünün yanına yürüyerek git de görelim ne kadar sevdiğini!", "Astarios: Gerekirse sürünerek bile giderim!", "Astarios: Senin kanatlarına ihtiyacım yok!", "Hermes: Demek öyle ha!?", "Astarios: [shake rate=22 level=14]ARRGGHHH!!!![/shake]"])

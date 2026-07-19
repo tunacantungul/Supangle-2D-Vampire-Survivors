@@ -16,6 +16,8 @@ const HURT_FLASH_COLOR := Color(1.9, 0.35, 0.35)
 const HURT_SCALE_PUNCH := 0.85
 ## Bakış yönünün değişmesi için gereken asgari yatay hız.
 const FACING_DEADZONE := 8.0
+## Boss ölünce çalışan toplu yok olma animasyonunun süresi.
+const VANISH_TIME := 0.22
 ## Yürüme sallanması: çok hafif sağa-sola dönme açısı (radyan) ve hızı.
 const WALK_WOBBLE_ANGLE := 0.06
 const WALK_WOBBLE_SPEED := 10.0
@@ -49,6 +51,8 @@ var _speed_jitter: float = randf_range(1.0 - SPEED_JITTER, 1.0 + SPEED_JITTER)
 var _base_sprite_scale := Vector2.ONE
 var _flash_tween: Tween
 var _scale_tween: Tween
+## Toplu yok olma başladı mı; iki kez tetiklenmesini engeller.
+var _vanishing: bool = false
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var damage_area: Area2D = $DamageArea
@@ -131,6 +135,10 @@ func _tick_contact_damage(delta: float) -> void:
 func take_damage(amount: float) -> void:
 	if health <= 0.0:
 		return
+	# Yok olurken silahlar hâlâ değebiliyor; normal ölüm yolundan geçerse
+	# düşürme yapıp öldürme sayacını da işletirdi.
+	if _vanishing:
+		return
 	health -= amount
 	Sfx.play_hit_enemy()
 	_flash()
@@ -156,6 +164,28 @@ func _die() -> void:
 	GameState.register_kill()
 	_spawn_drops()
 	queue_free()
+
+## Boss ölünce sahnedeki sürünün topluca yok olması için.
+## Normal ölümden farklı: ölüm sayılmaz ve düşürme yapılmaz. Onlarca canavar
+## birden XP taşı bıraksaydı boss'un hemen ardından kart menüsü art arda açılıp
+## bölüm sonunu boğardı.
+## Hasar ve hareket animasyon başlamadan kesiliyor: amaç, dövüş bittikten sonra
+## kalabalığın oyuncuyu öldürmeye devam etmesini engellemek.
+func vanish() -> void:
+	if _vanishing:
+		return
+	_vanishing = true
+	set_physics_process(false)
+	damage_area.monitoring = false
+	# Hasar yanıp sönmesi sürüyorsa yok olma animasyonuyla çakışırdı.
+	if _flash_tween != null and _flash_tween.is_valid():
+		_flash_tween.kill()
+	if _scale_tween != null and _scale_tween.is_valid():
+		_scale_tween.kill()
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(sprite, "scale", _base_sprite_scale * 1.35, VANISH_TIME)
+	tween.tween_property(sprite, "modulate", Color(2.0, 2.0, 2.0, 0.0), VANISH_TIME)
+	tween.chain().tween_callback(queue_free)
 
 ## XP taşı (her zaman) ve şansa bağlı can küresi bırakır.
 func _spawn_drops() -> void:

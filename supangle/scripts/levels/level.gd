@@ -203,10 +203,23 @@ func _spawn_boss() -> void:
 func _on_boss_died() -> void:
 	# Ana tema, boss dövüşünden önce kaldığı yerden devam eder.
 	Music.play_main()
+	_clear_swarm()
 	exit_gate.visible = true
 	exit_gate.activate()
 	hud.set_objective("Kapı açıldı!")
 	hud.point_to(exit_gate, GATE_ARROW_COLOR)
+
+## Boss ölünce sahnedeki bütün canavarlar yok olur ve doğurma durur. Dövüş
+## bittikten sonra kalabalığın oyuncuyu öldürmesi haksız hissettiriyordu.
+## Boss'un kendisi listede olsa da atlanıyor: ölüm animasyonunu kendi oynuyor.
+func _clear_swarm() -> void:
+	var spawner := get_node_or_null("EnemySpawner")
+	if spawner != null:
+		spawner.stop()
+	for node in get_tree().get_nodes_in_group("enemies"):
+		var enemy := node as Enemy
+		if enemy != null and not (enemy is Boss):
+			enemy.vanish()
 
 func _on_gate_entered() -> void:
 	hud.set_objective("")

@@ -24,7 +24,7 @@ size = Vector2(180, 9360)
 
 [node name="Level3" type="Node2D" unique_id=1282385195]
 script = ExtResource("1")
-kill_quota = 55
+kill_quota = 70
 xp_requirement_mult = 0.8
 enemy_damage_mult = 0.75
 god_name = "Athena"

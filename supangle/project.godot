@@ -20,8 +20,8 @@ config/icon="res://icon.svg"
 GameState="*res://scripts/autoload/game_state.gd"
 Settings="*res://scripts/autoload/settings.gd"
 Sfx="*res://scripts/autoload/sfx.gd"
-Music="*res://scripts/autoload/music.gd"
 SceneTransition="*res://scripts/autoload/scene_transition.gd"
+Music="*res://scripts/autoload/music.gd"
 
 [display]
 

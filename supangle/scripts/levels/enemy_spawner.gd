@@ -31,6 +31,11 @@ func _ready() -> void:
 	spawn_timer.wait_time = spawn_interval
 	spawn_timer.start()
 
+## Boss ölünce çağrılır: sahne temizlendikten sonra yeni canavar gelmesin,
+## oyuncu kapıya rahatça yürüsün.
+func stop() -> void:
+	spawn_timer.stop()
+
 func _on_spawn_timer_timeout() -> void:
 	_despawn_far_enemies()
 	_try_spawn()

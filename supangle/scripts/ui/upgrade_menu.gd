@@ -29,8 +29,8 @@ var _base_hover: StyleBoxTexture
 
 func _ready() -> void:
 	visible = false
-	_base_normal = _buttons[0].get_theme_stylebox("normal") as StyleBoxFlat
-	_base_hover = _buttons[0].get_theme_stylebox("hover") as StyleBoxFlat
+	_base_normal = _buttons[0].get_theme_stylebox("normal") as StyleBoxTexture
+	_base_hover = _buttons[0].get_theme_stylebox("hover") as StyleBoxTexture
 	for i in _buttons.size():
 		_buttons[i].pressed.connect(_on_card_pressed.bind(i))
 
@@ -54,12 +54,17 @@ func open(options: Array[String]) -> void:
 	_refresh_owned()
 	visible = true
 
-## Kartın çerçevesini nadirlik rengine boyar; üzerine gelince aynı renk parlar.
+## Kartı nadirlik rengine boyar; üzerine gelince aynı renk doygunlaşıp parlar.
 func _apply_rarity_border(button: Button, color: Color) -> void:
-	var normal := _base_normal.duplicate() as StyleBoxFlat
-	normal.border_color = color
-	var hover := _base_hover.duplicate() as StyleBoxFlat
-	hover.border_color = color.lightened(0.3)
+	var normal := _base_normal.duplicate() as StyleBoxTexture
+	normal.modulate_color = color.lerp(Color.WHITE, RARITY_TINT)
+	var hover := _base_hover.duplicate() as StyleBoxTexture
+	var tint := color.lerp(Color.WHITE, RARITY_TINT_HOVER)
+	# Alfa'yı da çarpmamak için bileşen bileşen kuruluyor; 1'i aşan alfa
+	# kırpılırken kartın saydamlığı değişirdi.
+	hover.modulate_color = Color(
+		tint.r * HOVER_BRIGHTEN, tint.g * HOVER_BRIGHTEN, tint.b * HOVER_BRIGHTEN, 1.0
+	)
 	button.add_theme_stylebox_override("normal", normal)
 	for state in ["hover", "pressed", "focus"]:
 		button.add_theme_stylebox_override(state, hover)

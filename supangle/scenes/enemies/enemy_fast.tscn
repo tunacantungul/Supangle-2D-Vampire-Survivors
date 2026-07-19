@@ -17,7 +17,7 @@ motion_mode = 1
 script = ExtResource("1")
 move_speed = 660.0
 max_health = 15.0
-xp_value = 2
+xp_value = 3
 contact_damage = 6.0
 damage_interval = 0.6
 

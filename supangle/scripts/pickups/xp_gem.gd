@@ -11,16 +11,15 @@ extends Node2D
 ## "magnet" kartı kademelerine göre çekim menzili çarpanı (0 = kart yok).
 const MAGNET_MULT := [1.0, 1.1, 2.0]
 
-## Taşın rengi XP değerinden geliyor ve düşürdüğü canavarın rengiyle eşleşiyor:
+## Taşın görseli XP değerinden geliyor ve düşürdüğü canavarın rengiyle eşleşiyor:
 ## turuncu canavar (1 XP) turuncu, kırmızı (2 XP) kırmızı, mor tank (7 XP) mor
-## taş bırakır. Böylece yerdeki taşın değeri uzaktan okunuyor.
-## Katsayılar canavar çizimlerinin baskın renginden türetildi; taş görseli mavi
-## çizildiği (#4fa8e8) ve modulate çarpma yaptığı için oranlar bu şekilde.
-## Liste büyük değerden küçüğe taranır.
+## kristal bırakır. Böylece yerdeki taşın değeri uzaktan okunuyor.
+## Üç renk ayrı çizildiği için modulate ile boyama yapılmıyor; doğrudan doku
+## değişiyor. Liste büyük değerden küçüğe taranır.
 const GEM_TIERS: Array = [
-	{"min_xp": 5, "modulate": Color(2.35, 0.55, 0.8)},
-	{"min_xp": 2, "modulate": Color(2.64, 0.41, 0.3)},
-	{"min_xp": 0, "modulate": Color(3.23, 1.1, 0.0)},
+	{"min_xp": 5, "texture": preload("res://assets/pickups/gem_purple.png")},
+	{"min_xp": 2, "texture": preload("res://assets/pickups/gem_red.png")},
+	{"min_xp": 0, "texture": preload("res://assets/pickups/gem_orange.png")},
 ]
 
 var _player: Player
@@ -31,7 +30,7 @@ func _ready() -> void:
 	_player = get_tree().get_first_node_in_group("player") as Player
 	for tier: Dictionary in GEM_TIERS:
 		if xp_value >= tier["min_xp"]:
-			sprite.modulate = tier["modulate"]
+			sprite.texture = tier["texture"]
 			break
 
 func _physics_process(delta: float) -> void:

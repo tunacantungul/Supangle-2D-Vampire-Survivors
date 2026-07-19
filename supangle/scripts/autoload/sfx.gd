@@ -25,10 +25,19 @@ const HIT_PITCH_RANGE := Vector2(0.92, 1.08)
 ## süresine (0.4 sn) yakın tutuldu.
 const HURT_MIN_INTERVAL := 0.35
 
+## Hasar sesinin kazancı. Kayıt zaten yüksek (RMS -9.8 dBFS); -6 ile etkin
+## seviye ~-15.8 dBFS oluyor, yani çarpışma gürültüsünün (~-18) üstünde.
+## Tepe değeri -0.1 dBFS olduğu için kırpma da olmuyor (-6.1'de kalıyor).
+const HURT_VOLUME_DB := -6.0
+
 var _voices: Array[AudioStreamPlayer] = []
 var _next_voice: int = 0
 var _hit_cooldown: float = 0.0
 var _hurt_cooldown: float = 0.0
+## Hasar sesinin kendi kanalı. Paylaşılan havuzda sırası gelen kanal yeniden
+## kullanıldığı için vuruş sesleri (saniyede 20'ye kadar) hasar sesini yarıda
+## kesebiliyordu; oyuncunun can kaybını duyması bundan önemli.
+var _hurt_voice: AudioStreamPlayer
 
 func _ready() -> void:
 	# Kart menüsü ve bölüm geçişi ağacı duraklattığı için sesler de duraklamamalı.
@@ -38,6 +47,11 @@ func _ready() -> void:
 		player.process_mode = Node.PROCESS_MODE_ALWAYS
 		add_child(player)
 		_voices.append(player)
+	_hurt_voice = AudioStreamPlayer.new()
+	_hurt_voice.process_mode = Node.PROCESS_MODE_ALWAYS
+	_hurt_voice.stream = PLAYER_HURT
+	_hurt_voice.volume_db = HURT_VOLUME_DB
+	add_child(_hurt_voice)
 
 func _process(delta: float) -> void:
 	if _hit_cooldown > 0.0:
@@ -52,13 +66,14 @@ func play_hit_enemy() -> void:
 	_hit_cooldown = HIT_MIN_INTERVAL
 	_play(HIT_ENEMY, -7.0, randf_range(HIT_PITCH_RANGE.x, HIT_PITCH_RANGE.y))
 
-## Oyuncu hasar aldı. Kayıt diğer efektlerden belirgin yüksek (RMS -9.8 dBFS),
-## bu yüzden kazancı düşük tutuluyor.
+## Oyuncu hasar aldı. Kendi kanalında ve efekt yığınının üstünde çalıyor:
+## çarpışma sırasında 12 vuruş sesi üst üste binince toplamları ~-18 dBFS'e
+## çıkıyor ve bunun altındaki her şey duyulmaz oluyordu.
 func play_player_hurt() -> void:
 	if _hurt_cooldown > 0.0:
 		return
 	_hurt_cooldown = HURT_MIN_INTERVAL
-	_play(PLAYER_HURT, -14.0)
+	_hurt_voice.play()
 
 ## Seviye atlandı (kart menüsü açılmadan hemen önce).
 func play_level_up() -> void:

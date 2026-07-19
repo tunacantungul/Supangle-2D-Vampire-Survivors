@@ -220,6 +220,10 @@ func _clear_swarm() -> void:
 		var enemy := node as Enemy
 		if enemy != null and not (enemy is Boss):
 			enemy.vanish()
+	# Oyuncunun saldırıları da sussun: vuracak bir şey kalmadı.
+	var player := get_tree().get_first_node_in_group("player") as Player
+	if player != null:
+		player.retire_weapons()
 
 func _on_gate_entered() -> void:
 	hud.set_objective("")

@@ -58,6 +58,9 @@ var _input_grace_left: float = 0.0
 var _lift_tween: Tween
 ## Silahlar Player'ın çocuğu; uçuşta hepsi birden durdurulup gizleniyor.
 var _weapons: Array[Node] = []
+## Boss öldükten sonra silahlar bölüm sonuna kadar kapalı kalır. Uçuş inişi
+## onları geri açmasın diye ayrı bir bayrak tutuluyor.
+var _weapons_retired: bool = false
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 ## Yalnızca uçarken görünür; sahnede gövde sprite'ından önce geldiği için
@@ -166,7 +169,9 @@ func _land() -> void:
 	_flight_cooldown_left = flight_cooldown
 	flight_cooldown_changed.emit(_flight_cooldown_left, flight_cooldown)
 	z_index = 0
-	_set_weapons_active(true)
+	# Boss öldükten sonra silahlar kapalı kalmalı; iniş onları geri açmasın.
+	if not _weapons_retired:
+		_set_weapons_active(true)
 	sprite.play()
 	_tween_lift(0.0)
 	# Gölge ve kanatlar, karakter yere değene kadar durur: iniş sırasında da
@@ -200,6 +205,14 @@ func _tween_lift(target_y: float) -> void:
 	_lift_tween.tween_property(divine_aura, "position:y", target_y, flight_lift_time)
 	# Sonraki tween_callback'lerin paralel değil, ardıl çalışması için.
 	_lift_tween.chain()
+
+## Boss ölünce çağrılır: saldırılar susar ve görselleri kaybolur, tıpkı uçarken
+## olduğu gibi. Sürü de yok olduğu için vuracak bir şey kalmıyor; dönen kılıçlar
+## ve auralar boş sahnede çalışmaya devam edince tuhaf duruyordu.
+## Uçuşa dokunmuyor: güç hâlâ duruyorsa oyuncu kapıya uçarak gidebilir.
+func retire_weapons() -> void:
+	_weapons_retired = true
+	_set_weapons_active(false)
 
 ## Uçarken saldırılar durur ve görselleri gizlenir; inince kaldıkları yerden
 ## devam ederler (process_mode durunca içlerindeki Timer'lar da duruyor).

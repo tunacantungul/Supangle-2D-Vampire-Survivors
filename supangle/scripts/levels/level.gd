@@ -133,6 +133,22 @@ func _playable_bounds(walls: StaticBody2D) -> Rect2:
 
 ## --- Seviye atlama / kart seçimi ---
 
+## Gizli hile: Y tuşu XP barını doldurup anında seviye atlatır. Test için.
+## InputMap'e eklenmedi, doğrudan tuş kodu okunuyor: oyun içinde hiçbir yerde
+## görünmesin isteniyor.
+## Oyun duraklıyken (kart menüsü, diyalog) girdi buraya ulaşmadığı için kart
+## seçiminin ortasında tetiklenemiyor.
+func _unhandled_input(event: InputEvent) -> void:
+	var key := event as InputEventKey
+	if key == null or not key.pressed or key.echo:
+		return
+	if key.keycode != KEY_Y:
+		return
+	get_viewport().set_input_as_handled()
+	# Eksik kalan miktarı vermek, normal XP toplama yolunu kullanır: seviye
+	# atlama, sinyaller ve kart menüsü kendiliğinden devreye girer.
+	GameState.gain_xp(GameState.xp_required() - GameState.xp)
+
 func _on_leveled_up() -> void:
 	Sfx.play_level_up()
 	if upgrade_menu.visible:

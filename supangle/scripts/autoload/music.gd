@@ -14,13 +14,16 @@ const MAIN_THEME := preload("res://assets/Sound/Main_theme.wav")
 const BOSS_FIGHT := preload("res://assets/Sound/Boss_fight.mp3")
 const EPILOGUE := preload("res://assets/Sound/Epilogue_music.mp3")
 
-## Müzik efektlerin altında kalsın diye kısık.
-const MENU_VOLUME_DB := -12.0
-const MAIN_VOLUME_DB := -14.0
-## Boss dövüşünde vuruş efektleri sürekli üst üste bindiği için müzik maskeleniyor;
-## diğer parçaların belirgin şekilde üstünde tutuluyor.
+## Kazançlar parçaların kendi ses seviyesine göre ayrı ayrı hesaplandı; dosyaların
+## kayıt seviyeleri 4 dB'ye varan farklarla değişiyor, bu yüzden hepsine aynı
+## sayıyı vermek karışımı bozuyor. Hedef: menü/ana tema/epilog -24 dBFS etkin
+## seviyede buluşsun, boss dövüşü -22 ile en öne çıkan parça olsun.
+## Referans: vuruş efekti -28.5 dBFS. Müzik bunun altında kalınca oyun sessiz,
+## efektler ise gürültülü hissettiriyordu.
+const MENU_VOLUME_DB := -3.5
+const MAIN_VOLUME_DB := -7.5
 const BOSS_VOLUME_DB := -5.0
-const EPILOGUE_VOLUME_DB := -12.0
+const EPILOGUE_VOLUME_DB := -5.5
 
 var _menu: AudioStreamPlayer
 var _main: AudioStreamPlayer

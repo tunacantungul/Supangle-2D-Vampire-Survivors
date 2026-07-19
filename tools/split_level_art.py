@@ -65,7 +65,9 @@ def slice_image(src: Path, name: str, cols: int, rows: int) -> tuple[int, int]:
     return tile_w, tile_h
 
 
-def write_scene(name: str, cols: int, rows: int, tile_w: int, tile_h: int) -> Path:
+def write_scene(
+    name: str, cols: int, rows: int, tile_w: int, tile_h: int, mirror: bool = False
+) -> Path:
     """Kareleri dunya merkezine gore dizen bir sahne yazar.
 
     Sprite2D varsayilan olarak merkezden konumlanir, bu yuzden her karenin
@@ -87,25 +89,52 @@ def write_scene(name: str, cols: int, rows: int, tile_w: int, tile_h: int) -> Pa
             rid = row * cols + col + 1
             x = left + col * tile_w + tile_w / 2
             y = top + row * tile_h + tile_h / 2
-            lines += [
+            node = [
                 f'[node name="Tile{row}_{col}" type="Sprite2D" parent="."]',
-                f"position = Vector2({x:g}, {y:g})",
-                f'texture = ExtResource("{rid}")',
-                "",
             ]
+            if mirror:
+                # Aynalama yeni gorsel gerektirmiyor: ayni kareler x ekseninde
+                # ters konuma tasinip kendi icinde de cevriliyor. Sonuc, haritanin
+                # tam ayna goruntusu; depoya tek byte eklenmiyor.
+                node.append(f"position = Vector2({-x:g}, {y:g})")
+                node.append("flip_h = true")
+            else:
+                node.append(f"position = Vector2({x:g}, {y:g})")
+            node.append(f'texture = ExtResource("{rid}")')
+            node.append("")
+            lines += node
 
-    scene = SCENES / f"{name}_art.tscn"
+    suffix = "_art_flipped" if mirror else "_art"
+    scene = SCENES / f"{name}{suffix}.tscn"
     scene.write_text("\n".join(lines))
     return scene
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("source", type=Path, help="tek parca cizim (png/psd/jpg)")
+    ap.add_argument(
+        "source", type=Path, nargs="?", help="tek parca cizim (png/psd/jpg)"
+    )
     ap.add_argument("name", help="bolum adi, orn. level_1")
     ap.add_argument("--cols", type=int, default=4)
     ap.add_argument("--rows", type=int, default=4)
+    ap.add_argument(
+        "--scenes-only",
+        action="store_true",
+        help="kareleri yeniden kesme, sadece sahneleri uret (kareler zaten varsa)",
+    )
     args = ap.parse_args()
+
+    if args.scenes_only:
+        tiles = sorted((ASSETS / args.name).glob("tile_*.png"))
+        if not tiles:
+            sys.exit(f"hata: {ASSETS / args.name} altinda kare yok")
+        with Image.open(tiles[0]) as first:
+            tile_w, tile_h = first.size
+        for mirror in (False, True):
+            scene = write_scene(args.name, args.cols, args.rows, tile_w, tile_h, mirror)
+            print(f"sahne: {scene.relative_to(REPO)}")
+        return
 
     if not args.source.exists():
         sys.exit(f"hata: {args.source} bulunamadi")

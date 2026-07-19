@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" path="res://scenes/effects/lightning_spawner.tscn" id="13"]
 [ext_resource type="PackedScene" path="res://scenes/ui/upgrade_menu.tscn" id="14"]
 [ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="15"]
-[ext_resource type="PackedScene" path="res://scenes/levels/map_art.tscn" id="map_art"]
+[ext_resource type="PackedScene" path="res://scenes/levels/map_art_flipped.tscn" id="map_art"]
 
 [sub_resource type="RectangleShape2D" id="Shape_wall_h"]
 size = Vector2(14760, 180)

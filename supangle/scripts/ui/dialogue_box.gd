@@ -25,7 +25,10 @@ const SPEAKER_MAX_LENGTH := 24
 ## (0, 0) = portre tam kutunun dış çerçevesinden başlar.
 @export var portrait_offset := Vector2(0.0, 0.0)
 ## Portrelerin taban kenar uzunluğu. Kayıttaki "scale" bunu çarpar.
-@export var portrait_size: float = 520.0
+## Astarios'un ölçeği 1.0, yani bu değer doğrudan onun boyu; diğerleri ona göre
+## büyütülüyor. Tavanı en büyük portrenin (Athena, 1.35) ekrandan taşmaması
+## belirliyor: 500 x 1.35 = 675 ve kutunun üst kenarı 1080p'de y=734.
+@export var portrait_size: float = 500.0
 
 ## Portrenin kutunun hangi ucunda duracağı. Astarios solda, tanrılar sağda:
 ## karşılıklı konuşma hissi versin diye.
@@ -36,16 +39,20 @@ enum PortraitSide { LEFT, RIGHT }
 ## Konuşmacı adına göre diyalog portresi. Yeni portre eklemek için buraya
 ## bir satır eklemek yeterli; adı olmayan konuşmacıda portre gizlenir.
 ## "side" verilmezse sol, "scale" verilmezse portrait_size kullanılır.
+##
+## Ölçekler figürlerin BAŞ boyutuna göre veriliyor, çizim sınırlarına göre değil.
+## Beş portre de tuvali dikeyde neredeyse dolduruyor, ama kadrajın ne kadarını
+## karakterin yüzünün kapladığı çok değişiyor: Astarios'un yüzü en büyüğü,
+## Athena'nınkiyse en küçüğü çünkü kadrajın yarısını miğfer tüyü yiyor. Sınır
+## kutusuna göre eşitlemek bu yüzden Astarios'u herkesten iri gösteriyordu.
+## Astarios referans (1.0); diğerleri onunla aynı boyda okunacak şekilde büyütüldü.
 var _portraits := {
 	"Astarios": {"texture": preload("res://assets/portraits/Astarios Dialogue.png"), "side": PortraitSide.LEFT},
-	"Zeus": {"texture": preload("res://assets/portraits/Zeus.png"), "side": PortraitSide.RIGHT},
-	"Hermes": {"texture": preload("res://assets/portraits/Hermes.png"), "side": PortraitSide.RIGHT},
-	# Athena'nın miğferi dikey yerin bir kısmını yiyor; gövdesi diğerleriyle
-	# aynı boyda okunsun diye ölçeği azıcık yüksek.
-	"Athena": {"texture": preload("res://assets/portraits/Athena.png"), "side": PortraitSide.RIGHT, "scale": 1.08},
-	# Kallisto'nun çizimi tuvalin altında biraz boşluk bırakıyor; aynı boyda
-	# görünsün diye ölçeği azıcık yüksek.
-	"Kallisto": {"texture": preload("res://assets/portraits/Kallisto.png"), "side": PortraitSide.RIGHT, "scale": 1.1},
+	"Zeus": {"texture": preload("res://assets/portraits/Zeus.png"), "side": PortraitSide.RIGHT, "scale": 1.15},
+	"Hermes": {"texture": preload("res://assets/portraits/Hermes.png"), "side": PortraitSide.RIGHT, "scale": 1.3},
+	"Athena": {"texture": preload("res://assets/portraits/Athena.png"), "side": PortraitSide.RIGHT, "scale": 1.35},
+	# Kavuşma sahnesinde Astarios ile yan yana duruyor; ikisi aynı boyda görünsün.
+	"Kallisto": {"texture": preload("res://assets/portraits/Kallisto.png"), "side": PortraitSide.RIGHT, "scale": 1.3},
 }
 
 var _lines: Array[String] = []

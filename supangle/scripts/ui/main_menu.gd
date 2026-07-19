@@ -12,7 +12,7 @@ extends Control
 const FADE_IN := 0.7
 
 func _ready() -> void:
-	Music.pause_all()
+	Music.play_menu()
 	volume_slider.set_value_no_signal(Settings.master_volume * 100.0)
 	fullscreen_check.set_pressed_no_signal(Settings.fullscreen)
 	modulate.a = 0.0

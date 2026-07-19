@@ -9,6 +9,8 @@ extends Node2D
 @onready var dialogue_box: PanelContainer = $UI/DialogueBox
 
 func _ready() -> void:
+	# Menü müziği buraya taşmasın; açılış konuşması sessiz sahnede geçiyor.
+	Music.pause_all()
 	dialogue_box.finished.connect(_on_dialogue_finished)
 	dialogue_box.start(speaker_name, dialogue_lines)
 

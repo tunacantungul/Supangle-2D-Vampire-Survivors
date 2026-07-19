@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d4ld6a1u068gf" path="res://scripts/player/player.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/orbiting_swords.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/bolt_shooter.tscn" id="3"]
-[ext_resource type="Texture2D" uid="uid://cnf8q0md3h1pm" path="res://assets/placeholder/divine_aura.svg" id="5"]
+[ext_resource type="Texture2D" path="res://assets/effects/Divine_aura.png" id="5"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/stab_sword.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/freeze_nova.tscn" id="8"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/discus_thrower.tscn" id="9"]
@@ -21,7 +21,6 @@
 [ext_resource type="Texture2D" uid="uid://cbrudmgdyk5y" path="res://assets/player/run backward/3.png" id="21"]
 [ext_resource type="Texture2D" uid="uid://c2f6fs8xlrc2b" path="res://assets/player/run backward/4.png" id="22"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/styx_aura.tscn" id="23"]
-[ext_resource type="Script" uid="uid://bhqxaj5v3hyvc" path="res://scripts/effects/spinning_ring.gd" id="24"]
 [ext_resource type="Script" path="res://scripts/effects/landing_shadow.gd" id="25"]
 [ext_resource type="Texture2D" uid="uid://c73yjpovbyay" path="res://assets/player/Wings/1.png" id="26"]
 [ext_resource type="Texture2D" uid="uid://b1cumw6u8v85q" path="res://assets/player/Wings/2.png" id="27"]
@@ -137,10 +136,9 @@ motion_mode = 1
 script = ExtResource("1")
 
 [node name="DivineAura" type="Sprite2D" parent="." unique_id=1723243822]
-scale = Vector2(4.5, 4.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("5")
-script = ExtResource("24")
-degrees_per_second = 22.0
+offset = Vector2(0, 55)
 
 [node name="LandingShadow" type="Node2D" parent="."]
 position = Vector2(0, 110)

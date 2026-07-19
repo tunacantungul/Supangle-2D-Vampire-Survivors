@@ -14,6 +14,8 @@ const KRONOS_SLOW_PER_TIER := 0.12
 const HURT_FLASH_COLOR := Color(1.9, 0.35, 0.35)
 ## Hasar alınca sprite'ın anlık küçülme oranı (sonra normale döner).
 const HURT_SCALE_PUNCH := 0.85
+## Bakış yönünün değişmesi için gereken asgari yatay hız.
+const FACING_DEADZONE := 8.0
 ## Yürüme sallanması: çok hafif sağa-sola dönme açısı (radyan) ve hızı.
 const WALK_WOBBLE_ANGLE := 0.06
 const WALK_WOBBLE_SPEED := 10.0
@@ -66,6 +68,7 @@ func _physics_process(delta: float) -> void:
 	velocity = direction * move_speed * speed_multiplier()
 	move_and_slide()
 	_push_blocking_enemies(delta)
+	_update_facing()
 	_animate_walk(delta)
 	_tick_contact_damage(delta)
 
@@ -82,6 +85,14 @@ func _push_blocking_enemies(delta: float) -> void:
 			continue
 		# Normal bizden ona doğru bakar; itmek için ters yöne kaydırıyoruz.
 		other.global_position -= collision.get_normal() * push_speed
+
+## Çizimler sola bakıyor; sağa giderken aynalanıyor.
+## Neredeyse dikey hareket ederken yatay yön anlamsız derecede küçülüyor ve
+## sprite her karede takla atıyordu, bu yüzden eşiğin altında son bakış korunur.
+func _update_facing() -> void:
+	if absf(velocity.x) < FACING_DEADZONE:
+		return
+	sprite.flip_h = velocity.x > 0.0
 
 ## Yürürken sprite'ı çok hafif sağa-sola sallar; durunca düzelir.
 func _animate_walk(delta: float) -> void:

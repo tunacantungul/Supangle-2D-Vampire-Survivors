@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/placeholder/enemy_tank.svg" id="2"]
+[ext_resource type="Texture2D" uid="uid://4qjqmfcil5d5" path="res://assets/Mobs/Purple Mob.png" id="2"]
 
 [sub_resource type="CircleShape2D" id="Shape_body"]
-radius = 80.0
+radius = 64.0
 
 [sub_resource type="RectangleShape2D" id="Shape_hit"]
-size = Vector2(280, 280)
+size = Vector2(240, 240)
 
 [node name="EnemyTank" type="CharacterBody2D"]
 collision_layer = 2
@@ -22,7 +22,7 @@ xp_value = 7
 health_drop_chance = 0.06
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(4.5, 4.5)
+scale = Vector2(0.56, 0.56)
 texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

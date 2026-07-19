@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/placeholder/enemy_fast.svg" id="2"]
+[ext_resource type="Texture2D" uid="uid://icm5eralxmay" path="res://assets/Mobs/Red Mob.png" id="2"]
 
 [sub_resource type="CircleShape2D" id="Shape_body"]
-radius = 40.0
+radius = 43.0
 
 [sub_resource type="RectangleShape2D" id="Shape_hit"]
-size = Vector2(162, 162)
+size = Vector2(160, 160)
 
 [node name="EnemyFast" type="CharacterBody2D"]
 collision_layer = 2
@@ -21,7 +21,7 @@ contact_damage = 6.0
 damage_interval = 0.6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(4.5, 4.5)
+scale = Vector2(0.375, 0.375)
 texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

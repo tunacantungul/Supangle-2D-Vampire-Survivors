@@ -4,18 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://c535i22q6xliq" path="res://assets/portraits/Astarios Dialogue.png" id="2"]
 [ext_resource type="FontFile" path="res://assets/fonts/GodOfThunder.ttf" id="fnt_t"]
 [ext_resource type="FontFile" path="res://assets/fonts/BerkshireSwash-Regular.ttf" id="fnt_b"]
+[ext_resource type="Texture2D" path="res://assets/ui/dialogue_box.png" id="3"]
 
-[sub_resource type="StyleBoxFlat" id="Style_panel"]
-bg_color = Color(0.06, 0.05, 0.11, 0.94)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.96, 0.83, 0.35, 0.6)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+[sub_resource type="StyleBoxTexture" id="Style_panel"]
+texture = ExtResource("3")
 
 [node name="DialogueBox" type="PanelContainer" unique_id=969887001]
 process_mode = 3
@@ -32,10 +24,10 @@ script = ExtResource("1")
 
 [node name="Margin" type="MarginContainer" parent="." unique_id=862266796]
 layout_mode = 2
-theme_override_constants/margin_left = 36
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 36
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 46
+theme_override_constants/margin_top = 34
+theme_override_constants/margin_right = 46
+theme_override_constants/margin_bottom = 30
 
 [node name="VBox" type="VBoxContainer" parent="Margin" unique_id=534300156]
 layout_mode = 2

@@ -108,8 +108,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.78, 0.75, 0.82, 0.85)
 theme_override_constants/line_spacing = -4
 theme_override_font_sizes/font_size = 26
-text = "Astarios bir tanrıydı, Kallisto bir ölümlü.
-Olympos bu aşkın bedelini üç güçte ödetecek."
+text = "Astarios bir tanrıydı, Kallisto bir ölümlü."
 
 [node name="Spacer" type="Control" parent="MenuBox/VBox" unique_id=278596365]
 custom_minimum_size = Vector2(0, 64)

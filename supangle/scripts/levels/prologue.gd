@@ -9,9 +9,10 @@ extends Node2D
 @onready var dialogue_box: PanelContainer = $UI/DialogueBox
 
 func _ready() -> void:
-	# Menü müziği buraya taşmasın; açılış konuşması sessiz sahnede geçiyor.
-	# Kesmek yerine kısılarak sussun, menüden prologa geçiş yumuşak olsun.
-	Music.fade_out_all(1.0)
+	# Menü müziğinden çapraz geçiş. Prolog müziği 1. bölüm yüklenirken de
+	# çalmaya devam eder: sahne değişimi ağır ve o sırada ekran siyah,
+	# müziğin kesilmesi bekleyişi çok daha uzun hissettiriyordu.
+	Music.play_prologue()
 	dialogue_box.finished.connect(_on_dialogue_finished)
 	dialogue_box.start(speaker_name, dialogue_lines)
 

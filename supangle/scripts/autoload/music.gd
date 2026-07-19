@@ -10,6 +10,7 @@ extends Node
 ## için devam ederken `play()` çağırmıyoruz.
 
 const MAIN_MENU := preload("res://assets/Sound/Main_menu.wav")
+const PROLOGUE := preload("res://assets/Sound/Prologue_music.mp3")
 const MAIN_THEME := preload("res://assets/Sound/Main_theme.wav")
 const BOSS_FIGHT := preload("res://assets/Sound/Boss_fight.mp3")
 const EPILOGUE := preload("res://assets/Sound/Epilogue_music.mp3")
@@ -21,6 +22,7 @@ const EPILOGUE := preload("res://assets/Sound/Epilogue_music.mp3")
 ## Referans: vuruş efekti -28.5 dBFS. Müzik bunun altında kalınca oyun sessiz,
 ## efektler ise gürültülü hissettiriyordu.
 const MENU_VOLUME_DB := -3.5
+const PROLOGUE_VOLUME_DB := -8.5
 const MAIN_VOLUME_DB := -7.5
 const BOSS_VOLUME_DB := -5.0
 const EPILOGUE_VOLUME_DB := -5.5
@@ -34,6 +36,7 @@ const SILENCE_DB := -40.0
 const CROSSFADE_TIME := 1.0
 
 var _menu: AudioStreamPlayer
+var _prologue: AudioStreamPlayer
 var _main: AudioStreamPlayer
 var _boss: AudioStreamPlayer
 var _epilogue: AudioStreamPlayer
@@ -50,9 +53,10 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	# Döngü kurulumu içeriden yapılıyor: içe aktarma ayarlarına dokunmadan
 	# parçaların kesintisiz tekrarlanmasını garanti ediyor.
-	for stream in [MAIN_MENU, MAIN_THEME, BOSS_FIGHT, EPILOGUE]:
+	for stream in [MAIN_MENU, PROLOGUE, MAIN_THEME, BOSS_FIGHT, EPILOGUE]:
 		_loop(stream)
 	_menu = _make_player(MAIN_MENU, MENU_VOLUME_DB)
+	_prologue = _make_player(PROLOGUE, PROLOGUE_VOLUME_DB)
 	_main = _make_player(MAIN_THEME, MAIN_VOLUME_DB)
 	_boss = _make_player(BOSS_FIGHT, BOSS_VOLUME_DB)
 	_epilogue = _make_player(EPILOGUE, EPILOGUE_VOLUME_DB)
@@ -60,6 +64,10 @@ func _ready() -> void:
 ## Ana menünün müziği. Menüye her dönüşte kaldığı yerden devam eder.
 func play_menu() -> void:
 	_switch_to(_menu, false)
+
+## Açılış konuşmasının müziği. Her yeni oyunda baştan başlar.
+func play_prologue() -> void:
+	_switch_to(_prologue, true)
 
 ## Bölümlerin müziği. Zaten çalıyorsa kaldığı yerden devam eder.
 func play_main() -> void:

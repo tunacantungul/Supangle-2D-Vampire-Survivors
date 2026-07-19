@@ -1,14 +1,14 @@
 [gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/enemies/boss_2.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/placeholder/boss2.svg" id="2"]
+[ext_resource type="Texture2D" uid="uid://e7ku0v20fryx" path="res://assets/Bosses/Phoenix.png" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/enemy_bolt.tscn" id="3"]
 
 [sub_resource type="RectangleShape2D" id="Shape_body"]
-size = Vector2(333, 333)
+size = Vector2(300, 320)
 
 [sub_resource type="RectangleShape2D" id="Shape_hit"]
-size = Vector2(396, 396)
+size = Vector2(360, 380)
 
 [sub_resource type="StyleBoxFlat" id="Style_hp_bg"]
 bg_color = Color(0.08, 0.08, 0.1, 0.85)
@@ -36,7 +36,7 @@ contact_damage = 9.0
 damage_interval = 0.8
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(4.5, 4.5)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

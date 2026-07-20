@@ -126,8 +126,12 @@ func _show_dim() -> void:
 		_dim.process_mode = Node.PROCESS_MODE_ALWAYS
 		parent.add_child(_dim)
 		_dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	# Bizden hemen önceki sıraya al: arkamızda, diğer her şeyin önünde kalsın.
+	# _dim'i arkamızda, diğer her şeyin önünde tut. get_index() bayat olabilir:
+	# aynı sahnede ikinci kez konuşulunca (tek harita düzeni) _dim zaten bizden
+	# önce duruyor ve oraya taşımak onu önümüze geçiriyordu. Taşıdıktan sonra
+	# kutuyu _dim'in hemen ardına alarak önde kalmayı garantiliyoruz.
 	parent.move_child(_dim, get_index())
+	parent.move_child(self, _dim.get_index() + 1)
 	_dim.visible = true
 	_dim.modulate.a = 0.0
 	var tween := create_tween()

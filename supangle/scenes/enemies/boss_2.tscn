@@ -33,7 +33,7 @@ motion_mode = 1
 script = ExtResource("1")
 bolt_scene = ExtResource("3")
 move_speed = 460.0
-max_health = 450.0
+max_health = 640.0
 contact_damage = 9.0
 damage_interval = 0.8
 

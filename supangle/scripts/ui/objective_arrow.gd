@@ -25,6 +25,10 @@ const SHAPE: Array[Vector2] = [
 ## Okun gösterdiği yönde hafifçe ileri geri süzülmesi.
 @export var bob_amount: float = 8.0
 @export var bob_speed: float = 3.5
+## Okun karakterin ekrandaki merkezinden ne kadar yukarıda duracağı (piksel).
+## Konumu zaten karaktere göre gösterdiği için ekranın tepesi yerine başının
+## hemen üstünde duruyor.
+@export var above_player: float = 130.0
 
 var _target: Node2D
 var _player: Node2D
@@ -55,6 +59,11 @@ func _process(delta: float) -> void:
 		_player = get_tree().get_first_node_in_group("player") as Node2D
 		if _player == null:
 			return
+	# Ekranda karakterin başının hemen üstünde dur. Ok bir HUD (ekran uzayı)
+	# ögesi; oyuncunun dünya konumu kamera dönüşümüyle ekrana çevriliyor.
+	# pivot_offset döndürme merkezi olduğu için onu hedef noktaya oturtuyoruz.
+	var player_screen := get_viewport().get_canvas_transform() * _player.global_position
+	global_position = player_screen - pivot_offset - Vector2(0.0, above_player)
 	# Şekil yukarıyı gösterdiği için açıya çeyrek tur eklenir.
 	rotation = (_target_center() - _player.global_position).angle() + PI * 0.5
 	_time += delta

@@ -30,7 +30,7 @@ motion_mode = 1
 script = ExtResource("1")
 move_speed = 360.0
 max_health = 300.0
-contact_damage = 20.0
+contact_damage = 17.0
 damage_interval = 0.8
 art_faces_right = true
 

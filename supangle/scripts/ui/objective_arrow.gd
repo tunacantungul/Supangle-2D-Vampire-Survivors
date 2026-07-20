@@ -61,9 +61,11 @@ func _process(delta: float) -> void:
 			return
 	# Ekranda karakterin başının hemen üstünde dur. Ok bir HUD (ekran uzayı)
 	# ögesi; oyuncunun dünya konumu kamera dönüşümüyle ekrana çevriliyor.
-	# pivot_offset döndürme merkezi olduğu için onu hedef noktaya oturtuyoruz.
+	# Kontrolün orijini doğrudan hedef noktaya konuyor; şekil orijin etrafında
+	# çiziliyor (aşağıya bak), böylece kontrolün boyutuna bağlı kalmıyor —
+	# eskiden boyuta güvenince ok karakterin sol üstüne kayıyordu.
 	var player_screen := get_viewport().get_canvas_transform() * _player.global_position
-	global_position = player_screen - pivot_offset - Vector2(0.0, above_player)
+	global_position = player_screen - Vector2(0.0, above_player)
 	# Şekil yukarıyı gösterdiği için açıya çeyrek tur eklenir.
 	rotation = (_target_center() - _player.global_position).angle() + PI * 0.5
 	_time += delta
@@ -79,7 +81,9 @@ func _target_center() -> Vector2:
 	return _target.global_position
 
 func _draw() -> void:
-	var center := size * 0.5 + Vector2(0.0, -absf(sin(_time * bob_speed)) * bob_amount)
+	# Kontrolün orijini (0,0) etrafında çiziliyor; konum _process'te oraya
+	# oturtuluyor. bob yalnızca hafif yukarı-aşağı süzülme.
+	var center := Vector2(0.0, -absf(sin(_time * bob_speed)) * bob_amount)
 	var points := PackedVector2Array()
 	for point in SHAPE:
 		points.append(center + point * arrow_size)

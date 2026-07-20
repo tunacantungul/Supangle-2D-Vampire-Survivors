@@ -34,7 +34,8 @@ script = ExtResource("1")
 bolt_scene = ExtResource("3")
 move_speed = 460.0
 max_health = 640.0
-contact_damage = 9.0
+contact_damage = 8.0
+bolt_damage = 6.0
 damage_interval = 0.8
 
 [node name="Shadow" type="Node2D" parent="."]

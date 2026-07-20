@@ -198,9 +198,6 @@ text = "Tanrısal Güç"
 [node name="ObjectiveArrow" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
-offset_right = 140.0
-offset_bottom = 140.0
-pivot_offset = Vector2(70, 70)
 mouse_filter = 2
 script = ExtResource("2")
 

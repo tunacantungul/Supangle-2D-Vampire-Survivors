@@ -25,6 +25,14 @@ const POWER_LOSS_TEXT: Dictionary = {
 ## Her seviye bir öncekinden bu kadar fazla XP ister (1->2: 10, 2->3: 20...).
 const XP_STEP := 10
 
+## Hasar veren skiller. Erken oyunda (aşağıdaki seviyeye kadar) üç karttan biri
+## mutlaka bunlardan olur; oyuncu ilk boss'a silahsız yakalanmasın diye.
+## Perseus (stab) taban saldırı zaten hep açık, o yüzden garanti listesinde yok.
+const OFFENSIVE_CARDS: Array[String] = ["orbit", "bolt", "discus", "artemis", "styx"]
+## Garanti hasar kartının verildiği üst seviye sınırı (kabaca ilk boss'a kadar).
+## İlk boss tetik seviyesini değiştirirsen burayı da güncelle.
+const GUARANTEED_OFFENSIVE_UNTIL_LEVEL := 8
+
 ## Kart nadirlikleri. Kart menüsünde kartın çerçeve rengini ve havuzdan
 ## çekilme ağırlığını belirler.
 enum Rarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY }
@@ -40,15 +48,15 @@ const RARITIES: Dictionary = {
 	Rarity.LEGENDARY: {"name": "Efsanevi", "color": Color(1.0, 0.62, 0.16), "weight": 0.55},
 }
 
-## Kart havuzu: her hat {name, icon, rarity, min_chapter, tiers} taşır; tiers'ın
-## sıradaki elemanı alınacak kartı anlatır. min_chapter, kartın havuza girdiği
-## bölüm (0 tabanlı). name/icon HUD'daki güç listesi ve kart menüsünde kullanılır.
+## Kart havuzu: her hat {name, icon, rarity, tiers} taşır; tiers'ın sıradaki
+## elemanı alınacak kartı anlatır. "mortal_only": true olan kartlar yalnızca
+## ölümsüzlük kaybedildikten sonra havuza girer. name/icon HUD'daki güç listesi
+## ve kart menüsünde kullanılır.
 const UPGRADE_TRACKS: Dictionary = {
 	"orbit": {
 		"name": "Ares'in Yörüngesi",
 		"icon": "res://assets/icons/icon_orbit.png",
 		"rarity": Rarity.RARE,
-		"min_chapter": 0,
 		"tiers": [
 			{"title": "Ares'in Yörüngesi", "desc": "Etrafında dönen 1 kılıç"},
 			{"title": "Ares'in Yörüngesi II", "desc": "Dönen kılıç sayısı 2 olur"},
@@ -59,7 +67,6 @@ const UPGRADE_TRACKS: Dictionary = {
 		"name": "Athena'nın Kargısı",
 		"icon": "res://assets/icons/icon_javelin.png",
 		"rarity": Rarity.RARE,
-		"min_chapter": 0,
 		"tiers": [
 			{"title": "Athena'nın Kargısı", "desc": "4 sn'de bir en yakın düşmana kargı fırlatır"},
 			{"title": "Hızlı Kargı", "desc": "Kargı bekleme süresi 2 sn'ye iner"},
@@ -71,7 +78,6 @@ const UPGRADE_TRACKS: Dictionary = {
 		"name": "Perseus'un Hamlesi",
 		"icon": "res://assets/icons/icon_stab.png",
 		"rarity": Rarity.UNCOMMON,
-		"min_chapter": 0,
 		"tiers": [
 			{"title": "Perseus'un Hamlesi", "desc": "Kılıç art arda 2 kez saplanır"},
 			{"title": "Keskin Kılıç", "desc": "Saplama hasarı %50 artar"},
@@ -82,7 +88,6 @@ const UPGRADE_TRACKS: Dictionary = {
 		"name": "Olimpiyat Diski",
 		"icon": "res://assets/icons/icon_discus.png",
 		"rarity": Rarity.RARE,
-		"min_chapter": 0,
 		"tiers": [
 			{"title": "Olimpiyat Diski", "desc": "6 sn'de bir gidip geri dönen disk fırlatır"},
 			{"title": "Olimpiyat Diski II", "desc": "Disk bekleme süresi 4 sn'ye iner"},
@@ -93,7 +98,6 @@ const UPGRADE_TRACKS: Dictionary = {
 		"name": "Boreas'ın Soluğu",
 		"icon": "res://assets/icons/icon_freeze.png",
 		"rarity": Rarity.EPIC,
-		"min_chapter": 0,
 		"tiers": [
 			{"title": "Boreas'ın Soluğu", "desc": "10 sn'de bir yakındaki düşmanları 1.5 sn dondurur"},
 			{"title": "Boreas'ın Soluğu II", "desc": "Sıklık 7 sn, donma 2.5 sn olur"},
@@ -104,7 +108,6 @@ const UPGRADE_TRACKS: Dictionary = {
 		"name": "Hermes'in Sandalı",
 		"icon": "res://assets/icons/icon_speed.png",
 		"rarity": Rarity.COMMON,
-		"min_chapter": 0,
 		"tiers": [
 			{"title": "Hermes'in Sandalı", "desc": "Hareket hızı %10 artar"},
 			{"title": "Hermes'in Sandalı II", "desc": "Hareket hızı toplam %20 artar"},
@@ -115,7 +118,7 @@ const UPGRADE_TRACKS: Dictionary = {
 		"name": "Hygieia'nın Lütfu",
 		"icon": "res://assets/icons/icon_vitality.png",
 		"rarity": Rarity.COMMON,
-		"min_chapter": 1,
+		"mortal_only": true,
 		"tiers": [
 			{"title": "Hygieia'nın Lütfu", "desc": "+25 azami can ve anında iyileşme"},
 			{"title": "Hygieia'nın Lütfu II", "desc": "+25 azami can ve anında iyileşme"},
@@ -126,7 +129,6 @@ const UPGRADE_TRACKS: Dictionary = {
 		"name": "Kronos'un Kumu",
 		"icon": "res://assets/icons/icon_kronos.png",
 		"rarity": Rarity.EPIC,
-		"min_chapter": 0,
 		"tiers": [
 			{"title": "Kronos'un Kumu", "desc": "Tüm düşmanlar kalıcı %12 yavaşlar"},
 			{"title": "Kronos'un Kumu II", "desc": "Yavaşlama toplam %24 olur"},
@@ -137,7 +139,6 @@ const UPGRADE_TRACKS: Dictionary = {
 		"name": "Artemis'in Oku",
 		"icon": "res://assets/icons/icon_artemis.png",
 		"rarity": Rarity.RARE,
-		"min_chapter": 0,
 		"tiers": [
 			{"title": "Artemis'in Oku", "desc": "6 sn'de bir hattaki tüm düşmanları delen ok"},
 			{"title": "Artemis'in Oku II", "desc": "Ok bekleme süresi 4 sn'ye iner"},
@@ -148,7 +149,6 @@ const UPGRADE_TRACKS: Dictionary = {
 		"name": "Kehribar Tılsımı",
 		"icon": "res://assets/icons/icon_magnet.png",
 		"rarity": Rarity.COMMON,
-		"min_chapter": 0,
 		"tiers": [
 			{"title": "Kehribar Tılsımı", "desc": "XP taşlarını biraz uzaktan çeker"},
 			{"title": "Kehribar Tılsımı II", "desc": "Çekim menzili iki katına çıkar"},
@@ -159,7 +159,7 @@ const UPGRADE_TRACKS: Dictionary = {
 		"name": "Hephaistos Zırhı",
 		"icon": "res://assets/icons/icon_armor.png",
 		"rarity": Rarity.UNCOMMON,
-		"min_chapter": 1,
+		"mortal_only": true,
 		"tiers": [
 			{"title": "Hephaistos Zırhı", "desc": "Alınan hasar %20 azalır"},
 			{"title": "Hephaistos Zırhı II", "desc": "Alınan hasar toplam %35 azalır"},
@@ -169,7 +169,7 @@ const UPGRADE_TRACKS: Dictionary = {
 		"name": "Kan Bedeli",
 		"icon": "res://assets/icons/icon_bloodprice.png",
 		"rarity": Rarity.UNCOMMON,
-		"min_chapter": 1,
+		"mortal_only": true,
 		"tiers": [
 			{"title": "Kan Bedeli", "desc": "Öldürünce %8 ihtimalle 2 can"},
 			{"title": "Kan Bedeli II", "desc": "İhtimal %12, iyileşme 3 can olur"},
@@ -180,7 +180,6 @@ const UPGRADE_TRACKS: Dictionary = {
 		"name": "Styx'in Halkası",
 		"icon": "res://assets/icons/icon_styx.png",
 		"rarity": Rarity.LEGENDARY,
-		"min_chapter": 0,
 		"tiers": [
 			{"title": "Styx'in Halkası", "desc": "Çevrendeki düşmanlara sürekli hasar veren zehirli halka"},
 			{"title": "Styx'in Halkası II", "desc": "Halkanın alanı büyür"},
@@ -190,11 +189,9 @@ const UPGRADE_TRACKS: Dictionary = {
 	},
 }
 
-const LEVEL_SCENES: Array[String] = [
-	"res://scenes/levels/level_1.tscn",
-	"res://scenes/levels/level_2.tscn",
-	"res://scenes/levels/level_3.tscn",
-]
+## Artık tek bir harita var: üç boss aynı sahnede sırayla çıkıyor ve oyuncu
+## kesintisiz olarak seviye atlıyor. Bölüm bazlı sıfırlama kaldırıldı.
+const LEVEL_SCENE := "res://scenes/levels/level_1.tscn"
 const PROLOGUE_SCENE := "res://scenes/levels/prologue.tscn"
 const MAIN_MENU_SCENE := "res://scenes/ui/main_menu.tscn"
 const END_MENU_SCENE := "res://scenes/ui/end_menu.tscn"
@@ -308,14 +305,18 @@ func rarity_name(id: String) -> String:
 func rarity_weight(id: String) -> float:
 	return RARITIES[upgrade_rarity(id)]["weight"]
 
-## Bu bölümde açık olan ve henüz tükenmemiş hatlardan en fazla `count` kart seçer.
+## Açık olan ve henüz tükenmemiş hatlardan en fazla `count` kart seçer.
 ## Seçim nadirlik ağırlıklarına göre yapılır; aynı kart iki kez gelmesin diye
 ## çekilen kart havuzdan düşürülür.
+## Erken oyunda seçenekler arasında hiç hasar kartı yoksa, sıradanlardan biri
+## bir hasar kartıyla değiştirilir.
 func pick_upgrade_options(count: int = 3) -> Array[String]:
 	var pool: Array[String] = []
 	for id: String in UPGRADE_TRACKS:
 		var track: Dictionary = UPGRADE_TRACKS[id]
-		if current_level < track["min_chapter"]:
+		# "mortal_only" kartlar (can, zırh, kan bedeli) ölümsüzken anlamsız;
+		# yalnızca ölümsüzlük kaybedildikten (ilk boss) sonra havuza girer.
+		if track.get("mortal_only", false) and has_power(Power.IMMORTALITY):
 			continue
 		if upgrade_tier(id) < track["tiers"].size():
 			pool.append(id)
@@ -324,7 +325,25 @@ func pick_upgrade_options(count: int = 3) -> Array[String]:
 		var id := _draw_weighted(pool)
 		picked.append(id)
 		pool.erase(id)
+	_ensure_offensive(picked, pool)
 	return picked
+
+## Erken oyunda seçeneklerin arasına en az bir hasar kartı sokuşturur.
+func _ensure_offensive(picked: Array[String], pool: Array[String]) -> void:
+	if player_level > GUARANTEED_OFFENSIVE_UNTIL_LEVEL:
+		return
+	for id in picked:
+		if id in OFFENSIVE_CARDS:
+			return
+	# Havuzda (henüz çekilmemiş) bir hasar kartı varsa seçeneklerden birini
+	# onunla değiştir. Sıradan/nadir olmayan bir slotu feda ederiz.
+	var offensive_pool: Array[String] = []
+	for id in pool:
+		if id in OFFENSIVE_CARDS:
+			offensive_pool.append(id)
+	if offensive_pool.is_empty() or picked.is_empty():
+		return
+	picked[picked.size() - 1] = offensive_pool[randi() % offensive_pool.size()]
 
 ## Havuzdan ağırlıklara göre tek kart çeker (rulet tekerleği).
 func _draw_weighted(pool: Array[String]) -> String:
@@ -343,7 +362,7 @@ func apply_upgrade(id: String) -> void:
 	upgrades[id] = upgrade_tier(id) + 1
 	upgrades_changed.emit()
 
-## Yeni oyun prologla başlar; ilk bölüm prolog bitince açılır.
+## Yeni oyun prologla başlar; harita prolog bitince açılır.
 func start_new_game() -> void:
 	_reset_powers()
 	current_level = 0
@@ -351,28 +370,22 @@ func start_new_game() -> void:
 	_change_scene(PROLOGUE_SCENE)
 
 ## Prolog diyaloğu bitince çağrılır.
-## Perdeli geçiş: bölüm sahnesi ağır (elle çizilmiş harita) ve yüklenirken oyun
-## donuyor. Perde olmadan oyuncu prolog ekranına bakarken saniyelerce takılıyor
-## ve oyunu kilitlenmiş sanıyordu.
+## Perdeli geçiş: harita ağır (elle çizilmiş) ve yüklenirken oyun donuyor.
+## Perde olmadan oyuncu prolog ekranına bakarken saniyelerce takılıyor ve
+## oyunu kilitlenmiş sanıyordu.
 func start_first_level() -> void:
-	SceneTransition.change_scene_covered(LEVEL_SCENES[0])
+	SceneTransition.change_scene_covered(LEVEL_SCENE)
 
-## Ölünce mevcut bölümü, o ana kadar kaybedilmiş güçlerle yeniden başlatır.
+## Ölünce tüm run baştan başlar: tek harita olduğu için güçler ve ilerleme
+## tamamen sıfırlanır (setup_level yeniden çağrılıyor).
 func retry_level() -> void:
 	_reset_powers()
-	for power in current_level:
-		powers[power] = false
-	powers_changed.emit()
 	victory = false
-	SceneTransition.change_scene_covered(LEVEL_SCENES[current_level])
+	SceneTransition.change_scene_covered(LEVEL_SCENE)
 
-## Bölüm sonu diyaloğu bitince çağrılır. Son bölümden sonra kavuşma sahnesine geçilir.
-func advance_level() -> void:
-	current_level += 1
-	if current_level >= LEVEL_SCENES.size():
-		_change_scene(EPILOGUE_SCENE)
-	else:
-		_change_scene(LEVEL_SCENES[current_level])
+## Son boss yenilip kapıdan çıkılınca çağrılır: kavuşma sahnesine geçilir.
+func go_to_epilogue() -> void:
+	SceneTransition.change_scene_covered(EPILOGUE_SCENE)
 
 ## Kavuşma sahnesi bitince çağrılır: zaferle oyun sonu.
 func finish_game() -> void:

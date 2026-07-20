@@ -12,8 +12,9 @@ var _used: bool = false
 @onready var marker: Sprite2D = $Marker
 
 func _ready() -> void:
-	# Kota dolana kadar soluk görünür.
-	marker.modulate = Color(1, 1, 1, 0.35)
+	# Tek haritada üç arena var; sırası gelmeyenler hiç görünmesin, yoksa
+	# haritada baştan üç soluk halka durur. arm() ile belirir.
+	marker.modulate = Color(1, 1, 1, 0.0)
 
 func arm() -> void:
 	if armed:

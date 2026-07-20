@@ -1,6 +1,7 @@
 extends Node2D
 ## Zeus'un gazabı: haritaya rastgele yıldırımlar düşürür.
-## 1. bölümden sonra (Zeus öfkelendiği için) 2. ve 3. bölüm sahnelerine eklenir.
+## Tek harita düzeninde ilk boss (Zeus ölümsüzlüğü aldıktan) sonra level
+## tarafından begin() ile başlatılır ve ikinci boss'tan sonra sıklaşır.
 
 @export var lightning_scene: PackedScene
 @export var min_interval: float = 2.0
@@ -10,11 +11,27 @@ extends Node2D
 @export var near_player_radius: float = 2900.0
 ## Düşülebilecek alan sınırı (duvarların içi).
 @export var bounds: Rect2 = Rect2(-7000, -4300, 14000, 8600)
+## Açıkken sahneye eklenir eklenmez başlar; kapalıyken begin() beklenir.
+@export var autostart: bool = true
 
 @onready var spawn_timer: Timer = $SpawnTimer
 
 func _ready() -> void:
+	if autostart:
+		_schedule_next()
+
+## Yıldırımları başlatır (autostart kapalıysa dışarıdan çağrılır).
+func begin() -> void:
 	_schedule_next()
+
+## Sıklığı değiştirir; bir sonraki yıldırım yeni aralıkla planlanır.
+func set_frequency(new_min: float, new_max: float) -> void:
+	min_interval = new_min
+	max_interval = new_max
+
+## Yıldırımları durdurur (son boss yenilince).
+func stop() -> void:
+	spawn_timer.stop()
 
 func _on_spawn_timer_timeout() -> void:
 	_spawn_strike()

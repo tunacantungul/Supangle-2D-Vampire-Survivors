@@ -76,8 +76,6 @@ fly={
 2d_physics/layer_3="world"
 2d_physics/layer_4="hazard"
 2d_physics/layer_5="gate"
-; Ucan dusman: moblarin carpisma maskesinde yok, boylece sürü ona takilmiyor.
-; Silahlarin maskesinde var, yani yine vurulabiliyor.
 2d_physics/layer_6="flying_enemy"
 
 [physics]
